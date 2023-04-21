@@ -3,7 +3,7 @@ const sidebarList = [
     { id: 1, name: "Directory", icon: "/icons/directory.svg", href: "/directory" },
     { id: 2, name: "Profile", icon: "/icons/user.svg", href: "/profile" },
     { id: 3, name: "Messages", icon: "/icons/message.svg", href: "/messages" },
-    { id: 4, name: "Projects", icon: "/icons/clipboard.svg", href: ".projects" },
+    { id: 4, name: "Projects", icon: "/icons/clipboard.svg", href: "/projects" },
     { id: 5, name: "Settings", icon: "/icons/settings.svg", href: "/settings" },
 ]
 

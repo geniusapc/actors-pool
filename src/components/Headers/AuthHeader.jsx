@@ -2,7 +2,7 @@ import React from 'react'
 import InputWithButton from '../Input/InputWithButton'
 
 
-function AuthHeader({ searchTalentHidden = false }) {
+function AuthHeader({ showTalentHidden = false }) {
     const user = {
         photo: "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
         firstName: "Prince",
@@ -28,7 +28,7 @@ function AuthHeader({ searchTalentHidden = false }) {
                     <div className="flex items-center">
                         <div className="flex items-center ml-3">
                             {
-                                !searchTalentHidden && <div className='hidden md:flex mr-14'>
+                                !!showTalentHidden && <div className='hidden md:flex mr-14'>
                                     <InputWithButton style={{ input: "h-10" }} placeHolder="search for talent" hideBtn />
                                 </div>
                             }

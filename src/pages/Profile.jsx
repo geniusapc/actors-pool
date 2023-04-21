@@ -79,7 +79,7 @@ const Profile = () => {
   if (steps === 0) {
     return (
       <div>
-        <Layout searchTalentHidden>
+        <Layout>
           <EmptyProfileCard onClick={handleNextStep} />
         </Layout>
       </div>

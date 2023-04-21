@@ -3,6 +3,7 @@ import Directory from './pages/Directory';
 import Landing from './pages/Landing';
 import Profile from './pages/Profile';
 import TalentDetails from './pages/TalentDetails';
+import Projects from './pages/Projects';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: 'profile',
     element: <Profile />,
+  },
+  {
+    path: 'projects',
+    element: <Projects />,
   },
 ]);
 

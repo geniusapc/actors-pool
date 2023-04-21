@@ -153,3 +153,41 @@ export const tailBrazer = [
     ],
   },
 ];
+
+export const projects = [
+  {
+    title: 'Project 1',
+    createdAt: '1976-04-19T12:59-0500',
+    talents: [topTalent[0], topTalent[1], topTalent[2], topTalent[3]],
+  },
+  {
+    title: 'Project 1',
+    createdAt: '1976-04-19T12:59-0500',
+    talents: [topTalent[0], topTalent[1], topTalent[2], topTalent[3]],
+  },
+  {
+    title: 'Project 1',
+    createdAt: '1976-04-19T12:59-0500',
+    talents: [topTalent[0], topTalent[1], topTalent[2], topTalent[3]],
+  },
+  {
+    title: 'Project 1',
+    createdAt: '1976-04-19T12:59-0500',
+    talents: [topTalent[0], topTalent[1], topTalent[2], topTalent[3]],
+  },
+  {
+    title: 'Project 1',
+    createdAt: '1976-04-19T12:59-0500',
+    talents: [topTalent[0], topTalent[1], topTalent[2], topTalent[3]],
+  },
+  {
+    title: 'Project 1',
+    createdAt: '1976-04-19T12:59-0500',
+    talents: [topTalent[0], topTalent[1], topTalent[2], topTalent[3]],
+  },
+  {
+    title: 'Project 1',
+    createdAt: '1976-04-19T12:59-0500',
+    talents: [topTalent[0], topTalent[1], topTalent[2], topTalent[3]],
+  },
+];

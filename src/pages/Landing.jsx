@@ -7,7 +7,7 @@ import GuestHeader from '../components/Headers/GuestHeader';
 import NewsletterSubscription from '../components/NewsletterSubscription/NewsletterSubscription';
 import SearchTalent from '../components/SearchTalent/SearchTalent';
 import TrailBlazers from '../components/TailBlazers/TailBlazers';
-import Toptalents from '../components/TopTalent/TopTalents';
+import Toptalents from '../components/Talent/TopTalents';
 
 
 function Landing() {

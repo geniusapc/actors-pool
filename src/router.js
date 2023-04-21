@@ -4,6 +4,7 @@ import Landing from './pages/Landing';
 import Profile from './pages/Profile';
 import TalentDetails from './pages/TalentDetails';
 import Projects from './pages/Projects';
+import Settings from './pages/Settings';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: 'projects',
     element: <Projects />,
+  },
+  {
+    path: 'settings',
+    element: <Settings />,
   },
 ]);
 

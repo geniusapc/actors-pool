@@ -23,7 +23,6 @@ function Settings() {
             <ChangePassword />
             <ShareProfile />
             <DeleteAccount />
-
         </Layout>
     )
 }

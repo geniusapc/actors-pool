@@ -4,6 +4,12 @@ import Input from '../Input/Input'
 import Button from '../Button/Button'
 
 
+// const hdhd = [
+//     { type: "input", placeholder: "jfjfjf", id: 123, name: "jdjdj" },
+//     { type: "input", placeholder: "wwffe", id: 1423, name: "ww" },
+// ]
+
+
 function CreateProjectModal() {
     return (
         <Modal id="create-project-modal">
@@ -16,6 +22,8 @@ function CreateProjectModal() {
                     <Button className="mx-auto" type="submit" variant="primary">Create Project</Button>
                 </div>
             </form>
+
+            {/* <Form data={hdhd} /> */}
 
         </Modal>
     )

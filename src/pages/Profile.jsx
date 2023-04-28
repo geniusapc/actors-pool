@@ -7,7 +7,6 @@ import ProfileGallery from "../components/TalentProfiles/ProfileGallery";
 import ProfileWorks from "../components/TalentProfiles/ProfileWorks";
 import SocialAccount from "../components/TalentProfiles/SocialAccount";
 import ProfileInformation from "../components/TalentProfiles/ProfileInformation";
-import AuthHeader from "../components/Headers/AuthHeader";
 import Layout from "../components/Layout/Layout";
 
 const profileStepTitle = {

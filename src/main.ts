@@ -1,6 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { MongoExceptionFilter, HttpExceptionFilter } from './exception.filter';
+import {
+  MongoExceptionFilter,
+  HttpExceptionFilter,
+  AllExceptionsFilter,
+} from './exception.filter';
 import { ValidatorOptions } from 'class-validator';
 import { ValidationError, ValidationPipe } from '@nestjs/common';
 
@@ -18,9 +22,10 @@ declare module 'express' {
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalFilters(new MongoExceptionFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  await app.listen(3000);
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  await app.listen(8080);
 }
 bootstrap();

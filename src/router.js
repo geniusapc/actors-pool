@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <Directory />,
   },
   {
-    path: 'talent/details',
+    path: 'talent/:id',
     element: <TalentDetails />,
   },
   {

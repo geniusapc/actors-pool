@@ -13,7 +13,7 @@ function Button({ children, variant = "default", type = "button", className = ""
 
   return (
     <button
-      className={`font-semibold ${btnSize}   ${btnVariant} ${className}`}
+      className={`font-semibold disabled:opacity-25 ${btnSize}   ${btnVariant} ${className}`}
       type={type}
       {...rest}
     >

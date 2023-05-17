@@ -23,6 +23,7 @@ declare module 'express' {
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalFilters(new AllExceptionsFilter());
+  app.enableCors({ origin: '*' }); //restrict the url to domain 
   app.useGlobalFilters(new MongoExceptionFilter());
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));

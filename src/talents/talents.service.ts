@@ -45,7 +45,7 @@ export class TalentsService {
     const queryBuilder = this.talentModel.find();
 
     if (query?.q)
-      queryBuilder.where({ name: { $regex: new RegExp(query?.q, 'i') } });
+      queryBuilder.where({ firstname: { $regex: new RegExp(query?.q, 'i') } });
 
     // filter/select
     if (query?.select) queryBuilder.select(query?.select.split(','));

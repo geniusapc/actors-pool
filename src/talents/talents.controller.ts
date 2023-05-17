@@ -19,6 +19,7 @@ import {
 } from './interfaces';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
+import { CreateTopTalentDto } from './dto/create-top-talent.dto';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
@@ -31,7 +32,7 @@ const storageOption = diskStorage({
   },
 });
 
-@Controller('talents')
+@Controller('api/v1/talents')
 export class TalentsController {
   constructor(private readonly talentsService: TalentsService) {}
 
@@ -59,6 +60,30 @@ export class TalentsController {
   async get(@Query() query?: IGetTalentQuery | undefined) {
     return this.talentsService.findAll({ query: query });
   }
+
+  @Public()
+  @Post()
+  async addTopBlazzers() {
+    return '';
+  }
+
+  @Public()
+  @Get('top-talent')
+  async getTopTalent() {
+    return this.talentsService.getTopTalents();
+  }
+
+  @Public()
+  @Post('top-talent')
+  async addTopTalent(@Body() createTopTalentDto: CreateTopTalentDto) {
+    const topTalents = await this.talentsService.addTopTalents(
+      createTopTalentDto?.talentIds,
+    );
+
+    return topTalents;
+  }
+
+  // NOTE:  params remains below
 
   @Public()
   @Get('/:id')

@@ -15,6 +15,9 @@ export class Talent {
   @Prop({ minlength: 2, trim: true })
   phoneNumber?: string;
 
+  @Prop({ default: null, enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] })
+  score?: number;
+
   @Prop({ required: true, minlength: 2, trim: true })
   country: string;
 

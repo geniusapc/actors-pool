@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Talent } from './schemas/talents.schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   ICreateTalentMulterFiles,
@@ -70,5 +70,57 @@ export class TalentsService {
     // filter/select
     if (query?.select) queryBuilder.select(query?.select.split(','));
     return queryBuilder.exec();
+  }
+
+  async getTopTalents() {
+    return this.talentModel
+      .find({ score: { $exists: true } })
+      .select('score firstname lastname profession photo about')
+      .sort({ score: -1 })
+      .lean();
+  }
+
+  async addTopTalents(ids: ObjectId[]) {
+    const talentUpdates = [];
+    const talents = await this.talentModel
+      .find({ score: { $exists: true } })
+      .select('score')
+      .lean();
+
+    for (const key in talents) {
+      const talent = talents[key];
+      talentUpdates.push({
+        updateOne: {
+          filter: { _id: talent?._id },
+          update: { $set: { score: Number(key) + 1 } },
+        },
+      });
+    }
+
+    // filter to ensure id doesn't exist as a top talent
+    const existingTalentIds = talents?.map((talent) => talent._id?.toString());
+    const filterdIds = ids?.filter(
+      (id) => !existingTalentIds.includes(id.toString()),
+    );
+
+    const newTopTalents = await this.talentModel
+      .find({ _id: { $in: filterdIds } })
+      .select('score')
+      .lean();
+
+    // TODO: ensure it is not more than 10 by popping/ removing the first
+    for (const key in newTopTalents) {
+      const newTalent = newTopTalents[key];
+      talentUpdates.push({
+        updateOne: {
+          filter: { _id: newTalent._id },
+          update: { $set: { score: talentUpdates?.length + 1 } },
+        },
+      });
+    }
+
+    await this.talentModel.bulkWrite(talentUpdates);
+
+    return talents;
   }
 }

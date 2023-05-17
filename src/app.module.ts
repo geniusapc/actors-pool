@@ -17,7 +17,9 @@ import { join } from 'path';
       rootPath: join(__dirname, '..', 'uploads'),
     }),
     ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb+srv://geniusapc:geniusapc@cluster0.o5olz.mongodb.net/actors-pool?retryWrites=true&w=majority'),
+    MongooseModule.forRoot(
+      'mongodb+srv://geniusapc:geniusapc@cluster0.o5olz.mongodb.net/actors-pool?retryWrites=true&w=majority',
+    ),
     UsersModule,
     AuthModule,
     TalentsModule,

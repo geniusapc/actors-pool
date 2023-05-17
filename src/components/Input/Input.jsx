@@ -11,7 +11,7 @@ function Input({ id, label, placeholder = "", type = "text", className = "", var
   return (
     <div className={`flex flex-col ${className}`}>
       {label && <label
-        for={id}
+        htmlFor={id}
         className="mb-2 text-sm font-medium text-gray-900 "
       >
         {label}

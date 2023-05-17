@@ -16,8 +16,8 @@ function TalentDetailsAside({ userDetails }) {
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
             <h3 className='text-gray text-xs'>Social</h3>
             <div className='flex gap-2 mt-5'>
-                <a href={userDetails?.socialMedia?.fb} disabled={true}><img src="/icons/facebook.svg" alt="" /></a>
-                <a href={userDetails?.socialMedia?.ig} disabled={true}><img src="/icons/instagram.svg" alt="" /></a>
+                <a href={userDetails?.socialMedia?.fb} ><img src="/icons/facebook.svg" alt="" /></a>
+                <a href={userDetails?.socialMedia?.ig}><img src="/icons/instagram.svg" alt="" /></a>
                 <a href={userDetails?.socialMedia?.tw}><img src="/icons/twitter.svg" alt="" /></a>
                 <a href={userDetails?.socialMedia?.tik}><img src="/icons/tik-tok.svg" alt="" /></a>
                 <a href={userDetails?.socialMedia?.snap}><img src="/icons/snapchat.svg" alt="" /></a>

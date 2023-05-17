@@ -1,4 +1,5 @@
 export const userDetails = {
+  _id: 1,
   name: 'Mike Afolarin',
   profession: 'Actor',
   active: 'Active since 2016',
@@ -118,6 +119,7 @@ export const topTalent = [
 ];
 export const tailBrazer = [
   {
+    _id: 1,
     name: 'Mike Afolarin',
     profession: 'Actor',
     active: 'Active since 2016',
@@ -125,9 +127,14 @@ export const tailBrazer = [
     about:
       'Genoveva Kenechukwu Umeh is a fast rising Nollywood Actress, producer, lawyer and model. Genoveva Umeh rose to fame after her outstanding performance and role delivery of “Timileyin Ademola” in the popular Netflix mini-drama series, Blood Sisters.Genoveva hails from Anambra State, Nigeria and was born in the 1990s to the family of Mr and Mrs. Umeh. Growing up, her father worked as a Computer Engineer while her mum worked as a registered nurse before the family relocated to the United Kingdom in...',
     photo: '/images/dummy/test-trail2.svg',
-    movies: ['Far From Home', 'Blood Sisters', 'One Lagos Night'],
+    movies: [
+      { _id: 1, title: 'Far From Home' },
+      { _id: 2, title: 'Blood Sisters' },
+      { _id: 3, title: 'One Lagos Night' },
+    ],
   },
   {
+    _id: 2,
     name: 'Mike Afolarin',
     profession: 'Actor',
     active: 'Active since 2016',
@@ -135,9 +142,14 @@ export const tailBrazer = [
     about:
       'Genoveva Kenechukwu Umeh is a fast rising Nollywood Actress, producer, lawyer and model. Genoveva Umeh rose to fame after her outstanding performance and role delivery of “Timileyin Ademola” in the popular Netflix mini-drama series, Blood Sisters.Genoveva hails from Anambra State, Nigeria and was born in the 1990s to the family of Mr and Mrs. Umeh. Growing up, her father worked as a Computer Engineer while her mum worked as a registered nurse before the family relocated to the United Kingdom in...',
     photo: '/images/dummy/test-trail1.svg',
-    movies: ['Far From Home', 'Blood Sisters', 'One Lagos Night'],
+    movies: [
+      { _id: 1, title: 'Far From Home' },
+      { _id: 2, title: 'Blood Sisters' },
+      { _id: 3, title: 'One Lagos Night' },
+    ],
   },
   {
+    _id: 3,
     name: 'Mike Afolarin',
     profession: 'Actor',
     active: 'Active since 2016',
@@ -145,9 +157,14 @@ export const tailBrazer = [
     about:
       'Genoveva Kenechukwu Umeh is a fast rising Nollywood Actress, producer, lawyer and model. Genoveva Umeh rose to fame after her outstanding performance and role delivery of “Timileyin Ademola” in the popular Netflix mini-drama series, Blood Sisters.Genoveva hails from Anambra State, Nigeria and was born in the 1990s to the family of Mr and Mrs. Umeh. Growing up, her father worked as a Computer Engineer while her mum worked as a registered nurse before the family relocated to the United Kingdom in...',
     photo: '/images/dummy/test-trail-buttom-blazer.svg',
-    movies: ['Far From Home', 'Blood Sisters', 'One Lagos Night'],
+    movies: [
+      { _id: 1, title: 'Far From Home' },
+      { _id: 2, title: 'Blood Sisters' },
+      { _id: 3, title: 'One Lagos Night' },
+    ],
   },
   {
+    _id: 4,
     name: 'Mike Afolarin',
     profession: 'Actor',
     active: 'Active since 2016',
@@ -157,11 +174,10 @@ export const tailBrazer = [
 
     photo: '/images/dummy/test-trail2.svg',
     movies: [
-      'Far From Home',
-      'Blood Sisters',
-      'One Lagos Night',
-      'Blood Sisters',
-      'One Lagos Night',
+      { _id: 1, title: 'Far From Home' },
+      { _id: 2, title: 'Blood Sisters' },
+      { _id: 3, title: 'One Lagos Night' },
+      { _id: 4, title: 'One Lagos Night 2' },
     ],
   },
 ];

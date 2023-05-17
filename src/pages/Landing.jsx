@@ -27,7 +27,7 @@ function Landing() {
       <section className='bg-gradient-to-r from-[#050504] to-[#0b1717] text-white '>
         <SearchTalent />
         <NewsletterSubscription />
-        <hr class="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
+        <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
         <Footer />
       </section>
 

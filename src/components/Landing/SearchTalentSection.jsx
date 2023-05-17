@@ -28,9 +28,9 @@ function SearchTalentSection() {
     }
     return (
         <div className='flex flex-col items-center text-center gap-4 md:w-3/5 mx-auto px-4 pt-14 md:pt-20 pb-24'>
-            <h1 class="text-2xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-[#6F55DA] to-[#55C2DA] py-1">
+            <h1 className="text-2xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-[#6F55DA] to-[#55C2DA] py-1">
                 <span className='text-[#ffff]'>The Largest Directory of</span>
-                <span class='block'>African Entertainers</span>
+                <span className='block'>African Entertainers</span>
             </h1>
             <p className='py-1 text-xs'>
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.

@@ -12,7 +12,7 @@ function Toptalents() {
             </div>
 
             <div className='flex flex-row flex-wrap  justify-around mt-20 w-full' >
-                {topTalent.slice(0, 3).map((user) => <TopTalentCard key={user.name} user={user} />)}
+                {topTalent.slice(0, 3).map((user) => <TopTalentCard key={user._id} user={user} />)}
             </div>
         </section>
     )

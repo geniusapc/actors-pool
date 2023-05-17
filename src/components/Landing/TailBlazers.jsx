@@ -11,7 +11,7 @@ function TailBlazers() {
                 <p>Young upcoming stars making waves in the entertainment industry</p>
 
                 <div className='flex flex-row flex-wrap justify-around  mt-20 w-full'>
-                    {tailBrazer.slice(0, 3).map((user) => <TailBrazersCard user={user} />)}
+                    {tailBrazer.slice(0, 3).map((user) => <TailBrazersCard key={user._id} user={user} />)}
                 </div>
             </div>
 
@@ -31,7 +31,7 @@ function TailBlazers() {
                     <p className=' text-xs md:text-base'> {trail.about}</p>
 
                     <h3 className='mt-8 mb-3 text-[#979797] text-[10px] md:text-[12px]'>Movies</h3>
-                    <p className='text-xs md:text-base'>{trail.movies?.map((e) => <span>{e}, </span>)}</p>
+                    <p className='text-xs md:text-base'>{trail.movies?.map((e) => <span key={e._id}>{e?.title}, </span>)}</p>
 
 
                 </div>

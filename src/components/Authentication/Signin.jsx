@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
-import { closeModal } from '../../features/auth/login';
+import { closeSignInModal } from '../../features/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useNavigate } from 'react-router-dom';
@@ -15,11 +15,11 @@ function Signin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [data, setData] = useState({});
-    const isModalOpen = useSelector((state) => state.login.isModalOpen);
+    const isModalOpen = useSelector((state) => state.auth.isSignInModalOpen);
 
     const onCloseHandler = () => {
         setData({});
-        dispatch(closeModal());
+        dispatch(closeSignInModal());
     };
 
     const onChangeHandler = (e) => {
@@ -35,6 +35,7 @@ function Signin() {
         saveUser(data);
         navigate('/');
         notifySuccess(data?.message || 'success');
+        onCloseHandler()
     };
 
     const { mutate: signIn, isLoading } = useSignIn(onError, onSuccess);

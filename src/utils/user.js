@@ -1,13 +1,23 @@
 import Cookies from 'js-cookie';
-import { USER_AUTH_TOKEN_KEY } from '../constants';
+import { USER_AUTH_TOKEN_KEY, LOCAL_STORAGE_KEYS as LS } from '../constants';
 class UserUtils {
-  static saveLocalStoreItem = ({ name, data }) => {
+  static saveLocalStoreItem = (name, data) => {
     localStorage.setItem(name, JSON.stringify(data));
   };
 
   static saveUser = (user) => {
-    // console.log(user);
-    Cookies.set(USER_AUTH_TOKEN_KEY, user);
+    Cookies.set(USER_AUTH_TOKEN_KEY, user?.accessToken);
+    const payload = {
+      _id: user?._id,
+      firstname: user?.firstname,
+      lastname: user?.lastname,
+      photo: user?.photo,
+    };
+    UserUtils.saveLocalStoreItem(LS.USER_KEY, payload);
+  };
+
+  static addCookie = (token) => {
+    Cookies.set(USER_AUTH_TOKEN_KEY, token);
   };
 
   static removeCookie = () => {

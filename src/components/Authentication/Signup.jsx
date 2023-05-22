@@ -3,13 +3,13 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
 import { useSignUp } from '../../hooks/useAuthData';
-import { closeModal } from '../../features/auth/signup';
+import { closeSignUpModal } from '../../features/auth/auth';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useSelector, useDispatch } from 'react-redux';
 
 function Signup() {
     const dispatch = useDispatch();
-    const isModalOpen = useSelector((state) => state.signup.isModalOpen);
+    const isModalOpen = useSelector((state) => state.auth.isSignUpModalOpen);
     const onError = ({ response }) => {
         notifyError(response?.data?.message);
     };
@@ -31,7 +31,7 @@ function Signup() {
     };
     const onCloseHandler = () => {
         setData({});
-        dispatch(closeModal());
+        dispatch(closeSignUpModal());
     };
 
     return (

@@ -1,6 +1,5 @@
 import Button from '../Button/Button';
-import { openModal } from '../../features/auth/login';
-import { openModal as openSignupModal } from '../../features/auth/signup';
+import { openSignInModal, openSignUpModal } from '../../features/auth/auth';
 import { useDispatch } from 'react-redux';
 
 function GuestHeader() {
@@ -16,7 +15,7 @@ function GuestHeader() {
           </span>
         </a>
         <div className="flex md:order-2">
-          <Button className="hidden md:flex" onClick={() => dispatch(openSignupModal())}>
+          <Button className="hidden md:flex" onClick={() => dispatch(openSignUpModal())}>
             Get started
           </Button>
 
@@ -68,7 +67,7 @@ function GuestHeader() {
             <li>
               <button
                 className="text-gray-900  md:text-white pl-3 pr-4"
-                onClick={() => dispatch(openModal())}
+                onClick={() => dispatch(openSignInModal())}
               >
                 Login
               </button>

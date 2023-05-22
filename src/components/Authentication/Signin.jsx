@@ -1,31 +1,96 @@
-import React from 'react'
-import Button from '../Button/Button'
-import Input from '../Input/Input'
-import Modal from '../Modal/Modal'
+import React, { useState } from 'react';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
+import Modal from '../Modal/Modal';
+import { closeModal } from '../../features/auth/login';
+import { useSelector, useDispatch } from 'react-redux';
+import { notifySuccess, notifyError } from '../../utils/notification';
+import { useNavigate } from 'react-router-dom';
+import { UserUtils } from '../../utils/user';
+import { useSignIn } from '../../hooks/useAuthData';
+
+const { saveUser } = UserUtils;
 
 function Signin() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [data, setData] = useState({});
+    const isModalOpen = useSelector((state) => state.login.isModalOpen);
+
+    const onCloseHandler = () => {
+        setData({});
+        dispatch(closeModal());
+    };
+
+    const onChangeHandler = (e) => {
+        const { name, value } = e.target;
+        setData((e) => ({ ...e, [name]: value }));
+    };
+
+    const onError = ({ response }) => {
+        notifyError(response?.data?.message);
+    };
+
+    const onSuccess = ({ data }) => {
+        saveUser(data);
+        navigate('/');
+        notifySuccess(data?.message || 'success');
+    };
+
+    const { mutate: signIn, isLoading } = useSignIn(onError, onSuccess);
+
+    const signInHandler = (e) => {
+        e.preventDefault();
+        const payload = { username: data?.email, password: data?.password };
+        signIn({ data: payload });
+    };
+
     return (
-        <Modal id="signin-modal">
+        <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Log In</h3>
-            <form className="space-y-6" action="#">
-                <Input id="email" label="Email Address" placeholder="Enter your email address" />
-                <Input id="password" label="Password" placeholder="●●●●●●●●●●●●" />
-                <div className='mt-4'>
-                    <a className="text-sm " href="#1">Forgot Password</a>
+            <form className="space-y-6" onSubmit={signInHandler}>
+                <Input
+                    id="email"
+                    label="Email Address"
+                    placeholder="Enter your email address"
+                    value={data?.email}
+                    onChange={onChangeHandler}
+                />
+                <Input
+                    id="password"
+                    label="Password"
+                    placeholder="●●●●●●●●●●●●"
+                    value={data?.password}
+                    type="password"
+                    onChange={onChangeHandler}
+                />
+                <div className="mt-4">
+                    <a className="text-sm " href="#1">
+                        Forgot Password
+                    </a>
                 </div>
 
-
-                <div className='flex flex-col gap-4 py-4 items-center'>
-                    <Button className="mx-auto md:px-[90px]" type="submit" variant="primary">Log in</Button>
+                <div className="flex flex-col gap-4 py-4 items-center">
+                    <Button
+                        className="mx-auto md:px-[90px]"
+                        type="submit"
+                        variant="primary"
+                        isLoading={isLoading}
+                        disabled={!!isLoading}
+                    >
+                        Log in
+                    </Button>
 
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                        New here?   <a href="#1" className="text-blue-700 hover:underline dark:text-blue-500">Create an account</a>
+                        New here?{' '}
+                        <a href="#1" className="text-blue-700 hover:underline dark:text-blue-500">
+                            Create an account
+                        </a>
                     </div>
                 </div>
             </form>
-
         </Modal>
-    )
+    );
 }
 
-export default Signin
+export default Signin;

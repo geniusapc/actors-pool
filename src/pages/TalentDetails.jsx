@@ -8,6 +8,7 @@ import TalentDetailsMovies from '../components/TalentDetails/TalentDetailsMovies
 import TalentDetailsTab from '../components/TalentDetails/TalentDetailsTab';
 import { useTalentsDataByID } from '../hooks/useTalentData';
 import { useLocation, useParams } from 'react-router-dom';
+import DataController from '../components/DataController/DataController';
 
 function TalentDetails() {
     let location = useLocation();
@@ -22,22 +23,26 @@ function TalentDetails() {
 
     return (
         <Layout>
-            {
-                (isLoading) ? <div>Loading</div> :
-                    (!talent) ? <>No data</> :
-                        <div className='flex w-full gap-8'>
-                            <div className='w-1/4 '>
-                                <TalentDetailsAside userDetails={talent} />
-                                <SimilarTalents />
-                            </div>
-                            <div className='w-3/4 shadow-3xl'>
-                                <TalentDetailsTab hash={location.hash} />
-                                {(location.hash === "#about" || location.hash === "") && <TalentDetailsAbout talent={talent} />}
-                                {location.hash === "#gallery" && <TalentDetailsGallery talent={talent} />}
-                                {location.hash === "#movies" && <TalentDetailsMovies talent={talent} />}
-                            </div>
-                        </div>
-            }
+
+            <DataController isLoading={isLoading} empty={!talent}>
+
+                {talent && <div className='flex w-full gap-8'>
+                    <div className='w-[308px]'>
+                        <TalentDetailsAside userDetails={talent} />
+                        <SimilarTalents />
+                    </div>
+                    <div className='w-3/4 shadow-3xl'>
+                        <TalentDetailsTab hash={location.hash} />
+                        {(location.hash === "#about" || location.hash === "") && <TalentDetailsAbout talent={talent} />}
+                        {location.hash === "#gallery" && <TalentDetailsGallery talent={talent} />}
+                        {location.hash === "#movies" && <TalentDetailsMovies talent={talent} />}
+                    </div>
+                </div>
+
+                }
+
+            </DataController>
+
 
         </Layout>
     )

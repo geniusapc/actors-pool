@@ -6,7 +6,10 @@ import Moment from 'react-moment'
 function TalentDetailsAside({ userDetails }) {
     return (
         <div className=' shadow-3xl mb-8   p-4'>
-            <img src={`${SERVER_BASEURL}${userDetails.photo}`} alt={userDetails.name} />
+            <div className="h-[308px] w-[298px]" >
+
+                <img src={`${SERVER_BASEURL}${userDetails.photo}`} className="h-[308px] w-[298px]" alt={userDetails.name} />
+            </div>
             <div className='text-xl font-semibold mt-5'> {userDetails.name}</div>
             <div className='mt-2.5' > {userDetails.profession} .  Active since <Moment format='YYYY'>{userDetails.activeSince}</Moment></div>
             <div className='flex justify-between items-center mt-6'>

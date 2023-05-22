@@ -10,9 +10,13 @@ import Toptalents from '../components/Talent/TopTalents';
 import SearchTalentSection from '../components/Landing/SearchTalentSection';
 
 
+
 function Landing() {
+
+
   return (
     <main>
+
       <section className='bg-gradient-to-r from-[#050504] to-[#0b1717]  md:pt-11 items-center text-[#ffff]'>
         <GuestHeader />
         <SearchTalentSection />
@@ -20,6 +24,8 @@ function Landing() {
           <img src="images/landing-page-dir-img.svg" alt="landing page" />
         </div>
       </section>
+
+
 
       <Toptalents />
       <TrailBlazers />

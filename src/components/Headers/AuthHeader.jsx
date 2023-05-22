@@ -1,14 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 import InputWithButton from '../Input/InputWithButton'
 
 
 function AuthHeader({ showTalentHidden = false }) {
+    const navigate = useNavigate()
     const user = {
         photo: "https://flowbite.com/docs/images/people/profile-picture-5.jpg",
         firstName: "Prince",
         lastName: "Arthur",
         email: "princearthur.com"
     }
+    const [talentSearchValue, setTalentSearchValue] = useState()
+
+    const onChangeSearchTalent = (e) => setTalentSearchValue(e.target.value)
+
+
+    const onSubmitTalentHandler = (e) => {
+        e.preventDefault()
+        navigate(`/directory?q=${talentSearchValue}`)
+    }
+
 
     return (
         <nav className="fixed top-0 z-50 w-full bg-white  border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -29,7 +42,13 @@ function AuthHeader({ showTalentHidden = false }) {
                         <div className="flex items-center ml-3">
                             {
                                 !!showTalentHidden && <div className='hidden md:flex mr-14'>
-                                    <InputWithButton style={{ input: "h-10" }} placeHolder="search for talent" hideBtn />
+                                    <InputWithButton style={{ input: "h-10" }}
+                                        placeHolder="search for talent"
+                                        value={talentSearchValue}
+                                        hideBtn
+                                        onSubmit={onSubmitTalentHandler}
+                                        onChange={onChangeSearchTalent}
+                                    />
                                 </div>
                             }
                             <div>

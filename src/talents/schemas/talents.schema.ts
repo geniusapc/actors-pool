@@ -4,7 +4,7 @@ import { IMovie, IGallery, ISocialMedia } from '../interfaces';
 
 export type TalentDocument = HydratedDocument<Talent>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Talent {
   @Prop({ required: true, minlength: 2, trim: true })
   firstname: string;
@@ -12,11 +12,21 @@ export class Talent {
   @Prop({ required: true, minlength: 2, trim: true })
   lastname: string;
 
+  @Prop({
+    required: true,
+    minlength: 2,
+    trim: true,
+    index: true,
+    unique: true,
+    lowercase: true,
+  })
+  username: string;
+
   @Prop({ minlength: 2, trim: true })
   phoneNumber?: string;
 
   @Prop({ default: null, enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] })
-  score?: number;
+  rating?: number;
 
   @Prop({ required: true, minlength: 2, trim: true })
   country: string;

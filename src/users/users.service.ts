@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FilterQuery, Model } from 'mongoose';
 import { User } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
-
 @Injectable()
 export class UsersService {
   constructor(
@@ -21,5 +20,17 @@ export class UsersService {
   ): Promise<User | null> {
     const users = await this.userModel.findOne(condition, options?.select);
     return users;
+  }
+
+  async changePassword(userId: string, password: string): Promise<void> {
+    const user = await this.userModel.findById(userId, '+password');
+    if (!user) throw new BadRequestException('Invalid user');
+    user.password = password;
+    user.save();
+  }
+
+  async deleteAccount(userId: string): Promise<void> {
+    const userDeleted = await this.userModel.findOneAndDelete({ _id: userId });
+    if (!userDeleted) throw new BadRequestException('Invalid user');
   }
 }

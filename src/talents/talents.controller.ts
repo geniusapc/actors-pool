@@ -7,6 +7,9 @@ import {
   Get,
   Param,
   Query,
+  HttpCode,
+  HttpStatus,
+  Res,
 } from '@nestjs/common';
 import { TalentsService } from './talents.service';
 import { CreateTalentDto } from './dto/create-talent.dto';
@@ -17,33 +20,25 @@ import {
   IGetTalentByIdQuery,
   ICreateTalentMulterFiles,
 } from './interfaces';
-import { diskStorage } from 'multer';
-import { v4 as uuidv4 } from 'uuid';
 import { CreateTopTalentDto } from './dto/create-top-talent.dto';
+import { ResponseDTO } from 'src/response.dto';
+import { Response } from 'express';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
-const storageOption = diskStorage({
-  destination: './uploads/gallery',
-  filename: (_, file, callback) => {
-    const ext = file?.mimetype.split('/')[1];
-    const uniqueName = `${uuidv4()}.${ext}`;
-    callback(null, uniqueName);
-  },
-});
-
-@Controller('api/v1/talents')
+@Controller({ path: '/talents', version: '1' })
 export class TalentsController {
   constructor(private readonly talentsService: TalentsService) {}
 
-  @Public()
+  @HttpCode(HttpStatus.OK)
   @UseInterceptors(
     FileFieldsInterceptor(createTalentFileInterceptor, {
-      storage: storageOption,
+      storage: TalentsService.storageOption(),
     }),
   )
   @Post()
   async create(
+    @Res() res: Response,
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
@@ -52,15 +47,26 @@ export class TalentsController {
       gallery: files?.gallery,
     };
 
-    return this.talentsService.create(payload);
+    const talent = await this.talentsService.create(payload);
+    const message = 'Talent created successfully';
+    const response = new ResponseDTO(HttpStatus.OK, message, talent);
+    return response.send(res);
   }
 
+  //  Get Talent
   @Public()
   @Get()
-  async get(@Query() query?: IGetTalentQuery | undefined) {
-    return this.talentsService.findAll({ query: query });
+  async get(
+    @Res() res: Response,
+    @Query() query?: IGetTalentQuery | undefined,
+  ) {
+    const talents = await this.talentsService.findAll({ query: query });
+    const message = 'Talents retrieved successfully';
+    const response = new ResponseDTO(HttpStatus.OK, message, talents);
+    return response.send(res);
   }
 
+  //  Get Top blazzers
   @Public()
   @Post()
   async addTopBlazzers() {
@@ -69,8 +75,11 @@ export class TalentsController {
 
   @Public()
   @Get('top-talent')
-  async getTopTalent() {
-    return this.talentsService.getTopTalents();
+  async getTopTalent(@Res() res: Response) {
+    const topTalents = await this.talentsService.getTopTalents();
+    const message = 'Top talents retrieved successfully';
+    const response = new ResponseDTO(HttpStatus.OK, message, topTalents);
+    return response.send(res);
   }
 
   @Public()
@@ -88,9 +97,14 @@ export class TalentsController {
   @Public()
   @Get('/:id')
   async getTalentById(
+    @Res() res: Response,
     @Param('id') id: string,
-    @Query() query?: IGetTalentByIdQuery | undefined,
+    @Query() options?: IGetTalentByIdQuery | undefined,
   ) {
-    return this.talentsService.findById(id, { query: query });
+    const talent = await this.talentsService.findById(id, options);
+
+    const message = 'Talent retrieved successfully';
+    const response = new ResponseDTO(HttpStatus.OK, message, talent);
+    return response.send(res);
   }
 }

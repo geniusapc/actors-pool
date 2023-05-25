@@ -1,9 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
+import * as bcrypt from 'bcrypt';
+import * as moment from 'moment';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, minlength: 2, trim: true })
   firstname: string;
@@ -16,6 +18,31 @@ export class User {
 
   @Prop({ required: true, select: false })
   password: string;
+
+  @Prop({ select: false })
+  passwordChangedOn?: Date;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+const schema = SchemaFactory.createForClass(User);
+
+schema.pre('save', async function (next) {
+  const user = this as UserDocument;
+  if (user.isModified('password')) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(user.password, salt);
+    user.passwordChangedOn = moment().toDate();
+    user.password = hashedPassword;
+  }
+  next();
+});
+
+schema.set('toJSON', {
+  transform(doc, ret) {
+    delete ret.password;
+    delete ret.passwordChangedOn;
+    delete ret['__v'];
+    return ret;
+  },
+});
+
+export const UserSchema = schema;

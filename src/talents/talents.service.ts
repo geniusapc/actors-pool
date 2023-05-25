@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Talent } from './schemas/talents.schema';
 import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
@@ -8,6 +8,8 @@ import {
   IGetTalentQuery,
 } from './interfaces';
 import { CreateTalentDto } from './dto/create-talent.dto';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
 
 type CreateTalent = CreateTalentDto & ICreateTalentMulterFiles;
 
@@ -16,14 +18,53 @@ export class TalentsService {
   constructor(
     @InjectModel(Talent.name) private readonly talentModel: Model<Talent>,
   ) {}
+
+  static storageOption() {
+    return diskStorage({
+      destination: './uploads/gallery',
+      filename: (_, file, callback) => {
+        const ext = file?.mimetype.split('/')[1];
+        const uniqueName = `${uuidv4()}.${ext}`;
+        callback(null, uniqueName);
+      },
+    });
+  }
+
+  static generateRandomUsername(name: string) {
+    const randomDigit = Math.floor(Math.random() * 10000).toString();
+    return name?.toLowerCase() + randomDigit;
+  }
+
+  async generateUsername(name: string) {
+    let username = name;
+    let trialCount = 0;
+    let usernameExits: number = await this.talentModel.countDocuments({
+      username: username,
+    });
+
+    while (usernameExits) {
+      trialCount++;
+      if (trialCount > 100)
+        throw new BadRequestException('Error generating username');
+      username = TalentsService.generateRandomUsername(name);
+      usernameExits = await this.talentModel.countDocuments({
+        username: username,
+      });
+    }
+    return username;
+  }
+
   async create(createTalentDto: CreateTalent) {
     const gallery = createTalentDto?.gallery?.map((e) => ({
       photo: `/gallery/${e.filename}`,
     }));
 
+    const username = await this.generateUsername(createTalentDto.firstname);
+
     const payload = {
       firstname: createTalentDto.firstname,
       lastname: createTalentDto.lastname,
+      username: username,
       phoneNumber: createTalentDto.phoneNumber,
       country: createTalentDto.country,
       state: createTalentDto.state,
@@ -42,49 +83,64 @@ export class TalentsService {
   }
 
   async findAll({ query }: { query: IGetTalentQuery | undefined }) {
-    const queryBuilder = this.talentModel.find();
+    let condition = {};
+    const defaultLimit = 25;
+    const maxLimit = 100;
+    const limit = Math.min(Number(query?.limit) || defaultLimit, maxLimit);
+    const skip = Number(query?.skip) || 0;
+    const select = query?.select?.split(',') || [];
 
     if (query?.q)
-      queryBuilder.where({ firstname: { $regex: new RegExp(query?.q, 'i') } });
+      condition = { firstname: { $regex: new RegExp(query?.q, 'i') } };
 
-    // filter/select
-    if (query?.select) queryBuilder.select(query?.select.split(','));
+    const queryBuilder = this.talentModel
+      .find()
+      .where(condition)
+      .limit(limit)
+      .skip(skip)
+      .select(select);
 
-    // Set Limit
-    if (query?.limit) {
-      const defaultLimit = 25;
-      const maxLimit = 100;
-      const limit = Math.min(Number(query?.limit) || defaultLimit, maxLimit);
-      queryBuilder.limit(limit);
-    }
+    const countBuilder = this.talentModel
+      .find()
+      .where(condition)
+      .countDocuments();
 
-    return queryBuilder.exec();
+    return Promise.all([queryBuilder.exec(), countBuilder.exec()])
+      .then(([results, totalCount]) => {
+        return {
+          skip,
+          limit,
+          count: results?.length,
+          totalCount: totalCount,
+          talent: results,
+        };
+      })
+      .catch(() => {
+        return {};
+      });
   }
 
-  async findById(
-    id: string,
-    { query }: { query: IGetTalentByIdQuery | undefined },
-  ) {
+  async findById(id: string, options?: IGetTalentByIdQuery) {
     const queryBuilder = this.talentModel.findById(id);
 
     // filter/select
-    if (query?.select) queryBuilder.select(query?.select.split(','));
+    if (options?.select) queryBuilder.select(options?.select.split(','));
     return queryBuilder.exec();
   }
 
   async getTopTalents() {
     return this.talentModel
-      .find({ score: { $exists: true } })
-      .select('score firstname lastname profession photo about')
-      .sort({ score: -1 })
+      .find({ rating: { $exists: true } })
+      .select('rating firstname lastname profession photo about')
+      .sort({ rating: -1 })
       .lean();
   }
 
   async addTopTalents(ids: ObjectId[]) {
     const talentUpdates = [];
     const talents = await this.talentModel
-      .find({ score: { $exists: true } })
-      .select('score')
+      .find({ rating: { $exists: true } })
+      .select('rating')
       .lean();
 
     for (const key in talents) {
@@ -92,7 +148,7 @@ export class TalentsService {
       talentUpdates.push({
         updateOne: {
           filter: { _id: talent?._id },
-          update: { $set: { score: Number(key) + 1 } },
+          update: { $set: { rating: Number(key) + 1 } },
         },
       });
     }
@@ -105,16 +161,16 @@ export class TalentsService {
 
     const newTopTalents = await this.talentModel
       .find({ _id: { $in: filterdIds } })
-      .select('score')
+      .select('rating')
       .lean();
 
-    // TODO: ensure it is not more than 10 by popping/ removing the first
+    // TODO: ensure it is not more than 10 by poping/ removing the first
     for (const key in newTopTalents) {
       const newTalent = newTopTalents[key];
       talentUpdates.push({
         updateOne: {
           filter: { _id: newTalent._id },
-          update: { $set: { score: talentUpdates?.length + 1 } },
+          update: { $set: { rating: talentUpdates?.length + 1 } },
         },
       });
     }

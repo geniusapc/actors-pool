@@ -7,7 +7,9 @@ import ProfileGallery from "../components/TalentProfiles/ProfileGallery";
 import ProfileWorks from "../components/TalentProfiles/ProfileWorks";
 import SocialAccount from "../components/TalentProfiles/SocialAccount";
 import ProfileInformation from "../components/TalentProfiles/ProfileInformation";
-import Layout from "../components/Layout/Layout";
+import { Layout } from "../components/Layout";
+
+
 
 const profileStepTitle = {
   1: {
@@ -61,6 +63,7 @@ const profileStages = [
 ];
 
 const Profile = () => {
+
   const [steps, setSteps] = useState(0);
   const [stages, setStages] = useState(profileStages);
 
@@ -74,6 +77,10 @@ const Profile = () => {
     setStages(updatedStages);
     setSteps((step) => step + 1);
   };
+
+
+
+
 
   if (steps === 0) {
     return (

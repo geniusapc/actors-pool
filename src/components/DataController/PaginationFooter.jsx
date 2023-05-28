@@ -5,8 +5,6 @@ function PaginationFooter({ visiblePages = 20, totalCount = 100 }) {
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = totalCount / visiblePages
 
-
-
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
         // Perform any additional logic or API calls for fetching data based on the new page number
@@ -34,7 +32,7 @@ function PaginationFooter({ visiblePages = 20, totalCount = 100 }) {
     const isLastRange = currentPage * visiblePages >= totalCount;
 
     return (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-4 overflow-hidden">
             <button
                 className="mx-2 px-3 py-1 rounded bg-gray-200 text-gray-700"
                 onClick={() => handlePageChange(currentPage - 1)}

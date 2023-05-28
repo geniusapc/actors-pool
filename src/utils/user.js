@@ -20,6 +20,8 @@ class UserUtils {
     Cookies.set(USER_AUTH_TOKEN_KEY, token);
   };
 
+  static isLoggedIn = !!Cookies.get(USER_AUTH_TOKEN_KEY);
+
   static removeCookie = () => {
     Cookies.remove(USER_AUTH_TOKEN_KEY);
   };

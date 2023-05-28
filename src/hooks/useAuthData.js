@@ -3,11 +3,11 @@ import { useMutation } from 'react-query';
 import { SERVER_BASEURL } from '../config/keys';
 
 const addSignUp = ({ data }) => {
-  return axios.post(`${SERVER_BASEURL}/auth/signup`, data);
+  return axios.post(`${SERVER_BASEURL}/api/v1/auth/signup`, data);
 };
 
 const signin = ({ data }) => {
-  return axios.post(`${SERVER_BASEURL}/auth/signin`, data);
+  return axios.post(`${SERVER_BASEURL}/api/v1/auth/signin`, data);
 };
 
 const useSignUp = (onError, onSuccess) => {

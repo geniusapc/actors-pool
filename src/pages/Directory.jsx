@@ -6,9 +6,34 @@ import Moment from 'react-moment';
 import { SERVER_BASEURL } from '../config/keys';
 import DataController from '../components/DataController/DataController';
 
+const TalentCard = ({ talent }) => {
+    return (
+        <a className='h-[292px] w-full md:w-[292px]' href={`/talent/${talent._id}`}>
+            <div className=" w-full h-full relative  bg-black mb-12 pb-8">
+                <div className=" w-full h-full">
+                    <img
+                        className="object-contain w-full h-full"
+                        src={`${SERVER_BASEURL}${talent.photo}`}
+                        alt=""
+                    />
+                </div>
+                <div className="absolute bottom-0 left-0 text-left text-[#ffffff] bg-black w-full">
+                    <p><span className='mr-2'> {talent.firstname}</span> {talent.lastname}</p>
+                    <p>
+                        <span className="capitalize mr-2">{talent.profession}</span>
+                        <span className="inline-block w-2 h-2 mr-2 ml-2 bg-white rounded-full"></span>
+                        <span className='mr-2'>Active since</span>
+                        <Moment format="YYYY">{talent.activeSince}</Moment>
+                    </p>
+                </div>
+            </div>
+        </a>
+    );
+};
+
 function Directory() {
     const location = useLocation();
-    const [talent, setTalent] = useState(null);
+    const [talents, setTalents] = useState(null);
     const params = new URLSearchParams(location.search);
     const paramValue = params.get('q');
     const query = {
@@ -19,43 +44,24 @@ function Directory() {
     const { data, isLoading, error, refetch } = useTalentsData({ query });
 
     useEffect(() => {
-        if (data?.data) setTalent(data?.data);
+        if (data?.data) setTalents(data?.data?.data?.talent);
     }, [data]);
 
-    useEffect(() => {
-        refetch();
-    }, [refetch]);
-
     return (
-        <Layout showTalentHidden>
+        <Layout showTalentHidden isAuthRequired={false}>
             <div className="flex  justify-between">
                 <h1 className="text-[#040503] text-3xl mb-8">Talents Directory</h1>
                 {/* <Button variant='outlined' className='text-black'>filter</Button> */}
             </div>
-            <DataController isLoading={isLoading} error={error} empty={!talent?.length} paginate>
-                <div className="grid grid-cols-4 gap-4 mb-4">
-                    {talent?.length &&
-                        talent.map((user) => (
-                            <a key={user?._id} href={`/talent/${user._id}`}>
-                                <div className="h-[292px] w-[292px]  relative  bg-black mb-12 pb-8">
-                                    <div className=" w-[292px] h-[292px]">
-                                        <img
-                                            className="object-contain w-full h-full"
-                                            src={`${SERVER_BASEURL}${user.photo}`}
-                                            alt=""
-                                        />
-                                    </div>
-                                    <div className="absolute bottom-0 left-0 text-left text-[#ffffff] bg-black w-full">
-                                        <p>
-                                            {user.firstname}
-                                            {user.lastname}
-                                        </p>
-                                        <span className="capitalize">{user.profession}</span> . Active since{' '}
-                                        <Moment format="YYYY">{user.activeSince}</Moment>
-                                    </div>
-                                </div>
-                            </a>
-                        ))}
+            <DataController
+                isLoading={isLoading}
+                error={error}
+                empty={!talents?.length}
+                refetch={refetch}
+                paginate
+            >
+                <div className="grid grid-cols-1 items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-y-3">
+                    {talents?.length && talents.map((talent) => <TalentCard key={talent?._id} talent={talent} />)}
                 </div>
             </DataController>
         </Layout>

@@ -2,18 +2,19 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
-import { closeSignInModal } from '../../features/auth/auth';
+import { closeSignInModal, authenticate } from '../../features/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useNavigate } from 'react-router-dom';
-import { UserUtils } from '../../utils/user';
 import { useSignIn } from '../../hooks/useAuthData';
+import { useLocation } from "react-router-dom"
 
-const { saveUser } = UserUtils;
 
 function Signin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation()
+
     const [data, setData] = useState({});
     const isModalOpen = useSelector((state) => state.auth.isSignInModalOpen);
 
@@ -32,8 +33,9 @@ function Signin() {
     };
 
     const onSuccess = ({ data }) => {
-        saveUser(data);
-        navigate('/');
+        const redirectUrl = (location.pathname === "/") ? "/directory" : location.pathname
+        dispatch(authenticate(data));
+        navigate(redirectUrl);
         notifySuccess(data?.message || 'success');
         onCloseHandler()
     };

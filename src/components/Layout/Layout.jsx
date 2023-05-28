@@ -1,15 +1,24 @@
 import React from 'react'
-import AuthHeader from '../Headers/AuthHeader'
+import { Header } from '../Headers'
 import SideBar from '../SideBar/SideBar'
+import NoAuth from './NoAuth'
+import Signin from '../Authentication/Signin'
+import Signup from '../Authentication/Signup'
+import { useSelector } from 'react-redux'
 
 
-function Layout({ showTalentHidden, sideBarHidden, children }) {
+function Layout({ showTalentHidden, sideBarHidden, children, isAuthRequired = true }) {
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
+
     return (
         <div>
-            <AuthHeader showTalentHidden={showTalentHidden} />
+            <Header showTalentHidden={showTalentHidden} />
             {!sideBarHidden && <SideBar />}
             <div className="p-4 md:ml-[96px] sm:ml-64 md:mx-auto mt-24">
-                {children}
+                {(isAuthRequired && !isAuth) ? <NoAuth /> : children}
+                {/* Modal */}
+                <Signin />
+                <Signup />
             </div>
 
         </div>
@@ -17,3 +26,5 @@ function Layout({ showTalentHidden, sideBarHidden, children }) {
 }
 
 export default Layout
+
+

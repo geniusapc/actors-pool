@@ -9,28 +9,21 @@ import TrailBlazers from '../components/Landing/TailBlazers';
 import Toptalents from '../components/Talent/TopTalents';
 import SearchTalentSection from '../components/Landing/SearchTalentSection';
 
-
-
 function Landing() {
-
-
   return (
     <main>
-
-      <section className='bg-gradient-to-r from-[#050504] to-[#0b1717]  md:pt-11 items-center text-[#ffff]'>
+      <section className="bg-gradient-to-r from-[#050504] to-[#0b1717]  md:pt-11 items-center text-[#ffff]">
         <GuestHeader />
         <SearchTalentSection />
-        <div className='flex flex-col items-center  w-4/5 h-[150px] md:h-[480px] mx-auto overflow-y-hidden'>
+        <div className="flex flex-col items-center  w-4/5 h-[150px] md:h-[480px] mx-auto overflow-y-hidden">
           <img src="images/landing-page-dir-img.svg" alt="landing page" />
         </div>
       </section>
 
-
-
       <Toptalents />
       <TrailBlazers />
       <GetStartedGuide />
-      <section className='bg-gradient-to-r from-[#050504] to-[#0b1717] text-white '>
+      <section className="bg-gradient-to-r from-[#050504] to-[#0b1717] text-white ">
         <SearchTalent />
         <NewsletterSubscription />
         <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
@@ -40,7 +33,7 @@ function Landing() {
       {/* Modal */}
       <Signin />
       <Signup />
-    </main >
+    </main>
   );
 }
 

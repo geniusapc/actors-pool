@@ -5,10 +5,12 @@ import Modal from '../Modal/Modal';
 import { useSignUp } from '../../hooks/useAuthData';
 import { closeSignUpModal } from '../../features/auth/auth';
 import { notifySuccess, notifyError } from '../../utils/notification';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, } from 'react-redux';
+
 
 function Signup() {
     const dispatch = useDispatch();
+
     const isModalOpen = useSelector((state) => state.auth.isSignUpModalOpen);
     const onError = ({ response }) => {
         notifyError(response?.data?.message);

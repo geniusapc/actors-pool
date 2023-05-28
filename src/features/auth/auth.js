@@ -4,7 +4,6 @@ import { UserUtils } from '../../utils/user';
 const initialState = {
   isSignInModalOpen: false,
   isSignUpModalOpen: false,
-  isChangePasswordModalOpen: false,
   isAuthenticated: UserUtils.isLoggedIn,
 };
 
@@ -30,10 +29,9 @@ export const auth = createSlice({
     closeSignUpModal: (state) => {
       state.isSignUpModalOpen = false;
     },
-    closeChangePasswordModal: (state) => {
-      state.isChangePasswordModalOpen = false;
-    },
+
     authenticate: (state, data) => {
+      console.log(data.payload?.data);
       console.log(data.payload?.data);
       saveUser(data.payload?.data);
       state.isAuthenticated = true;
@@ -51,7 +49,6 @@ export const {
   openChangePasswordModal,
   closeSignInModal,
   closeSignUpModal,
-  closeChangePasswordModal,
   authenticate,
   logout,
 } = auth.actions;

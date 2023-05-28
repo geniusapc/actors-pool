@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
-import { closeChangePasswordModal } from '../../features/auth/auth';
+import { closeChangePasswordModal } from '../../features/settings/settings';
 import { useSelector, useDispatch } from 'react-redux';
 import { notifySuccess, notifyError } from '../../utils/notification';
-
 import { useChangePassword } from '../../hooks/useAuthData';
+import { useEffect } from 'react';
+
+
 
 function ChangePassword() {
     const dispatch = useDispatch();
 
     const [data, setData] = useState({});
-    const isModalOpen = useSelector((state) => state.auth.isChangePasswordModalOpen);
+    const [isFormButtonDisabled, setIsFormButtonDisabled] = useState(true);
+    const isModalOpen = useSelector((state) => state.settings.isChangePasswordModalOpen);
 
     const onCloseHandler = () => {
         setData({});
@@ -35,19 +38,22 @@ function ChangePassword() {
 
     const { mutate: changePassword, isLoading } = useChangePassword(onError, onSuccess);
 
-    const signInHandler = (e) => {
+    const changePasswordHandler = (e) => {
         e.preventDefault();
-        console.log(data);
-        if (data?.password !== data?.cpassword)
-            notifyError("Passord doesn't match")
+        if (data?.password !== data?.cpassword) return notifyError("Passord doesn't match");
         const payload = { password: data?.password };
         changePassword({ data: payload });
     };
 
+    useEffect(() => {
+        if (!data?.password || !data?.cpassword) setIsFormButtonDisabled(true);
+        else setIsFormButtonDisabled(false);
+    }, [data, isLoading]);
+
     return (
         <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Log In</h3>
-            <form className="space-y-6" onSubmit={signInHandler}>
+            <form className="space-y-6" onSubmit={changePasswordHandler}>
                 <Input
                     id="password"
                     label="New Password"
@@ -55,7 +61,6 @@ function ChangePassword() {
                     placeholder="Enter your email address"
                     value={data?.password}
                     onChange={onChangeHandler}
-
                 />
                 <Input
                     id="cpassword"
@@ -72,7 +77,7 @@ function ChangePassword() {
                         type="submit"
                         variant="primary"
                         isLoading={isLoading}
-                        disabled={!!isLoading}
+                        disabled={isFormButtonDisabled}
                     >
                         Change Password
                     </Button>

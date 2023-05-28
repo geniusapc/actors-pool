@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import * as moment from 'moment';
 
@@ -21,6 +21,12 @@ export class User {
 
   @Prop({ select: false })
   passwordChangedOn?: Date;
+
+  @Prop({
+    type: mongoose.Types.ObjectId,
+    trim: true,
+  })
+  talentId?: ObjectId;
 }
 
 const schema = SchemaFactory.createForClass(User);

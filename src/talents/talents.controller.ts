@@ -20,12 +20,16 @@ import { IGetTalentQuery, ICreateTalentMulterFiles } from './interfaces';
 import { CreateTopTalentDto } from './dto/create-top-talent.dto';
 import { ResponseDTO } from 'src/response.dto';
 import { Request, Response } from 'express';
+import { UsersService } from 'src/users/users.service';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
 @Controller({ path: '/talents', version: '1' })
 export class TalentsController {
-  constructor(private readonly talentsService: TalentsService) {}
+  constructor(
+    private readonly talentsService: TalentsService,
+    private readonly userService: UsersService,
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(
@@ -33,20 +37,22 @@ export class TalentsController {
       storage: TalentsService.storageOption(),
     }),
   )
-  @Post('my-talent')
+  @Post('my-profile')
   async create(
     @Req() req: Request,
     @Res() res: Response,
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
+    const userId = req?.user?._id;
     const payload = {
       ...createTalentDto,
-      userId: req?.user?._id,
+      userId,
       gallery: files?.gallery,
     };
 
     const talent = await this.talentsService.create(payload);
+    await this.userService.addProfile(userId, talent?._id?.toString());
     const message = 'Talent created successfully';
     const response = new ResponseDTO(HttpStatus.OK, message, talent);
     return response.send(res);

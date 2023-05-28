@@ -1,6 +1,6 @@
-const Modal = ({ isOpen, onClose, children, width = "w-[500px]" }) => {
+const Modal = ({ isOpen, onClose, children, width = "md:w-[500px]" }) => {
     if (!isOpen) return null;
-    const modalStyles = `bg-white p-6 rounded shadow-lg z-10 relative ${width}`;
+    const modalStyles = `bg-white p-6 rounded shadow-lg z-10 relative w-[270px] ${width}`;
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">

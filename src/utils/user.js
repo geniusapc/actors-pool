@@ -6,7 +6,7 @@ class UserUtils {
   };
 
   static saveUser = (user) => {
-    Cookies.set(USER_AUTH_TOKEN_KEY, user?.accessToken);
+    Cookies.set(USER_AUTH_TOKEN_KEY, `Bearer ${user?.accessToken}`);
     const payload = {
       _id: user?._id,
       firstname: user?.firstname,
@@ -27,8 +27,7 @@ class UserUtils {
   };
 
   static getUserToken = () => {
-    const token = Cookies.get(USER_AUTH_TOKEN_KEY);
-    return token;
+    return Cookies.get(USER_AUTH_TOKEN_KEY);
   };
 }
 

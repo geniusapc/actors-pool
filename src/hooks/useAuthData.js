@@ -1,13 +1,16 @@
-import axios from 'axios';
+import axios from '../config/axios';
 import { useMutation } from 'react-query';
-import { SERVER_BASEURL } from '../config/keys';
 
 const addSignUp = ({ data }) => {
-  return axios.post(`${SERVER_BASEURL}/api/v1/auth/signup`, data);
+  return axios.post(`/api/v1/auth/signup`, data);
 };
 
 const signin = ({ data }) => {
-  return axios.post(`${SERVER_BASEURL}/api/v1/auth/signin`, data);
+  return axios.post(`/api/v1/auth/signin`, data);
+};
+
+const changePassword = ({ data }) => {
+  return axios.post(`/api/v1/auth/change-password`, data);
 };
 
 const useSignUp = (onError, onSuccess) => {
@@ -18,4 +21,8 @@ const useSignIn = (onError, onSuccess) => {
   return useMutation(signin, { onError, onSuccess });
 };
 
-export { useSignUp, useSignIn };
+const useChangePassword = (onError, onSuccess) => {
+  return useMutation(changePassword, { onError, onSuccess });
+};
+
+export { useSignUp, useSignIn, useChangePassword };

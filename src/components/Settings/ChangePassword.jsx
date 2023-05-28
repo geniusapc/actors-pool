@@ -1,23 +1,85 @@
-import React from 'react'
-import Modal from '../Modal/Modal'
-import Input from '../Input/Input'
-import Button from '../Button/Button'
+import React, { useState } from 'react';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
+import Modal from '../Modal/Modal';
+import { closeChangePasswordModal } from '../../features/auth/auth';
+import { useSelector, useDispatch } from 'react-redux';
+import { notifySuccess, notifyError } from '../../utils/notification';
+
+import { useChangePassword } from '../../hooks/useAuthData';
 
 function ChangePassword() {
-    return (
-        <Modal id="change-password-modal">
-            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Change Password</h3>
-            <p className='text-xs mb-12' >Enter your new password below</p >
+    const dispatch = useDispatch();
 
-            <form class="space-y-6" action="#">
-                <Input id="password" label="New Password" placeholder="●●●●●●●●●●●●" />
-                <Input id="confirm-password" label="Re-Enter Password" placeholder="●●●●●●●●●●●●" />
-                <div className='flex flex-col gap-4 py-4 items-center'>
-                    <Button className="mx-auto md:px-[90px]" type="submit" variant="primary">Change Password</Button>
+    const [data, setData] = useState({});
+    const isModalOpen = useSelector((state) => state.auth.isChangePasswordModalOpen);
+
+    const onCloseHandler = () => {
+        setData({});
+        dispatch(closeChangePasswordModal());
+    };
+
+    const onChangeHandler = (e) => {
+        const { name, value } = e.target;
+        setData((e) => ({ ...e, [name]: value }));
+    };
+
+    const onError = ({ response }) => {
+        notifyError(response?.data?.message);
+    };
+
+    const onSuccess = ({ data }) => {
+        notifySuccess(data?.message || 'success');
+        onCloseHandler();
+    };
+
+    const { mutate: changePassword, isLoading } = useChangePassword(onError, onSuccess);
+
+    const signInHandler = (e) => {
+        e.preventDefault();
+        console.log(data);
+        if (data?.password !== data?.cpassword)
+            notifyError("Passord doesn't match")
+        const payload = { password: data?.password };
+        changePassword({ data: payload });
+    };
+
+    return (
+        <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
+            <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Log In</h3>
+            <form className="space-y-6" onSubmit={signInHandler}>
+                <Input
+                    id="password"
+                    label="New Password"
+                    type="password"
+                    placeholder="Enter your email address"
+                    value={data?.password}
+                    onChange={onChangeHandler}
+
+                />
+                <Input
+                    id="cpassword"
+                    label="Re-Enter Password"
+                    placeholder="●●●●●●●●●●●●"
+                    value={data?.cpassword}
+                    type="password"
+                    onChange={onChangeHandler}
+                />
+
+                <div className="flex flex-col gap-4 py-4 items-center">
+                    <Button
+                        className="mx-auto md:px-[90px]"
+                        type="submit"
+                        variant="primary"
+                        isLoading={isLoading}
+                        disabled={!!isLoading}
+                    >
+                        Change Password
+                    </Button>
                 </div>
             </form>
         </Modal>
-    )
+    );
 }
 
-export default ChangePassword
+export default ChangePassword;

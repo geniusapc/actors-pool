@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 import { IMovie, IGallery, ISocialMedia } from '../interfaces';
 
 export type TalentDocument = HydratedDocument<Talent>;
@@ -24,6 +24,14 @@ export class Talent {
 
   @Prop({ minlength: 2, trim: true })
   phoneNumber?: string;
+
+  @Prop({
+    type: mongoose.Types.ObjectId,
+    trim: true,
+    unique: true,
+    sparse: true,
+  })
+  userId?: ObjectId;
 
   @Prop({ default: null, enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] })
   rating?: number;
@@ -80,4 +88,6 @@ export class Talent {
   socialMedia?: ISocialMedia;
 }
 
-export const TalentSchema = SchemaFactory.createForClass(Talent);
+const schema = SchemaFactory.createForClass(Talent);
+
+export const TalentSchema = schema;

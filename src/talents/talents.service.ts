@@ -11,7 +11,8 @@ import { CreateTalentDto } from './dto/create-talent.dto';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
-type CreateTalent = CreateTalentDto & ICreateTalentMulterFiles;
+type CreateTalent = CreateTalentDto &
+  ICreateTalentMulterFiles & { userId: string };
 
 @Injectable()
 export class TalentsService {
@@ -65,6 +66,7 @@ export class TalentsService {
       firstname: createTalentDto.firstname,
       lastname: createTalentDto.lastname,
       username: username,
+      userId: createTalentDto.userId,
       phoneNumber: createTalentDto.phoneNumber,
       country: createTalentDto.country,
       state: createTalentDto.state,
@@ -118,6 +120,10 @@ export class TalentsService {
       .catch(() => {
         return {};
       });
+  }
+
+  async findOne(condition: { [key: string]: any }) {
+    return this.talentModel.findOne(condition);
   }
 
   async findById(id: string, options?: IGetTalentByIdQuery) {

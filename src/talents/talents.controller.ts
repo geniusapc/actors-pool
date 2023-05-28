@@ -10,19 +10,16 @@ import {
   HttpCode,
   HttpStatus,
   Res,
+  Req,
 } from '@nestjs/common';
 import { TalentsService } from './talents.service';
 import { CreateTalentDto } from './dto/create-talent.dto';
 import { Public } from 'src/auth/decorators/meta';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import {
-  IGetTalentQuery,
-  IGetTalentByIdQuery,
-  ICreateTalentMulterFiles,
-} from './interfaces';
+import { IGetTalentQuery, ICreateTalentMulterFiles } from './interfaces';
 import { CreateTopTalentDto } from './dto/create-top-talent.dto';
 import { ResponseDTO } from 'src/response.dto';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
@@ -36,19 +33,33 @@ export class TalentsController {
       storage: TalentsService.storageOption(),
     }),
   )
-  @Post()
+  @Post('my-talent')
   async create(
+    @Req() req: Request,
     @Res() res: Response,
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
     const payload = {
       ...createTalentDto,
+      userId: req?.user?._id,
       gallery: files?.gallery,
     };
 
     const talent = await this.talentsService.create(payload);
     const message = 'Talent created successfully';
+    const response = new ResponseDTO(HttpStatus.OK, message, talent);
+    return response.send(res);
+  }
+
+  //  Get my profile
+  @Get('my-profile')
+  async myProfile(@Req() req: Request, @Res() res: Response) {
+    const talent = await this.talentsService.findOne({
+      userId: req?.user?._id,
+    });
+
+    const message = 'Profile retrieved successfully';
     const response = new ResponseDTO(HttpStatus.OK, message, talent);
     return response.send(res);
   }
@@ -92,17 +103,13 @@ export class TalentsController {
     return topTalents;
   }
 
-  // NOTE:  params remains below
-
   @Public()
-  @Get('/:id')
+  @Get('/:username')
   async getTalentById(
     @Res() res: Response,
-    @Param('id') id: string,
-    @Query() options?: IGetTalentByIdQuery | undefined,
+    @Param('username') username: string,
   ) {
-    const talent = await this.talentsService.findById(id, options);
-
+    const talent = await this.talentsService.findOne({ username: username });
     const message = 'Talent retrieved successfully';
     const response = new ResponseDTO(HttpStatus.OK, message, talent);
     return response.send(res);

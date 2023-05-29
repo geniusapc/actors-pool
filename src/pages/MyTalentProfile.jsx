@@ -31,7 +31,8 @@ function MyTalentProfile() {
         <Layout>
             <DataController isLoading={isLoading} empty={!talent}>
                 {talent && (
-                    <div className="container mx-auto">
+                    <div>
+
                         <div className="hidden w-full items-center md:flex justify-end gap-8 mb-3">
                             <div>
                                 <input type="checkbox" name="" id="" checked /> Make Profile Visible
@@ -45,7 +46,7 @@ function MyTalentProfile() {
                                 <MyTalentDetailsAside talent={talent} />
                                 <ShareProfileCard className="h-[118px]" />
                             </div>
-                            <div className="w-full  md:w-3/4 shadow-3xl">
+                            <div className="w-full shadow-3xl">
                                 <TalentDetailsTab hash={location.hash} />
                                 {(location.hash === '#about' || location.hash === '') && (
                                     <TalentDetailsAbout talent={talent} />
@@ -53,7 +54,9 @@ function MyTalentProfile() {
                                 {location.hash === '#gallery' && <TalentDetailsGallery talent={talent} />}
                                 {location.hash === '#movies' && <TalentDetailsMovies talent={talent} />}
                             </div>
+
                         </div>
+
                     </div>
                 )}
             </DataController>

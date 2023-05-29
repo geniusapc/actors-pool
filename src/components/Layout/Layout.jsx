@@ -14,11 +14,14 @@ function Layout({ showTalentHidden, sideBarHidden, children, isAuthRequired = tr
         <div>
             <Header showTalentHidden={showTalentHidden} />
             {!sideBarHidden && <SideBar />}
-            <div className="p-4 md:ml-[96px] sm:ml-64 md:mx-auto mt-24">
-                {(isAuthRequired && !isAuth) ? <NoAuth /> : children}
-                {/* Modal */}
-                <Signin />
-                <Signup />
+            <div className="p-y-4 px-5 md:ml-[96px] sm:ml-64 md:mx-auto mt-20">
+                <div className='containter mx-auto '>
+                    {(isAuthRequired && !isAuth) ? <NoAuth /> : children}
+                    {/* Modal */}
+                    <Signin />
+                    <Signup />
+
+                </div>
             </div>
 
         </div>

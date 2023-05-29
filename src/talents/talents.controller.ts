@@ -31,6 +31,31 @@ export class TalentsController {
     private readonly userService: UsersService,
   ) {}
 
+  //  admin create project
+  @HttpCode(HttpStatus.OK)
+  @UseInterceptors(
+    FileFieldsInterceptor(createTalentFileInterceptor, {
+      storage: TalentsService.storageOption(),
+    }),
+  )
+  @Post('')
+  async createPoject(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Body() createTalentDto: CreateTalentDto,
+    @UploadedFiles() files: ICreateTalentMulterFiles,
+  ) {
+    const payload = {
+      ...createTalentDto,
+      gallery: files?.gallery,
+    };
+
+    const talent = await this.talentsService.create(payload);
+    const message = 'Talent created successfully';
+    const response = new ResponseDTO(HttpStatus.OK, message, talent);
+    return response.send(res);
+  }
+
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(
     FileFieldsInterceptor(createTalentFileInterceptor, {

@@ -12,7 +12,7 @@ import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 
 type CreateTalent = CreateTalentDto &
-  ICreateTalentMulterFiles & { userId: string };
+  ICreateTalentMulterFiles & { userId?: string };
 
 @Injectable()
 export class TalentsService {

@@ -3866,7 +3866,12 @@
   optionalDependencies:
     "saslprep" "^1.0.3"
 
-"mongoose@^6.0.2 || ^7.0.0", "mongoose@^7.1.0":
+"mongoose-autopopulate@^1.0.1":
+  "integrity" "sha512-39rN0QQinA1iz/8JNVKM3MNq/zZrjStiWi8jA15diUC2nnJsvEgRXEir4L4D1azYxY+gBTuqEzLqd7Y+MC6pHQ=="
+  "resolved" "https://registry.npmjs.org/mongoose-autopopulate/-/mongoose-autopopulate-1.0.1.tgz"
+  "version" "1.0.1"
+
+"mongoose@^6.0.2 || ^7.0.0", "mongoose@^7.1.0", "mongoose@6.x || 7.x":
   "integrity" "sha512-shoo9z/7o96Ojx69wpJn65+EC+Mt3q1SWTducW+F2Y4ieCXo0lZwpCZedgC841MIvJ7V8o6gmzoN1NfcnOTOuw=="
   "resolved" "https://registry.npmjs.org/mongoose/-/mongoose-7.1.0.tgz"
   "version" "7.1.0"

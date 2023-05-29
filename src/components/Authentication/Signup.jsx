@@ -3,7 +3,7 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
 import { useSignUp } from '../../hooks/useAuthData';
-import { closeSignUpModal } from '../../features/auth/auth';
+import { closeSignUpModal, openSignInModal } from '../../features/auth/auth';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useSelector, useDispatch, } from 'react-redux';
 
@@ -27,14 +27,21 @@ function Signup() {
         e.preventDefault();
         signUp({ data });
     };
+
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
         setData((e) => ({ ...e, [name]: value }));
     };
+
     const onCloseHandler = () => {
         setData({});
         dispatch(closeSignUpModal());
     };
+
+    const openSigUpModal = () => {
+        onCloseHandler()
+        dispatch(openSignInModal());
+    }
 
     return (
         <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
@@ -78,9 +85,9 @@ function Signup() {
                     </Button>
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
                         Already have an account?
-                        <a href="#1" className="text-blue-700 hover:underline dark:text-blue-500">
+                        <button onClick={openSigUpModal} className="ml-2 text-blue-700 hover:underline dark:text-blue-500">
                             Log in
-                        </a>
+                        </button>
                     </div>
                 </div>
             </form>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
-import { closeSignInModal, authenticate } from '../../features/auth/auth';
+import { closeSignInModal, openSignUpModal, authenticate } from '../../features/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +22,11 @@ function Signin() {
         setData({});
         dispatch(closeSignInModal());
     };
+
+    const openSignUpHandler = () => {
+        onCloseHandler()
+        dispatch(openSignUpModal())
+    }
 
     const onChangeHandler = (e) => {
         const { name, value } = e.target;
@@ -85,10 +90,10 @@ function Signin() {
                     </Button>
 
                     <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
-                        New here?{' '}
-                        <a href="#1" className="text-blue-700 hover:underline dark:text-blue-500">
+                        New here?
+                        <button onClick={openSignUpHandler} className="ml-2 text-blue-700 hover:underline dark:text-blue-500">
                             Create an account
-                        </a>
+                        </button>
                     </div>
                 </div>
             </form>

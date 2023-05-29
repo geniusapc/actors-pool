@@ -6,6 +6,7 @@ import TalentDetails from './pages/TalentDetails';
 import Messages from './pages/Messages';
 import Projects from './pages/Projects';
 import Settings from './pages/Settings';
+import MyProfile from './pages/MyTalentProfile';
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: 'profile',
-    element: <Profile />,
+    element: <MyProfile />,
   },
   {
     path: 'messages',

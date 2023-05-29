@@ -24,7 +24,7 @@ function SideBar() {
             aria-label="Sidebar"
         >
             <div className="h-full pb-4 overflow-y-auto bg-white dark:bg-gray-800 flex flex-col justify-between">
-                <ul className="space-y-2 font-medium">
+                <ul className="space-y-2 mt-14 font-medium">
                     {sidebarList.map((item) => (
                         <li key={item.id}>
                             <Link

@@ -1,86 +1,82 @@
-import React, { useState } from "react";
-import Button from "../components/Button/Button";
-import EmptyProfileCard from "../components/Cards/EmptyProfileCard";
-import ProfileLayout from "../components/Layout/ProfileLayout";
-import ProfileDescription from "../components/TalentProfiles/ProfileDescription";
-import ProfileGallery from "../components/TalentProfiles/ProfileGallery";
-import ProfileWorks from "../components/TalentProfiles/ProfileWorks";
-import SocialAccount from "../components/TalentProfiles/SocialAccount";
-import ProfileInformation from "../components/TalentProfiles/ProfileInformation";
-import { Layout } from "../components/Layout";
-
-
+import React, { useState } from 'react';
+import Button from '../components/Button/Button';
+import EmptyProfileCard from '../components/Cards/EmptyProfileCard';
+import ProfileLayout from '../components/Layout/ProfileLayout';
+import ProfileDescription from '../components/TalentProfiles/ProfileDescription';
+import ProfileGallery from '../components/TalentProfiles/ProfileGallery';
+import ProfileWorks from '../components/TalentProfiles/ProfileWorks';
+import SocialAccount from '../components/TalentProfiles/SocialAccount';
+import ProfileInformation from '../components/TalentProfiles/ProfileInformation';
+import { Layout } from '../components/Layout';
 
 const profileStepTitle = {
   1: {
-    step: "1/5",
-    title: "Personal Information",
-    caption: "Set Up Your Talent Profile",
+    step: '1/5',
+    title: 'Personal Information',
+    caption: 'Set Up Your Talent Profile',
   },
   2: {
-    step: "2/5",
-    title: "About Me",
-    caption: "Set Up Your Talent Profile",
+    step: '2/5',
+    title: 'About Me',
+    caption: 'Set Up Your Talent Profile',
   },
   3: {
-    step: "3/5",
-    title: "Works/Movies",
-    caption: "Set Up Your Talent Profile",
+    step: '3/5',
+    title: 'Works/Movies',
+    caption: 'Set Up Your Talent Profile',
   },
   4: {
-    step: "4/5",
-    title: "Gallery",
-    caption: "Set Up Your Talent Profile",
+    step: '4/5',
+    title: 'Gallery',
+    caption: 'Set Up Your Talent Profile',
   },
   5: {
-    step: "5/5",
-    title: "Social Accounts",
-    caption: "Set Up Your Talent Profile",
+    step: '5/5',
+    title: 'Social Accounts',
+    caption: 'Set Up Your Talent Profile',
   },
 };
 
 const profileStages = [
   {
-    title: "Personal Information",
+    title: 'Personal Information',
     isCompleted: false,
   },
   {
-    title: "About Me",
+    title: 'About Me',
     isCompleted: false,
   },
   {
-    title: "Works/Movies",
+    title: 'Works/Movies',
     isCompleted: false,
   },
   {
-    title: "Gallery",
+    title: 'Gallery',
     isCompleted: false,
   },
   {
-    title: "Social Accounts",
+    title: 'Social Accounts',
     isCompleted: false,
   },
 ];
 
 const Profile = () => {
+  // const navigate = useNavigate()
+
+  // const { data } = useProfileData();
 
   const [steps, setSteps] = useState(0);
   const [stages, setStages] = useState(profileStages);
 
   const handleNextStep = () => {
-    if (steps === stages.length) return
+    if (steps === stages.length) return;
     const updatedStages = stages.map((item) => ({
       ...item,
-      isCompleted:
-        item.title === profileStepTitle[steps + 1]?.title ? true : false,
+      isCompleted: item.title === profileStepTitle[steps + 1]?.title ? true : false,
     }));
     setStages(updatedStages);
     setSteps((step) => step + 1);
   };
-
-
-
-
 
   if (steps === 0) {
     return (
@@ -132,11 +128,6 @@ const Profile = () => {
           </div>
         </ProfileLayout>
       </Layout>
-
-
-
-
-
     </div>
   );
 };

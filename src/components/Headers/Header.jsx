@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import InputWithButton from '../Input/InputWithButton';
 import AuthUser from './AuthUser';
 import { openSignUpModal } from '../../features/auth/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Header({ showTalentHidden = false }) {
-    const isAuth = false;
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 

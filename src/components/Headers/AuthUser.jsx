@@ -1,31 +1,48 @@
-import React from 'react'
+import React from 'react';
+import { useProfileData } from '../../hooks/useUserData';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../features/auth/auth';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function AuthUser() {
-    const user = {
-        photo: '',
-        firstName: 'Prince',
-        lastName: 'Arthur',
-        email: 'princearthur.com',
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [user, setUser] = useState({});
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const { data } = useProfileData();
+
+    const logoutHandler = () => {
+        dispatch(logout());
+        navigate('/');
     };
+
+    useEffect(() => {
+        if (data?.data?.data) {
+            setUser(data?.data?.data);
+        }
+    }, [data]);
+
     return (
         <div>
-            <div>
+            <div className="relative">
                 <button
                     type="button"
                     className="flex text-sm bg-inherit items-center gap-2 rounded-lg px-2 focus:ring-2 focus:ring-gray-300 dark:focus:ring-gray-600"
                     aria-expanded="false"
-                    data-dropdown-toggle="dropdown-user"
+                    onClick={() => setIsDropdownOpen((e) => !e)}
                 >
                     <span className="sr-only">Open user menu</span>
 
-                    {user.photo ? (
-                        <img className="w-8 h-8 " src={user.photo} alt="user" />
+                    {user?.photo ? (
+                        <img className="w-8 h-8 " src={user?.photo} alt="user" />
                     ) : (
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             viewBox="0 0 24 24"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                             stroke="currentColor"
                             className="w-6 h-6"
                         >
@@ -37,57 +54,56 @@ function AuthUser() {
                         </svg>
                     )}
 
-                    <p>{user.firstName}</p>
+                    <p>{user?.firstname}</p>
                     <img src="images/drop-down-arrow.svg" alt="" />
                 </button>
             </div>
-            <div
-                className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600"
-                id="dropdown-user"
-            >
-                <div className="px-4 py-3" role="none">
-                    <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        {user.firstName} {user.lastName}
-                    </p>
-                    <p
-                        className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
-                        role="none"
-                    >
-                        {user.email}
-                    </p>
+            {isDropdownOpen && (
+                <div className="z-50  absolute right-2  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
+                    <div className="px-4 py-3" role="none">
+                        <p className="text-sm text-gray-900 dark:text-white" role="none">
+                            {user?.firstname} {user?.lastname}
+                        </p>
+                        <p
+                            className="text-sm font-medium text-gray-900 truncate dark:text-gray-300"
+                            role="none"
+                        >
+                            {user?.email}
+                        </p>
+                    </div>
+                    <ul className="py-1" role="none">
+                        <li>
+                            <button
+                                className="w-full items-start text-start block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                role="menuitem"
+                                onClick={() => navigate('/directory')}
+                            >
+                                Dashboard
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="w-full items-start text-start block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                role="menuitem"
+                                onClick={() => navigate('/settings')}
+                            >
+                                Settings
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="w-full items-start text-start block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+                                role="menuitem"
+                                onClick={logoutHandler}
+                            >
+                                Sign out
+                            </button>
+                        </li>
+                    </ul>
                 </div>
-                <ul className="py-1" role="none">
-                    <li>
-                        <a
-                            href="#1"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                            role="menuitem"
-                        >
-                            Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#1"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                            role="menuitem"
-                        >
-                            Settings
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#1"
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                            role="menuitem"
-                        >
-                            Sign out
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            )}
         </div>
-    )
+    );
 }
 
-export default AuthUser
+export default AuthUser;

@@ -9,6 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { TalentsModule } from './talents/talents.module';
 import { join } from 'path';
+import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { join } from 'path';
     UsersModule,
     AuthModule,
     TalentsModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [

@@ -19,8 +19,9 @@ function AuthUser() {
     };
 
     useEffect(() => {
-        if (data?.data?.data) {
-            setUser(data?.data?.data);
+        const response = data?.data?.data
+        if (response) {
+            setUser(response);
         }
     }, [data]);
 

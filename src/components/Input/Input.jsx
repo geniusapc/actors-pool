@@ -7,6 +7,7 @@ function Input({
   variant = 'primary',
   onChange = () => { },
   value = '',
+  ...rest
 }) {
   const defaultClass =
     ' text-sm border border-gray-300 rounded-[43px] focus:ring-primary  focus:border-primary  block w-full px-6 py-2 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white';
@@ -33,6 +34,7 @@ function Input({
         className={`${defaultClass}  ${inputClass}`}
         placeholder={placeholder}
         required
+        {...rest}
       />
     </div>
   );

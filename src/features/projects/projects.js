@@ -4,6 +4,7 @@ import { notifySuccess } from '../../utils/notification';
 
 const initialState = {
   isTempProjModalOpen: false,
+  isProjModalOpen: false,
   tempProject: [],
 };
 
@@ -16,6 +17,12 @@ export const projects = createSlice({
     },
     closeTempProjModal: (state) => {
       state.isTempProjModalOpen = false;
+    },
+    openProjModal: (state) => {
+      state.isProjModalOpen = true;
+    },
+    closeProjModal: (state) => {
+      state.isProjModalOpen = false;
     },
     getTempProj: (state) => {
       const data = TalentUtils.getProject();
@@ -39,6 +46,8 @@ export const projects = createSlice({
 export const {
   openTempProjModal,
   closeTempProjModal,
+  openProjModal,
+  closeProjModal,
   getTempProj,
   clearTempProj,
   addTalentToProjectHandler,

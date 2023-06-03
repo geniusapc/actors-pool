@@ -20,11 +20,11 @@ const useMyTalentProfile = () => {
   });
 };
 
-const useTalentsData = ({ query }) => {
+const useTalentsData = (options) => {
+  const { query } = options || {};
   const q = qs.stringify(query);
   return useQuery(['talents', q], () => fetchTalent(q), {
     retry: 1,
-    transformResponse: (data) => data?.data,
   });
 };
 

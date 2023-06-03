@@ -1,34 +1,20 @@
 import React, { useState } from 'react';
-import Modal from '../Modal/Modal';
-import Input from '../Input/Input';
-import Button from '../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeProjModal } from '../../features/projects/projects';
-import { useTalentsData } from '../../hooks/useTalentData';
-
 import AsyncSelect from 'react-select/async';
-import { SERVER_BASEURL } from '../../config/keys';
+import Modal from '../../Modal/Modal';
+import Button from '../../Button/Button';
+import { ADD_TALENT_TO_PROJECT_MODAL, closeModal } from '../../../features/projects/projects';
+import { useTalentsData } from '../../../hooks/useTalentData';
 
-function CreateProjectModal() {
-    const [project, setProject] = useState({});
-
-    const dispatch = useDispatch();
-    const isModalOpen = useSelector((state) => state.projects.isProjModalOpen);
-    const [searchTalentField, setSearchTalentField] = useState('');
-
-    const query = { select: 'firstname,lastname,photo', q: searchTalentField };
-    const { data: talentData, refetch } = useTalentsData({ query });
-
-    const onCloseModalHandler = () => {
-        setProject({});
-        dispatch(closeProjModal());
-    };
+function AddTalentToProjectModal() {
+    // const [project, setProject] = useState({});
+    const isModalOpen = useSelector((state) => state.projects[ADD_TALENT_TO_PROJECT_MODAL]);
 
     const formatData = (data) => {
         return data?.map((e) => ({
             label: (
                 <div className="flex">
-                    <img src={`${SERVER_BASEURL}${e?.photo}`} alt="" className="w-8 h-8 mr-2" />
+                    <img src={e?.photo} alt="" className="w-8 h-8 mr-2" />
                     <span> {`${e?.firstname} ${e?.lastname}`}</span>
                 </div>
             ),
@@ -36,7 +22,16 @@ function CreateProjectModal() {
         }));
     };
 
+    const dispatch = useDispatch();
 
+    const [searchTalentField, setSearchTalentField] = useState('');
+
+    const query = { select: 'firstname,lastname,photo', q: searchTalentField };
+    const { data: talentData, refetch } = useTalentsData({ query });
+
+    const onCloseModalHandler = () => {
+        dispatch(closeModal(ADD_TALENT_TO_PROJECT_MODAL));
+    };
 
     const promiseOptions = (inputValue) =>
         new Promise(async (resolve) => {
@@ -60,19 +55,11 @@ function CreateProjectModal() {
             <h2 className="text-2xl  font-semibold mb-4">Create a New Project</h2>
             <p className="mb-8">Kindly give us details about your movie project</p>
             <form className="space-y-6" action="#">
-                <Input
-                    id="Project Name"
-                    label="Project Name"
-                    placeholder="Enter project name"
-                    onChange={(e) => setProject((prev) => ({ ...prev, name: e?.target?.value }))}
-                    value={project?.name}
-                />
-
                 <AsyncSelect isMulti cacheOptions loadOptions={promiseOptions} />
 
                 <div className="w-full flex">
                     <Button className="mx-auto" type="submit" variant="primary">
-                        Create Project
+                        Add
                     </Button>
                 </div>
             </form>
@@ -80,4 +67,4 @@ function CreateProjectModal() {
     );
 }
 
-export default CreateProjectModal;
+export default AddTalentToProjectModal;

@@ -2,8 +2,6 @@ import React from 'react'
 import SimilarTalent from './SimilarTalent'
 import { topTalent } from '../../mockData/user'
 
-
-
 function SimilarTalents() {
     return (
         <div className='shadow-3xl mb-8  p-4'>

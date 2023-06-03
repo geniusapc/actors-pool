@@ -1,16 +1,16 @@
 import React from 'react';
-import Modal from '../Modal/Modal';
+import Modal from '../../Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearTempProj, closeTempProjModal, getTempProj } from '../../features/projects/projects';
-import Button from '../Button/Button';
+import { TEMP_PROJ_MODAL, clearTempProj, closeModal, getTempProj } from '../../../features/projects/projects';
+import Button from '../../Button/Button';
 import { useEffect } from 'react';
 import Moment from 'react-moment';
-import Empty from '../DataController/Empty';
-import { SERVER_BASEURL } from '../../config/keys';
+import Empty from '../../DataController/Empty';
+import { SERVER_BASEURL } from '../../../config/keys';
 
-function TemporaryProjectCard() {
+function TemporaryProjectModal() {
     const dispatch = useDispatch();
-    const isModalOpen = useSelector((state) => state.projects.isTempProjModalOpen);
+    const isModalOpen = useSelector((state) => state.projects[TEMP_PROJ_MODAL]);
     const tempProject = useSelector((state) => state.projects.tempProject);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ function TemporaryProjectCard() {
 
 
     return (
-        <Modal isOpen={isModalOpen} onClose={() => dispatch(closeTempProjModal())}>
+        <Modal isOpen={isModalOpen} onClose={() => dispatch(closeModal(TEMP_PROJ_MODAL))}>
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Temporary Project </h3>
 
             {
@@ -31,7 +31,7 @@ function TemporaryProjectCard() {
 
                         <ul className="flex flex-col mt-8 gap-y-5 max-h-96 overflow-y-scroll">
                             {tempProject?.map((talent) => (
-                                <li className="h-12 flex">
+                                <li className="h-12 flex" key={talent?._id}>
                                     <img src={`${SERVER_BASEURL}${talent?.photo}`} className="h-12 w-12 mr-2" alt="" />
                                     <div className="flex flex-col">
                                         <p className="text-black font-medium">
@@ -58,4 +58,4 @@ function TemporaryProjectCard() {
     );
 }
 
-export default TemporaryProjectCard;
+export default TemporaryProjectModal;

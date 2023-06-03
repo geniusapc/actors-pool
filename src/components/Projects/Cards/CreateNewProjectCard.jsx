@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { openProjModal } from '../../features/projects/projects';
+import { CREATE_PROJECT_MODAL, openModal } from '../../../features/projects/projects';
 
 function CreateNewProjectCard() {
     const dispatch = useDispatch()
     return (
         <div
             className="shadow-3xl flex items-center rounded-lg py-5 px-7 h-[146px] space-x-4 cursor-pointer"
-            onClick={() => dispatch(openProjModal())}
+            onClick={() => dispatch(openModal(CREATE_PROJECT_MODAL))}
         >
             <img className="h-8 w-8 mb-4" src="icons/add-icon-large.svg" alt="add-icon-large" />
             <div>

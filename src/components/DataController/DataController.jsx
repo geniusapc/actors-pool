@@ -7,17 +7,22 @@ import Error from './Error';
 function DataController({
     isLoading,
     error,
-    empty,
+    emptyComponent: EmptyComponent,
     children,
     paginate = false,
+    data,
+    Render,
     refetch = () => { },
 }) {
     if (isLoading) return <Loading />;
     if (error) return <Error refetch={refetch} />;
-    if (empty) return <Empty />;
+    if (!data?.length) return (
+        EmptyComponent ? <EmptyComponent /> : < Empty />
+    );
 
     return (
         <>
+            <Render data={data} />
             {children}
             {paginate && <PaginationFooter />}
         </>

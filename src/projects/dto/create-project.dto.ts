@@ -1,4 +1,4 @@
-import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty, MaxLength, MinLength, IsOptional } from 'class-validator';
 
 export class CreateProjectDto {
   @MaxLength(25)
@@ -6,6 +6,6 @@ export class CreateProjectDto {
   @IsNotEmpty()
   name: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   talents: string[];
 }

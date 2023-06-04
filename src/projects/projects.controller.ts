@@ -123,4 +123,25 @@ export class ProjectsController {
     const response = new ResponseDTO(HttpStatus.OK, message, isDeleted);
     return response.send(res);
   }
+
+  @Delete('/:id/talents/:talentId')
+  async deleteTalentFromProject(
+    @Param('id') id: string,
+    @Param('talentId') talentId: string,
+    @Req() req: Request,
+    @Res() res: Response,
+  ) {
+    const userId = req?.user?._id;
+    const isDeleted = await this.projectsService.update(
+      {
+        user: userId,
+        _id: id,
+      },
+      { $pull: { talents: talentId } },
+    );
+
+    const message = 'Project talent deleted successfully';
+    const response = new ResponseDTO(HttpStatus.OK, message, isDeleted);
+    return response.send(res);
+  }
 }

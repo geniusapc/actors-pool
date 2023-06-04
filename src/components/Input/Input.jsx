@@ -33,7 +33,6 @@ function Input({
         value={value}
         className={`${defaultClass}  ${inputClass}`}
         placeholder={placeholder}
-        required
         {...rest}
       />
     </div>

@@ -55,7 +55,7 @@ function EditProjectModal(project) {
 
     return (
         <Modal isOpen={isModalOpen} onClose={onCloseModalHandler}>
-            <h2 className="text-2xl  font-semibold mb-4">Create a New Project</h2>
+            <h2 className="text-2xl  font-semibold mb-4">Edit Project Details</h2>
             <p className="mb-8">Kindly give us details about your movie project</p>
             <form className="space-y-6" action="#">
                 <Input

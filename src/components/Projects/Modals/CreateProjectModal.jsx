@@ -8,13 +8,17 @@ import { useTalentsData } from '../../../hooks/useTalentData';
 
 import AsyncSelect from 'react-select/async';
 import { SERVER_BASEURL } from '../../../config/keys';
+import { useAddProject } from '../../../hooks/useProjectData';
+import { notifyError, notifySuccess } from '../../../utils/notification';
 
-function CreateProjectModal() {
-    const [project, setProject] = useState({});
-
+function CreateProjectModal({ refetch: refetchProjects }) {
     const dispatch = useDispatch();
-    const isModalOpen = useSelector((state) => state.projects[CREATE_PROJECT_MODAL]);
+
+    const [project, setProject] = useState({});
     const [searchTalentField, setSearchTalentField] = useState('');
+
+
+    const isModalOpen = useSelector((state) => state.projects[CREATE_PROJECT_MODAL]);
 
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
     const { data: talentData, refetch } = useTalentsData({ query });
@@ -36,10 +40,8 @@ function CreateProjectModal() {
         }));
     };
 
-
-
-    const promiseOptions = (inputValue) =>
-        new Promise(async (resolve) => {
+    const promiseOptions = (inputValue) => {
+        return new Promise(async (resolve) => {
             setSearchTalentField(inputValue);
 
             if (inputValue?.length < 2) resolve(formatData(talentData?.data?.data?.talent));
@@ -54,24 +56,43 @@ function CreateProjectModal() {
             }, 2000);
             clearTimeout(timer);
         });
+    };
+
+    const onError = () => {
+        notifyError("error")
+    };
+    const onSuccess = () => {
+        notifySuccess('Project created successfully');
+        onCloseModalHandler();
+        refetchProjects();
+    };
+
+    const { mutate: createProject, isLoading } = useAddProject(onError, onSuccess);
+
+    const createProjectHandler = (e) => {
+        e.preventDefault();
+        createProject(project);
+    };
 
     return (
         <Modal isOpen={isModalOpen} onClose={onCloseModalHandler}>
             <h2 className="text-2xl  font-semibold mb-4">Create a New Project</h2>
             <p className="mb-8">Kindly give us details about your movie project</p>
-            <form className="space-y-6" action="#">
+            <form className="space-y-6" onSubmit={createProjectHandler}>
                 <Input
                     id="Project Name"
                     label="Project Name"
                     placeholder="Enter project name"
                     onChange={(e) => setProject((prev) => ({ ...prev, name: e?.target?.value }))}
                     value={project?.name}
+                    minLength={'3'}
+                    required
                 />
 
                 <AsyncSelect isMulti cacheOptions loadOptions={promiseOptions} />
 
                 <div className="w-full flex">
-                    <Button className="mx-auto" type="submit" variant="primary">
+                    <Button className="mx-auto" type="submit" variant="primary" isLoading={isLoading}>
                         Create Project
                     </Button>
                 </div>

@@ -15,8 +15,8 @@ function ProjectCard({ project }) {
                 <div className="font-semibold flex flex-col">
                     {project.name}
                     <span className="text-gray text-sm">
-                        {' '}
-                        <Moment>{project.createdAt}</Moment>
+                        {'Created '}
+                        <Moment format="Do MMMM, YYYY">{project.createdAt}</Moment>
                     </span>
                 </div>
             </div>

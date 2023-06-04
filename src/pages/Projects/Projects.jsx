@@ -21,7 +21,7 @@ function Projects() {
             />
 
             {/* Modals */}
-            <CreateProjectModal />
+            <CreateProjectModal refetch={refetch} />
         </Layout>
     )
 }

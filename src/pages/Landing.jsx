@@ -8,6 +8,7 @@ import SearchTalent from '../components/SearchTalent/SearchTalent';
 import TrailBlazers from '../components/Landing/TailBlazers';
 import Toptalents from '../components/Talent/TopTalents';
 import SearchTalentSection from '../components/Landing/SearchTalentSection';
+import TnC from '../components/Landing/TnC';
 
 function Landing() {
   return (
@@ -33,6 +34,7 @@ function Landing() {
       {/* Modal */}
       <Signin />
       <Signup />
+      <TnC />
     </main>
   );
 }

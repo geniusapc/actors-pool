@@ -49,7 +49,7 @@ function SearchTalentSection() {
                         </Button>
                     </>
                 ) : (
-                    <>
+                    <form onSubmit={searchTalentHandler} className='flex gap-8'>
                         <Input
                             className="w-[324px]"
                             variant="secondary"
@@ -60,12 +60,12 @@ function SearchTalentSection() {
                         />
                         <Button
                             variant="primary"
-                            onClick={searchTalentHandler}
+                            type='submit'
                             disabled={isSearchButtonDisabled}
                         >
                             Search
                         </Button>
-                    </>
+                    </form>
                 )}
             </div>
         </div>

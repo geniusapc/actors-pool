@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SERVER_BASEURL } from "../../../config/keys";
 import Moment from "react-moment";
-import { REMOVE_TALENT_FROM_PROJECT_MODAL, openModal } from "../../../features/projects/projects";
+import { REMOVE_TALENT_FROM_PROJECT_MODAL, openModal, setTalent } from "../../../features/projects/projects";
 
 const ProjectTalentCard = ({ talent }) => {
 
@@ -10,8 +10,8 @@ const ProjectTalentCard = ({ talent }) => {
     const dispatch = useDispatch();
 
     const deleteTalentHandler = () => {
+        dispatch(setTalent(talent))
         dispatch(openModal(REMOVE_TALENT_FROM_PROJECT_MODAL))
-
     };
 
     return (

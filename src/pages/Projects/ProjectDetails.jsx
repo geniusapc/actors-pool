@@ -28,7 +28,7 @@ const Render = ({ data }) => {
 function ProjectDetails() {
     const param = useParams();
 
-    const { data, isLoading } = useProjectDataByID(param?.id);
+    const { data, isLoading, refetch } = useProjectDataByID(param?.id);
     const project = data?.data?.data;
     const talents = project?.talents;
 
@@ -44,11 +44,11 @@ function ProjectDetails() {
             />
 
             {/* Modals */}
-            <AddTalentToProjectModal />
-            <ClearAllTalentFromProjectModal />
+            <AddTalentToProjectModal refetchProject={refetch} />
+            <ClearAllTalentFromProjectModal refetchProject={refetch} />
+            <DeleteProjectTalentModal refetchProject={refetch} />
+            <EditProjectModal refetchProject={refetch} />
             <DeleteProjectModal />
-            <DeleteProjectTalentModal />
-            <EditProjectModal />
         </Layout>
     );
 }

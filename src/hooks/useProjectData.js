@@ -19,6 +19,18 @@ const deleteProject = (id) => {
   return axios.delete(`/api/v1/projects/${id}`);
 };
 
+const editProject = ({ id, data }) => {
+  return axios.patch(`/api/v1/projects/${id}`, data);
+};
+
+const clearProjectTalent = (id) => {
+  return axios.delete(`/api/v1/projects/${id}/talents`);
+};
+
+const deleteTalentFromProject = ({ projectId, talentId }) => {
+  return axios.delete(`/api/v1/projects/${projectId}/talents/${talentId}`);
+};
+
 const useProjectsData = (options) => {
   const { query } = options || {};
   const q = qs.stringify(query);
@@ -39,4 +51,24 @@ const useDeleteProject = (onError, onSuccess) => {
   return useMutation(deleteProject, { onError, onSuccess });
 };
 
-export { useProjectsData, useProjectDataByID, useAddProject, useDeleteProject };
+const useEditProject = (onError, onSuccess) => {
+  return useMutation(editProject, { onError, onSuccess });
+};
+
+const useClearProjectTalents = (onError, onSuccess) => {
+  return useMutation(clearProjectTalent, { onError, onSuccess });
+};
+
+const useDeleteTalentFromProject = (onError, onSuccess) => {
+  return useMutation(deleteTalentFromProject, { onError, onSuccess });
+};
+
+export {
+  useProjectsData,
+  useProjectDataByID,
+  useAddProject,
+  useDeleteProject,
+  useEditProject,
+  useClearProjectTalents,
+  useDeleteTalentFromProject,
+};

@@ -12,6 +12,8 @@ export const TEMP_PROJ_MODAL = 'isTempProjModalOpen';
 
 const initialState = {
   tempProject: [],
+  talent: null,
+  project: null,
   // Modals
   [CREATE_PROJECT_MODAL]: false,
   [DELETE_PROJECT_MODAL]: false,
@@ -34,6 +36,10 @@ export const projects = createSlice({
       const modal = action.payload;
       state[modal] = false;
     },
+
+    setTalent: (state, action) => {
+      state.talent = action.payload;
+    },
     getTempProj: (state) => {
       const data = TalentUtils.getProject();
       const talents = Object.values(data);
@@ -53,7 +59,13 @@ export const projects = createSlice({
   },
 });
 
-export const { openModal, closeModal, getTempProj, clearTempProj, addTalentToProjectHandler } =
-  projects.actions;
+export const {
+  openModal,
+  closeModal,
+  setTalent,
+  getTempProj,
+  clearTempProj,
+  addTalentToProjectHandler,
+} = projects.actions;
 
 export default projects.reducer;

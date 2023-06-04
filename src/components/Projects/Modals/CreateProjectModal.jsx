@@ -74,6 +74,13 @@ function CreateProjectModal({ refetch: refetchProjects }) {
         createProject(project);
     };
 
+
+    const onChangeTalentHandler = (e) => {
+        const ids = e?.map((res) => res?.value)
+        setProject((prev) => ({ ...prev, talents: ids }))
+    }
+    const onChangeNameHandler = (e) => setProject((prev) => ({ ...prev, name: e?.target?.value }))
+
     return (
         <Modal isOpen={isModalOpen} onClose={onCloseModalHandler}>
             <h2 className="text-2xl  font-semibold mb-4">Create a New Project</h2>
@@ -83,13 +90,13 @@ function CreateProjectModal({ refetch: refetchProjects }) {
                     id="Project Name"
                     label="Project Name"
                     placeholder="Enter project name"
-                    onChange={(e) => setProject((prev) => ({ ...prev, name: e?.target?.value }))}
+                    onChange={onChangeNameHandler}
                     value={project?.name}
                     minLength={'3'}
                     required
                 />
 
-                <AsyncSelect isMulti cacheOptions loadOptions={promiseOptions} />
+                <AsyncSelect isMulti cacheOptions loadOptions={promiseOptions} onChange={onChangeTalentHandler} />
 
                 <div className="w-full flex">
                     <Button className="mx-auto" type="submit" variant="primary" isLoading={isLoading}>

@@ -1,13 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Directory from './pages/Directory';
 import Landing from './pages/Landing';
-// import Profile from './pages/Profile';
 import TalentDetails from './pages/TalentDetails';
 import Messages from './pages/Messages';
 import Projects from './pages/Projects/Projects';
 import ProjectDetails from './pages/Projects/ProjectDetails';
 import Settings from './pages/Settings';
-import MyProfile from './pages/MyTalentProfile';
+import MyProfile from './pages/Profile/MyProfile';
+import CreateProfile from './pages/Profile/CreateProfile';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: 'profile',
     element: <MyProfile />,
+  },
+  {
+    path: 'profile/create',
+    element: <CreateProfile />,
   },
   {
     path: 'messages',

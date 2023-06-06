@@ -1,6 +1,7 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
+import { ReactComponent as ClippperBoardIcon } from '../../../assets/icons/clapperboard-play.svg';
 
 function ProjectCard({ project }) {
     return (
@@ -9,9 +10,7 @@ function ProjectCard({ project }) {
             className="shadow-3xl flex  flex-col  rounded-lg py-5 px-7  cursor-pointer"
         >
             <div className="flex space-x-4 mb-8">
-                <div className="w-8 h-8">
-                    <img className="w-6 h-6" src={'icons/clapperboard-play.svg'} alt="" />
-                </div>
+                <ClippperBoardIcon className='mt-2' />
                 <div className="font-semibold flex flex-col">
                     {project.name}
                     <span className="text-gray text-sm">

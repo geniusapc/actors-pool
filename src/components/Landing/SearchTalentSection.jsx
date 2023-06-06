@@ -49,9 +49,9 @@ function SearchTalentSection() {
                         </Button>
                     </>
                 ) : (
-                    <form onSubmit={searchTalentHandler} className='flex gap-8'>
+                    <form onSubmit={searchTalentHandler} className='flex gap-4 md:gap-8'>
                         <Input
-                            className="w-[324px]"
+                            className="md:w-[390px] h-11"
                             variant="secondary"
                             placeholder="Search talent by name"
                             id="searchTalent"
@@ -61,6 +61,7 @@ function SearchTalentSection() {
                         <Button
                             variant="primary"
                             type='submit'
+                            className='w-[120px] md:w-[156px]'
                             disabled={isSearchButtonDisabled}
                         >
                             Search

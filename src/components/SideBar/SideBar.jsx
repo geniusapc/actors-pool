@@ -1,22 +1,31 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../features/auth/auth';
+import { ReactComponent as DirectoryIcon } from '../../assets/icons/directory.svg';
+import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
+import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
+import { ReactComponent as ClipboardIcon } from '../../assets/icons/clipboard.svg';
+import { ReactComponent as SettingsIcon } from '../../assets/icons/settings.svg';
+
 const sidebarList = [
-    { id: 1, name: 'Directory', icon: '/icons/directory.svg', href: '/directory' },
-    { id: 2, name: 'Profile', icon: '/icons/user.svg', href: '/profile' },
-    { id: 3, name: 'Messages', icon: '/icons/message.svg', href: '/messages' },
-    { id: 4, name: 'Projects', icon: '/icons/clipboard.svg', href: '/projects' },
-    { id: 5, name: 'Settings', icon: '/icons/settings.svg', href: '/settings' },
+    { id: 1, name: 'Directory', Icon: DirectoryIcon, href: '/directory' },
+    { id: 2, name: 'Profile', Icon: UserIcon, href: '/profile' },
+    { id: 3, name: 'Messages', Icon: MessageIcon, href: '/messages' },
+    { id: 4, name: 'Projects', Icon: ClipboardIcon, href: '/projects' },
+    { id: 5, name: 'Settings', Icon: SettingsIcon, href: '/settings' },
 ];
 
 function SideBar() {
+    const location = useLocation();
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const logoutHandler = () => {
         dispatch(logout());
         navigate('/');
     };
+
     return (
         <aside
             id="logo-sidebar"
@@ -25,17 +34,22 @@ function SideBar() {
         >
             <div className="h-full pb-4 overflow-y-auto bg-white dark:bg-gray-800 flex flex-col justify-between">
                 <ul className="space-y-2 mt-14 font-medium">
-                    {sidebarList.map((item) => (
-                        <li key={item.id}>
-                            <Link
-                                to={item.href}
-                                className="flex flex-row  md:flex-col items-center text-center p-2 mb-4 text-xs text-gray-900 rounded-lg dark:text-white hover:bg-gray-100  dark:hover:bg-gray-700"
-                            >
-                                <img src={item.icon} alt={item.name} />
-                                <span className="ml-3 md:ml-0">{item.name}</span>
-                            </Link>
-                        </li>
-                    ))}
+                    {sidebarList.map(({ id, Icon, name, href }) => {
+                        const stateClass = location?.pathname?.startsWith(href)
+                            ? 'text-primary bg-primary100'
+                            : ' text-gray400';
+                        return (
+                            <li key={id}>
+                                <Link
+                                    to={href}
+                                    className={`flex   flex-row  md:flex-col items-center  p-2 mb-4 text-xs text-gray-900 rounded-lg dark:text-white hover:bg-gray-100  dark:hover:bg-gray-700  ${stateClass}`}
+                                >
+                                    <Icon />
+                                    <span className="ml-3 md:ml-0">{name}</span>
+                                </Link>
+                            </li>
+                        );
+                    })}
                 </ul>
                 <button
                     href="#1"

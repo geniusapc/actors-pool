@@ -5,6 +5,7 @@ import {
     openShareProfileModal,
     openDeleteModal,
 } from '../../features/settings/settings';
+import { ReactComponent as ArrrowNextIcon } from '../../assets/icons/angle-right.svg';
 
 function AccountCard() {
     const dispatch = useDispatch();
@@ -17,21 +18,21 @@ function AccountCard() {
                     onClick={() => dispatch(openChangePasswordModal())}
                 >
                     Password
-                    <img src="/icons/arrow-next.svg" alt="arrow-next" />
+                    <ArrrowNextIcon />
                 </li>
                 <li
                     className="flex justify-between text-gray300 cursor-pointer select-none"
                     onClick={() => dispatch(openShareProfileModal())}
                 >
                     Share profile
-                    <img src="/icons/arrow-next.svg" alt="arrow-next" />
+                    <ArrrowNextIcon />
                 </li>
                 <li
                     className="flex justify-between text-gray300 cursor-pointer select-none"
                     onClick={() => dispatch(openDeleteModal())}
                 >
                     Deactivate or delete account
-                    <img src="/icons/arrow-next.svg" alt="arrow-next" />
+                    <ArrrowNextIcon />
                 </li>
             </ul>
         </div>

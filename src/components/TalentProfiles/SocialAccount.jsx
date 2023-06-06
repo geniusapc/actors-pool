@@ -1,5 +1,5 @@
 import React from "react";
-import SocialAccountCard from "../Cards/SocialAccountCard";
+import SocialAccountCard from "../Profile/Cards/SocialAccountCard";
 
 const socialMediaAccount = [
   {

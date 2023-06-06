@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfileWorkCard from '../Cards/ProfileWorkCard'
+import ProfileWorkCard from '../Profile/Cards/ProfileWorkCard'
 
 function TalentDetailsMovies({ talent }) {
     return (

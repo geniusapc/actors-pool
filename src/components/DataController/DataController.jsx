@@ -8,7 +8,6 @@ function DataController({
     isLoading,
     error,
     emptyComponent: EmptyComponent,
-    children,
     paginate = false,
     data,
     Render,
@@ -23,7 +22,6 @@ function DataController({
     return (
         <>
             <Render data={data} />
-            {children}
             {paginate && <PaginationFooter />}
         </>
     );

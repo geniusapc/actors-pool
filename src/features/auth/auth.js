@@ -31,8 +31,6 @@ export const auth = createSlice({
     },
 
     authenticate: (state, data) => {
-      console.log(data.payload?.data);
-      console.log(data.payload?.data);
       saveUser(data.payload?.data);
       state.isAuthenticated = true;
     },

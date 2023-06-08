@@ -41,7 +41,6 @@ const ProfileWorks = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     try {
-      console.log({ work: workList });
       dispatch(setFormData({ step: step, data: { workList } }));
       dispatch(nextStep());
     } catch (error) {

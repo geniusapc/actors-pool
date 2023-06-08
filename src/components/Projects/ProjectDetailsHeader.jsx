@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
+import { ReactComponent as ArrowLeft } from '../../assets/icons/arrow-left.svg';
+import { ReactComponent as MoreIcon } from '../../assets/icons/more.svg';
 import {
     DELETE_PROJECT_MODAL,
     EDIT_PROJECT_MODAL,
     CLEAR_PROJECT_MODAL,
     openModal,
 } from '../../features/projects/projects';
-import { useNavigate } from 'react-router-dom';
 
 const Header = ({ project }) => {
     const dispatch = useDispatch();
@@ -16,23 +18,25 @@ const Header = ({ project }) => {
 
     const editModeHandler = () => {
         dispatch(openModal(EDIT_PROJECT_MODAL));
-        setToggle(false)
+        setToggle(false);
     };
 
     const removeAllTalentHandler = () => {
         dispatch(openModal(CLEAR_PROJECT_MODAL));
-        setToggle(false)
+        setToggle(false);
     };
     const deleteModeHandler = () => {
         dispatch(openModal(DELETE_PROJECT_MODAL));
-        setToggle(false)
+        setToggle(false);
     };
 
     return (
         <div>
-            <div className="w-full flex" onClick={() => navigate(-1)}>
-                <img src="/icons/arrow-left.svg" alt="" />
-                <button className="ml-4" >Back</button>
+            <div className=" flex space-x-4 ">
+                <div className="inline-flex cursor-pointer space-x-4" onClick={() => navigate(-1)}>
+                    <ArrowLeft />
+                    <button>Back</button>
+                </div>
             </div>
             <div className="flex justify-between mt-8">
                 <p>
@@ -40,10 +44,8 @@ const Header = ({ project }) => {
                 </p>
                 <div className="flex items-center gap-x-4">
                     <Button variant="primary">Download List</Button>
-                    <div className="relative">
-                        <div className="w-8">
-                            <img src="/icons/more.svg" alt="" onClick={() => setToggle((e) => !e)} />
-                        </div>
+                    <div className="relative select-none">
+                        <MoreIcon onClick={() => setToggle((e) => !e)} />
 
                         {toggle && (
                             <div className="absolute top-10 right-1 text-xs w-60 flex flex-col shadow-lg text-left gap-4 px-5 p-3 z-50">

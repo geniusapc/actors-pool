@@ -7,8 +7,21 @@ import TalentDetailsAbout from "../TalentDetails/TalentDetailsAbout";
 import TalentDetailsGallery from "../TalentDetails/TalentDetailsGallery";
 import TalentDetailsMovies from "../TalentDetails/TalentDetailsMovies";
 
+const RenderProfileTab = ({ hash, talent }) => {
+    switch (hash) {
+        case "#gallery":
+            return <TalentDetailsGallery talent={talent} />
+        case "#movies":
+            return <TalentDetailsMovies talent={talent} />
+        default:
+            return <TalentDetailsAbout talent={talent} />
+    }
+}
+
+
 const MyTalentProfile = ({ data: talent }) => {
     let location = useLocation();
+
 
     return (
         <div>
@@ -27,11 +40,7 @@ const MyTalentProfile = ({ data: talent }) => {
                 </div>
                 <div className="w-full shadow-3xl">
                     <TalentDetailsTab hash={location.hash} />
-                    {(location.hash === '#about' || location.hash === '') && (
-                        <TalentDetailsAbout talent={talent} />
-                    )}
-                    {location.hash === '#gallery' && <TalentDetailsGallery talent={talent} />}
-                    {location.hash === '#movies' && <TalentDetailsMovies talent={talent} />}
+                    <RenderProfileTab hash={location.hash} talent={talent} />
                 </div>
             </div>
         </div>

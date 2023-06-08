@@ -7,8 +7,8 @@ const fetchTalent = (q) => {
   return axios.get(`/api/v1/talents?${q}`);
 };
 
-const fetchTalentById = (id) => {
-  return axios.get(`/api/v1/talents/${id}`);
+const fetchTalentByUsername = (username) => {
+  return axios.get(`/api/v1/talents/${username}`);
 };
 const fetchMyTalentProfile = (id) => {
   return axios.get(`/api/v1/talents/my-profile`);
@@ -36,12 +36,12 @@ const useTalentsData = (options) => {
   });
 };
 
-const useTalentsDataByID = (id) => {
-  return useQuery(['talents', id], () => fetchTalentById(id));
+const useTalentsDataByUsername = (username) => {
+  return useQuery(['talent', username], () => fetchTalentByUsername(username));
 };
 
 const useAddTalent = (onError, onSuccess) => {
   return useMutation(addTalentProfile, { onError, onSuccess });
 };
 
-export { useTalentsData, useMyTalentProfile, useTalentsDataByID, useAddTalent };
+export { useTalentsData, useMyTalentProfile, useTalentsDataByUsername, useAddTalent };

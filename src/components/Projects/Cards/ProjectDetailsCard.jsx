@@ -1,29 +1,36 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { SERVER_BASEURL } from "../../../config/keys";
-import Moment from "react-moment";
-import { REMOVE_TALENT_FROM_PROJECT_MODAL, openModal, setTalent } from "../../../features/projects/projects";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { SERVER_BASEURL } from '../../../config/keys';
+import Moment from 'react-moment';
+import { ReactComponent as DeleteIcon } from '../../../assets/icons/delete.svg';
+import {
+    REMOVE_TALENT_FROM_PROJECT_MODAL,
+    openModal,
+    setTalent,
+} from '../../../features/projects/projects';
 
 const ProjectTalentCard = ({ talent }) => {
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const deleteTalentHandler = () => {
-        dispatch(setTalent(talent))
-        dispatch(openModal(REMOVE_TALENT_FROM_PROJECT_MODAL))
+        dispatch(setTalent(talent));
+        dispatch(openModal(REMOVE_TALENT_FROM_PROJECT_MODAL));
     };
 
     return (
-        <div className=" h-[292px] w-full md:w-[292px] relative  bg-black mb-12 pb-8">
-            <div className=" w-full h-full" onClick={() => navigate(`/talent/${talent.username}`)}>
+        <div className="relative">
+            <div
+                className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80"
+                onClick={() => navigate(`/talent/${talent.username}`)}
+            >
                 <img
-                    className="object-contain w-full h-full"
+                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                     src={`${SERVER_BASEURL}${talent.photo}`}
                     alt=""
                 />
             </div>
-            <div className="absolute bottom-0 left-0  pl-4 pb-4 text-left text-[#ffffff] bg-black w-full">
+            <div className="absolute bottom-0 left-0  p-4 text-left text-white w-full  bg-gradient-to-t from-black to-transparent">
                 <p>
                     <span className="mr-2"> {talent.firstname}</span> {talent.lastname}
                 </p>
@@ -35,10 +42,10 @@ const ProjectTalentCard = ({ talent }) => {
                 </p>
             </div>
             <div className="absolute top-2 right-2" onClick={deleteTalentHandler}>
-                <img src="/icons/delete.svg" className="w-8 h-8" alt="" />
+                <DeleteIcon className=" w-12 h-12 text-primary " />
             </div>
         </div>
     );
 };
 
-export default ProjectTalentCard
+export default ProjectTalentCard;

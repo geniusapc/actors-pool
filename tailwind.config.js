@@ -7,7 +7,7 @@ module.exports = {
       current: 'currentColor',
       primary: '#6F55DA',
       white: '#fff',
-      black: '#000',
+    black: '#000',
       gray: '#979797',
       gray200: '#F9F9F9',
       gray300: '#7B7B7B',
@@ -21,5 +21,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };

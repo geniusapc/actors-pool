@@ -17,7 +17,7 @@ import {
 
 const Render = ({ data }) => {
     return (
-        <div className="grid grid-cols-1 items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-y-3 gap-x-2 mt-10">
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {data?.map((talent) => (
                 <ProjectTalentCard key={talent?._id} talent={talent} />
             ))}

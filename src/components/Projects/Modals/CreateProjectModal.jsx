@@ -58,8 +58,9 @@ function CreateProjectModal({ refetch: refetchProjects }) {
         });
     };
 
-    const onError = () => {
-        notifyError("error")
+    const onError = ({ response }) => {
+
+        notifyError(response?.data?.message)
     };
     const onSuccess = () => {
         notifySuccess('Project created successfully');

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg"
 
 function InputWithButton({
     style = {},
@@ -17,7 +18,7 @@ function InputWithButton({
             </label>
             <div className="relative w-full">
                 <button className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <img src="/icons/search.svg" className="w-5 h-5" alt="123" />
+                    <SearchIcon />
                 </button>
                 <input
                     type="search"

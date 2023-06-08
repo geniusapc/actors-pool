@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { REMOVE_TALENT_FROM_PROJECT_MODAL, closeModal, setTalent } from '../../../features/projects/projects';
 import { useDeleteTalentFromProject } from '../../../hooks/useProjectData';
 import { notifyError, notifySuccess } from '../../../utils/notification';
+import { ReactComponent as DeleteIcon } from "../../../assets/icons/delete.svg"
 
 function DeleteProjectTalentModal({ refetchProject }) {
     const params = useParams()
@@ -33,7 +34,7 @@ function DeleteProjectTalentModal({ refetchProject }) {
         <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
             <div className="flex flex-col items-center text-center gap-8">
                 <h2 className="font-bold text-xl">Delete Talent</h2>
-                <img src="/icons/delete.svg" className="w-16 bg-white" alt="delete-icon" />
+                <DeleteIcon />
                 <p className="text-gray300">Are you sure you want to delete this talent? </p>
                 <div className="mt-16 flex gap-2">
                     <Button variant="outlined" className="w-48" onClick={onDeleteTalentHandler} isLoading={isLoading}>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useClearProjectTalents } from '../../../hooks/useProjectData';
 import { notifyError, notifySuccess } from '../../../utils/notification';
+import { ReactComponent as DeleteIcon } from "../../../assets/icons/delete.svg"
 
 function ClearAllTalentFromProjectModal({ refetchProject }) {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ function ClearAllTalentFromProjectModal({ refetchProject }) {
         <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
             <div className="flex flex-col items-center text-center gap-8">
                 <h2 className="font-bold text-xl">Remove All Talents</h2>
-                <img src="/icons/delete.svg" className="w-16 bg-white" alt="delete-icon" />
+                <DeleteIcon />
                 <p className="text-gray300">
                     Are you sure you want to remove all the talents you added to this project?{' '}
                 </p>

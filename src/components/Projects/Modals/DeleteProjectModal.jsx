@@ -6,6 +6,7 @@ import { DELETE_PROJECT_MODAL, closeModal } from '../../../features/projects/pro
 import { useDeleteProject } from '../../../hooks/useProjectData';
 import { useNavigate, useParams } from 'react-router-dom';
 import { notifyError, notifySuccess } from '../../../utils/notification';
+import { ReactComponent as DeleteICon } from "../../../assets/icons/delete.svg"
 
 function DeleteProjectModal() {
     const dispatch = useDispatch();
@@ -34,7 +35,8 @@ function DeleteProjectModal() {
         <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
             <div className="flex flex-col items-center text-center gap-8">
                 <h2 className="font-bold text-xl">Delete Project</h2>
-                <img src="/icons/delete.svg" className="w-16 bg-white" alt="delete-icon" />
+                <DeleteICon />
+
                 <p className="text-gray300">Are you sure you want to delete this project? </p>
 
                 <div className="mt-16 flex gap-2">

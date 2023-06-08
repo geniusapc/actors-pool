@@ -1,5 +1,5 @@
 import axios from '../config/axios';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 
 import qs from 'qs';
 
@@ -12,6 +12,14 @@ const fetchTalentById = (id) => {
 };
 const fetchMyTalentProfile = (id) => {
   return axios.get(`/api/v1/talents/my-profile`);
+};
+
+const addTalentProfile = (data) => {
+  return axios.postForm(`/api/v1/talents/my-profile`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 const useMyTalentProfile = () => {
@@ -32,4 +40,8 @@ const useTalentsDataByID = (id) => {
   return useQuery(['talents', id], () => fetchTalentById(id));
 };
 
-export { useTalentsData, useMyTalentProfile, useTalentsDataByID };
+const useAddTalent = (onError, onSuccess) => {
+  return useMutation(addTalentProfile, { onError, onSuccess });
+};
+
+export { useTalentsData, useMyTalentProfile, useTalentsDataByID, useAddTalent };

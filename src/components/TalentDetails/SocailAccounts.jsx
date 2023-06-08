@@ -1,22 +1,27 @@
 import React from 'react'
+import { ReactComponent as FbIcon } from "../../assets/icons/facebook.svg"
+import { ReactComponent as IgIcon } from "../../assets/icons/instagram.svg"
+import { ReactComponent as TwIcon } from "../../assets/icons/twitter.svg"
+import { ReactComponent as TikTokIcon } from "../../assets/icons/tik-tok.svg"
+import { ReactComponent as SnapchatIcon } from "../../assets/icons/snapchat.svg"
 
 function SocailAccounts({ talent }) {
     return (
         <div className="flex gap-2 mt-5">
             <a href={talent?.socialMedia?.fb}>
-                <img src="/icons/facebook.svg" alt="" />
+                <FbIcon />
             </a>
             <a href={talent?.socialMedia?.ig}>
-                <img src="/icons/instagram.svg" alt="" />
+                <IgIcon />
             </a>
             <a href={talent?.socialMedia?.tw}>
-                <img src="/icons/twitter.svg" alt="" />
+                <TwIcon />
             </a>
             <a href={talent?.socialMedia?.tik}>
-                <img src="/icons/tik-tok.svg" alt="" />
+                <TikTokIcon />
             </a>
             <a href={talent?.socialMedia?.snap}>
-                <img src="/icons/snapchat.svg" alt="" />
+                <SnapchatIcon />
             </a>
         </div>
     )

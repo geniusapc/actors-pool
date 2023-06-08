@@ -11,7 +11,6 @@ const ProfileLayout = ({ children }) => {
   const navigate = useNavigate();
 
   const handlePrevStep = () => {
-    console.log("clicked")
     if (step === 1) navigate(-1);
     else dispatch(previousStep());
   };

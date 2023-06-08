@@ -1,34 +1,17 @@
 import ProfileWorkCard from '../Profile/Cards/ProfileWorkCard';
 import { ReactComponent as AddIcon } from '../../assets/icons/add.svg';
+import AddProfileWork from './AddProfileWork';
 
-
-const workList = [];
-
-const ProfileWorkList = ({ openModal }) => {
-  if (!workList?.length)
-    return (
-      <div className="flex w-full items-center justify-center" onClick={openModal}>
-        <div className=" shadow-3xl flex  space-x-8 rounded-lg h-[142px] w-[400px] items-center p-6">
-          <AddIcon />
-          <div className='flex flex-col'>
-            <span className="text-sm font-semibold mb-2 pr-12 text-primary ">
-              Add a movie you featured in
-            </span>
-            <span>
-              You can add as many movies as possible
-            </span>
-
-          </div>
-        </div>
-      </div>
-    );
-
-
+const ProfileWorkList = ({ openModal, workList }) => {
+  if (!workList?.length) return <AddProfileWork openModal={openModal} />
   return (
-    <div className="grid md:grid-cols-3 grid-cols-1 gap-5 items-center justify-center" onClick={openModal}>
-      <div className=" shadow-3xl flex  rounded-lg h-[84px] px-3 space-x-4 items-center">
+    <div className="grid md:grid-cols-3 grid-cols-1 gap-5 items-center justify-center">
+      <div
+        className="shadow-3xl flex  rounded-lg h-[84px] px-3 space-x-4 items-center cursor-pointer"
+        onClick={() => openModal()}
+      >
         <AddIcon />
-        <span className="text-sm font-semibold mb-2 pr-12 text-primary bg-gray">
+        <span className="text-sm font-semibold mb-2 pr-12 text-primary">
           Add a movie you featured in
         </span>
       </div>

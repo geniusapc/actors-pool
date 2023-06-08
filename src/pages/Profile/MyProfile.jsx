@@ -4,10 +4,10 @@ import { useMyTalentProfile } from '../../hooks/useTalentData';
 import EmptyProfileCard from '../../components/Profile/Cards/EmptyProfileCard';
 import { MyTalentProfile } from '../../components/Profile';
 
-
 function MyProfile() {
     const { data, isLoading, isError, refetch } = useMyTalentProfile();
-    const talent = data?.data?.data
+
+    const talent = data?.data?.data;
 
     return (
         <Layout>
@@ -15,6 +15,7 @@ function MyProfile() {
                 error={isError}
                 refetch={refetch}
                 isLoading={isLoading}
+                data={talent}
                 empty={!talent}
                 Render={MyTalentProfile}
                 emptyComponent={EmptyProfileCard}

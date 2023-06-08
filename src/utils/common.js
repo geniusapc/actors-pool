@@ -16,21 +16,16 @@
  *
  */
 
-export function objectToFormData(obj) {
+export const constructFormData = (data) => {
   const formData = new FormData();
 
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      if (Array.isArray(obj[key])) {
-        // Handle array of images
-        for (let i = 0; i < obj[key].length; i++) {
-          formData.append(`${key}[]`, obj[key][i]);
-        }
-      } else {
-        formData.append(key, obj[key]);
-      }
-    }
-  }
+  // files.forEach((file) => {
+  //   formData.append('files', file);
+  // });
+
+  Object.entries(data).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
 
   return formData;
-}
+};

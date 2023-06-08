@@ -5,27 +5,28 @@ import { useState } from 'react';
 import { coutries } from '../../data/countries';
 import { NGA } from '../../data/states';
 import ActionButtons from './ActionButton';
-import { nextStep } from '../../features/profile/profile';
-import { useDispatch } from 'react-redux';
+import { nextStep, setFormData } from '../../features/profile/profile';
+import { useDispatch, useSelector } from 'react-redux';
 import { personalInfoSchema } from '../../validation/profile';
 import { notifyError } from '../../utils/notification';
 
 const ProfileInformation = () => {
-  const [data, setData] = useState({});
   const dispatch = useDispatch();
+  const step = useSelector((state) => state.createProfile.step);
+  const stages = useSelector((state) => state.createProfile.stages);
+  const prevData = stages[step - 1].data;
+  const [data, setData] = useState(prevData);
 
   const onChangehandler = (e) => {
     const { name, value } = e.target;
-    console.log({ name, value })
     setData((prev) => ({ ...prev, [name]: value }));
   };
-
 
   const onFormSubmitHandler = async (e) => {
     e.preventDefault();
     try {
-      console.log(data)
-      // await personalInfoSchema.validate(data);
+      await personalInfoSchema.validate(data);
+      dispatch(setFormData({ step: step, data: data }));
       dispatch(nextStep());
     } catch (error) {
       notifyError(error?.message);
@@ -67,7 +68,6 @@ const ProfileInformation = () => {
           label="Country of Residence"
           defaultOptionLabel="Please select your country of residence"
           placeholder="What country do you live?"
-
         />
         <SelectInput
           id="state"
@@ -78,7 +78,6 @@ const ProfileInformation = () => {
           label="State of Residence"
           defaultOptionLabel="Please select your state of residence"
           placeholder="Select state"
-
         />
         <SelectInput
           id="gender"
@@ -92,7 +91,6 @@ const ProfileInformation = () => {
           label="Gender"
           defaultOptionLabel="Please select your gender"
           placeholder="Select one"
-
         />
         <Input
           id="dob"

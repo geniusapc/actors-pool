@@ -23,7 +23,7 @@ const MyTalentProfile = ({ data: talent }) => {
             <div className=" flex flex-col md:flex-row w-full gap-8">
                 <div className="w-[308px]">
                     <MyTalentDetailsAside talent={talent} />
-                    <ShareProfileCard className="h-[118px]" />
+                    <ShareProfileCard className="h-[118px]" username={talent?.username} />
                 </div>
                 <div className="w-full shadow-3xl">
                     <TalentDetailsTab hash={location.hash} />

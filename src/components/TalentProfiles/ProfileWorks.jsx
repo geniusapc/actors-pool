@@ -1,28 +1,72 @@
-import React, { useState } from "react";
-import AddProfileWork from "./AddProfileWork";
-import AddProfileWorkForm from "./AddProfileWorkForm";
-import ProfileWorkList from "./ProfileWorkList";
-import Modal from '../Modal/Modal';
-import ActionButtons from "./ActionButton";
-
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import ActionButtons from './ActionButton';
+import ProfileWorkList from './ProfileWorkList';
+import AddProfileWorkModal from './Modal/AddProfileWorkModal';
+import { movieSchema } from '../../validation/profile';
+import { notifyError } from '../../utils/notification';
+import { nextStep, setFormData } from '../../features/profile/profile';
 
 const ProfileWorks = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const dispatch = useDispatch();
+  const step = useSelector((state) => state.createProfile.step)
+  const stages = useSelector((state) => state.createProfile.stages)
+  const preWorkData = stages[step - 1].data?.workList || []
+
+  const [work, setWork] = useState({});
+  const [workList, setWorkList] = useState(preWorkData);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   const onCloseHandler = () => {
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+    setWork({});
+  };
+
+  const onAddWorkHander = async (e) => {
+
+    e.preventDefault();
+    try {
+      await movieSchema.validate(work);
+      setWorkList((e) => [...e, work]);
+      onCloseHandler();
+    } catch (error) {
+      notifyError(error?.message);
+    }
+  };
   const openModal = () => {
-    setIsModalOpen(true)
-  }
+    setIsModalOpen(true);
+  };
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    try {
+      console.log({ work: workList });
+      dispatch(setFormData({ step: step, data: { workList } }));
+      dispatch(nextStep());
+    } catch (error) {
+      notifyError(error?.message);
+    }
+  };
+
+
+
   return (
-    <div>
-      <ProfileWorkList onClick={openModal} />
-      <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
-        <AddProfileWork />
-        <AddProfileWorkForm />
-      </Modal>
-      <ActionButtons />
-    </div>
+    <>
+      <ProfileWorkList openModal={openModal} workList={workList} />
+      <form onSubmit={onSubmitHandler}>
+        <ActionButtons />
+      </form>
+
+      {/* Modal */}
+      <AddProfileWorkModal
+        work={work}
+        setWork={setWork}
+        onAddWorkHander={onAddWorkHander}
+        isModalOpen={isModalOpen}
+        onCloseHandler={onCloseHandler}
+      />
+    </>
   );
 };
 

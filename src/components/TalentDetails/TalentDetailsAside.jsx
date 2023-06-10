@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '../Button/Button';
-import { SERVER_BASEURL } from '../../config/keys';
 import Moment from 'react-moment';
 
 function TalentDetailsAside({ talent }) {
@@ -8,14 +7,14 @@ function TalentDetailsAside({ talent }) {
         <div className=" shadow-3xl mb-8   p-4">
             <div className="h-[308px] w-[298px]">
                 <img
-                    src={`${SERVER_BASEURL}${talent?.photo}`}
+                    src={`${talent?.photo}`}
                     className="h-[308px] w-[298px]"
                     alt={talent?.name}
                 />
             </div>
             <div className="text-xl font-semibold mt-5"> {talent?.name}</div>
             <div className="mt-2.5">
-                {' '}                {talent?.profession}{' '}
+                {talent?.profession}
                 <span className="inline-block w-2 h-2 mr-2 ml-2 bg-white rounded-full"></span> Active since{' '}
                 <Moment format="YYYY">{talent?.activeSince}</Moment>
             </div>
@@ -44,7 +43,7 @@ function TalentDetailsAside({ talent }) {
                     <img src="/icons/snapchat.svg" alt="" />
                 </a>
             </div>
-        </div>
+        </div >
     );
 }
 

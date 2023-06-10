@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { SERVER_BASEURL } from '../../../config/keys';
 import Moment from 'react-moment';
 import { ReactComponent as DeleteIcon } from '../../../assets/icons/delete.svg';
 import {
@@ -26,8 +25,8 @@ const ProjectTalentCard = ({ talent }) => {
             >
                 <img
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                    src={`${SERVER_BASEURL}${talent.photo}`}
-                    alt=""
+                    src={`${talent.photo}`}
+                    alt={talent.firstname}
                 />
             </div>
             <div className="absolute bottom-0 left-0  p-4 text-left text-white w-full  bg-gradient-to-t from-black to-transparent">

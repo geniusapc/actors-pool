@@ -1,7 +1,18 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 function ShareProfileCard({ className, username }) {
-  const copyProfileHandler = () => {};
+
+  const [profileLink, setProfileLink] = useState()
+  useEffect(() => {
+    const origin = window.location.origin;
+    const tempLink = `${origin}/talent/${username}`
+    setProfileLink(tempLink)
+
+  }, [username])
+  const copyProfileHandler = () => { };
   return (
     <div className={`shadow-3xl p-4 rounded space-y-4 ${className}`}>
       <p className="text-sm text-gray300">Your profile link</p>
@@ -13,7 +24,10 @@ function ShareProfileCard({ className, username }) {
             onClick={copyProfileHandler}
           >
             <div className="w-3 h-3 bg-primary"></div>
-            <span className="text-primary">copy</span>
+
+            <CopyToClipboard text={profileLink} onCopy={() => alert("Copied")}>
+              <span className="text-primary">copy</span>
+            </CopyToClipboard>
           </div>
         </div>
       )}

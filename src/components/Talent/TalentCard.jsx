@@ -24,7 +24,7 @@ const TalentCard = ({ talent }) => {
             >
                 <img
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                    src={`${SERVER_BASEURL}${talent.photo}`}
+                    src={`${talent.photo}`}
                     alt=""
                 />
             </div>

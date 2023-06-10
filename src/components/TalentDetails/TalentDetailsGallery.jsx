@@ -11,7 +11,7 @@ function TalentDetailsGallery({ talent }) {
                 >
                     <img
                         className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                        src={`${SERVER_BASEURL}${e?.photo}`}
+                        src={`${e?.photo}`}
                         alt={talent?.name}
                     />
                 </div>

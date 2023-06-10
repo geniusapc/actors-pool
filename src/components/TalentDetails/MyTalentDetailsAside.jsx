@@ -1,5 +1,4 @@
 import React from 'react';
-import { SERVER_BASEURL } from '../../config/keys';
 import Moment from 'react-moment';
 import SocailAccounts from './SocailAccounts';
 
@@ -8,7 +7,7 @@ function MyTalentDetailsAside({ talent }) {
         <div className=" shadow-3xl mb-8   p-4">
             <div className="h-[308px] w-[298px]">
                 <img
-                    src={`${SERVER_BASEURL}${talent?.photo}`}
+                    src={`${talent?.photo}`}
                     className="h-[308px] w-[298px]"
                     alt={talent?.name}
                 />

@@ -6,7 +6,7 @@ import Button from '../../Button/Button';
 import { useEffect } from 'react';
 import Moment from 'react-moment';
 import Empty from '../../DataController/Empty';
-import { SERVER_BASEURL } from '../../../config/keys';
+
 
 function TemporaryProjectModal() {
     const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function TemporaryProjectModal() {
                         <ul className="flex flex-col mt-8 gap-y-5 max-h-96 overflow-y-scroll">
                             {tempProject?.map((talent) => (
                                 <li className="h-12 flex" key={talent?._id}>
-                                    <img src={`${SERVER_BASEURL}${talent?.photo}`} className="h-12 w-12 mr-2" alt="" />
+                                    <img src={`${talent?.photo}`} className="h-12 w-12 mr-2" alt="" />
                                     <div className="flex flex-col">
                                         <p className="text-black font-medium">
                                             <span>{talent?.firstname}</span> <span>{talent?.lastname}</span>

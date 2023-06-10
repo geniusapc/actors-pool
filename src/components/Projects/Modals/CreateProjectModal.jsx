@@ -5,9 +5,7 @@ import Button from '../../Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { CREATE_PROJECT_MODAL, closeModal } from '../../../features/projects/projects';
 import { useTalentsData } from '../../../hooks/useTalentData';
-
 import AsyncSelect from 'react-select/async';
-import { SERVER_BASEURL } from '../../../config/keys';
 import { useAddProject } from '../../../hooks/useProjectData';
 import { notifyError, notifySuccess } from '../../../utils/notification';
 
@@ -32,7 +30,7 @@ function CreateProjectModal({ refetch: refetchProjects }) {
         return data?.map((e) => ({
             label: (
                 <div className="flex">
-                    <img src={`${SERVER_BASEURL}${e?.photo}`} alt="" className="w-8 h-8 mr-2" />
+                    <img src={`${e?.photo}`} alt={e.firstname} className="w-8 h-8 mr-2" />
                     <span> {`${e?.firstname} ${e?.lastname}`}</span>
                 </div>
             ),

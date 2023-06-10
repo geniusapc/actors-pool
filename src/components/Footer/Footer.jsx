@@ -1,11 +1,12 @@
 import React from 'react'
+import { ReactComponent as Logo } from "../../assets/icons/logo.svg"
 
 function Footer() {
     return (
         <div className=''>
             <div className='container mx-auto px-4 flex flex-col md:flex-row'>
                 <div className='w-full md:w-2/5'>
-                    <p className='text-xl pb-4 md:pb-8 flex gap-4'> <img src="images/actors-pool-logo.svg" alt="logo" /> Actor’s Pool</p>
+                    <p className='text-xl pb-4 md:pb-8 flex gap-4'>    <Logo /> Actor’s Pool</p>
                     <p>© Actors Pool LLC 2022</p>
                 </div>
                 <div className='flex flex-col gap-8 mt-10 md:mt-0 md:flex-row justify-between w-3/5'>

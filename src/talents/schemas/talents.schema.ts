@@ -67,11 +67,12 @@ export class Talent {
   about: string;
 
   @Prop(
-    raw({
-      id: { type: String },
-      title: { type: String },
-      date: { type: Date },
-    }),
+    raw([
+      {
+        title: { type: String },
+        year: { type: Date, default: null },
+      },
+    ]),
   )
   movies: IMovie[];
 

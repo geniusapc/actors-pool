@@ -77,7 +77,6 @@ export class TalentsController {
     };
 
     const talent = await this.talentsService.create(payload);
-    await this.userService.addProfile(userId, talent?._id?.toString());
     const message = 'Talent created successfully';
     const response = new ResponseDTO(HttpStatus.OK, message, talent);
     return response.send(res);

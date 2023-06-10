@@ -45,9 +45,11 @@ export class TalentsController {
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
+    const urls = await this.talentsService.uploadGallery(files.gallery);
+
     const payload = {
       ...createTalentDto,
-      gallery: files?.gallery,
+      gallery: urls,
     };
 
     const talent = await this.talentsService.create(payload);
@@ -69,11 +71,12 @@ export class TalentsController {
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
+    const urls = await this.talentsService.uploadGallery(files.gallery);
     const userId = req?.user?._id;
     const payload = {
       ...createTalentDto,
       userId,
-      gallery: files?.gallery,
+      gallery: urls,
     };
 
     const talent = await this.talentsService.create(payload);

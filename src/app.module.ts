@@ -17,9 +17,7 @@ import { ProjectsModule } from './projects/projects.module';
       rootPath: join(__dirname, '..', 'uploads'),
     }),
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(
-      'mongodb+srv://geniusapc:geniusapc@cluster0.o5olz.mongodb.net/actors-pool?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.MONGODB_URL as string),
     UsersModule,
     AuthModule,
     TalentsModule,

@@ -4,6 +4,7 @@ import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg"
 function InputWithButton({
     style = {},
     hideBtn = false,
+    value,
     placeHolder = 'Search',
     onSubmit = () => { },
     onChange = () => { },
@@ -23,6 +24,7 @@ function InputWithButton({
                 <input
                     type="search"
                     onChange={onChange}
+                    value={value}
                     id="search"
                     className={`block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ${style.input}`}
                     placeholder={placeHolder}

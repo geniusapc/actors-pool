@@ -40,7 +40,7 @@ function TalentDetails() {
     }, [data]);
 
     return (
-        <Layout>
+        <Layout isAuthRequired={false}>
             <DataController
                 isLoading={isLoading}
                 empty={!talent}

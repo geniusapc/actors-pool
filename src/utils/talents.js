@@ -20,6 +20,7 @@ class TalentUtils {
       photo: talent?.photo,
       profession: talent?.profession,
       activeSince: talent?.activeSince,
+      gallery: talent?.gallery || [],
     };
 
     let talents = TalentUtils.getProject();

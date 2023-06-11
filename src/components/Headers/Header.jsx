@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import InputWithButton from '../Input/InputWithButton';
 import { ReactComponent as HamBugerIcon } from "../../assets/icons/hamburger.svg"
@@ -13,7 +13,11 @@ function Header({ showTalentHidden = false }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [talentSearchValue, setTalentSearchValue] = useState();
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const paramValue = params.get('q');
+
+    const [talentSearchValue, setTalentSearchValue] = useState(paramValue);
 
     const onChangeSearchTalent = (e) => setTalentSearchValue(e.target.value);
 

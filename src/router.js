@@ -8,12 +8,14 @@ import ProjectDetails from './pages/Projects/ProjectDetails';
 import Settings from './pages/Settings';
 import MyProfile from './pages/Profile/MyProfile';
 import CreateProfile from './pages/Profile/CreateProfile';
+import Pdf from './pages/ViewPDF';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Landing />,
   },
+
   {
     path: 'directory',
     element: <Directory />,
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: 'projects',
     element: <Projects />,
+  },
+  {
+    path: 'projects-talents/download',
+    element: <Pdf />,
   },
   {
     path: 'projects/:id',

@@ -1,5 +1,4 @@
 import React from 'react';
-import { SERVER_BASEURL } from '../../config/keys';
 
 function TalentDetailsGallery({ talent }) {
     return (

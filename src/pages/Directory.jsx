@@ -11,7 +11,7 @@ function Directory() {
     const params = new URLSearchParams(location.search);
     const paramValue = params.get('q');
     const query = {
-        select: 'photo,firstname,lastname,profession,activeSince,username',
+        select: 'photo,gallery,firstname,lastname,profession,activeSince,username',
         q: paramValue,
     };
 
@@ -24,6 +24,7 @@ function Directory() {
             <DataController
                 isLoading={isLoading}
                 error={error}
+                empty={!talents?.length}
                 refetch={refetch}
                 data={talents}
                 Render={AllTalents}

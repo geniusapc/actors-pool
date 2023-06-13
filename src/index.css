@@ -27,3 +27,39 @@ code {
   display: inline-block;
   margin: auto 6px;
 }
+
+/*--start checkbox */
+
+.toggle {
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 10px;
+  position: relative;
+  transition: background-color 0.3s;
+  margin: auto;
+}
+
+.toggle::before {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s;
+}
+
+.checkbox-container input:checked + .toggle {
+  background-color: #2196f3;
+}
+
+.checkbox-container input:checked + .toggle::before {
+  transform: translateX(20px);
+}
+
+/* --end checkbox */

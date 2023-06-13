@@ -7,6 +7,7 @@ import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
 import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
 import { ReactComponent as ClipboardIcon } from '../../assets/icons/clipboard.svg';
 import { ReactComponent as SettingsIcon } from '../../assets/icons/settings.svg';
+import { ReactComponent as LogoutIcon } from '../../assets/icons/logout.svg';
 
 const sidebarList = [
     { id: 1, name: 'Directory', Icon: DirectoryIcon, href: '/directory' },
@@ -56,7 +57,7 @@ function SideBar() {
                     onClick={logoutHandler}
                     className="flex flex-row md:flex-col items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-                    <img src="icons/logout.svg" alt="" />
+                    <LogoutIcon />
                 </button>
             </div>
         </aside>

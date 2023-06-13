@@ -7,13 +7,15 @@ module.exports = {
       current: 'currentColor',
       primary: '#6F55DA',
       white: '#fff',
-    black: '#000',
+      black: '#000',
+      black100: '#040503',
       gray: '#979797',
       gray200: '#F9F9F9',
       gray300: '#7B7B7B',
       gray400: '#B3B3B3',
       primary100: 'rgba(111, 85, 218, 0.1)',
       border100: 'rgba(151, 151, 151, 0.5)',
+      green100:`#35A333`
     },
     extend: {
       boxShadow: {

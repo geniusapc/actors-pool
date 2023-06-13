@@ -6,6 +6,7 @@ import Messages from './pages/Messages';
 import Projects from './pages/Projects/Projects';
 import ProjectDetails from './pages/Projects/ProjectDetails';
 import Settings from './pages/Settings';
+import TermsAndCondition from './pages/TermsAndCondition';
 import MyProfile from './pages/Profile/MyProfile';
 import CreateProfile from './pages/Profile/CreateProfile';
 import Pdf from './pages/ViewPDF';
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
   {
     path: 'settings',
     element: <Settings />,
+  },
+  {
+    path: 'settings/terms-and-conditions',
+    element: <TermsAndCondition />,
   },
 ]);
 

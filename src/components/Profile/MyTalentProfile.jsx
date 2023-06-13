@@ -6,6 +6,8 @@ import TalentDetailsTab from "../TalentDetails/TalentDetailsTab";
 import TalentDetailsAbout from "../TalentDetails/TalentDetailsAbout";
 import TalentDetailsGallery from "../TalentDetails/TalentDetailsGallery";
 import TalentDetailsMovies from "../TalentDetails/TalentDetailsMovies";
+import CheckButton from "../Button/CheckButton";
+import { useState } from "react";
 
 const RenderProfileTab = ({ hash, talent }) => {
     switch (hash) {
@@ -21,13 +23,20 @@ const RenderProfileTab = ({ hash, talent }) => {
 
 const MyTalentProfile = ({ data: talent }) => {
     let location = useLocation();
+    const [isProfileVisible, setIsProfileVisible] = useState(false)
+
+    const onClickProfileVisibility = (e) => {
+        setIsProfileVisible(e.target.checked)
+
+    }
 
 
     return (
         <div>
             <div className="hidden w-full items-center md:flex justify-end gap-8 mb-3">
                 <div>
-                    <input type="checkbox" name="" id="" checked /> Make Profile Visible
+                    <CheckButton text="Make Profile Visible" isChecked={isProfileVisible} onClick={onClickProfileVisibility} />
+
                 </div>
                 <Button variant="outlined">Hide Specific Details</Button>
                 <Button variant="primary">Edit Profile</Button>

@@ -27,6 +27,13 @@ function SideBar() {
         navigate('/');
     };
 
+
+    const isActive = href => {
+        return location?.pathname?.startsWith(href)
+            ? 'text-primary bg-primary100  border-r-2 '
+            : ' text-gray400';
+    }
+
     return (
         <aside
             id="logo-sidebar"
@@ -36,14 +43,12 @@ function SideBar() {
             <div className="h-full pb-4 overflow-y-auto bg-white dark:bg-gray-800 flex flex-col justify-between">
                 <ul className="space-y-2 mt-14 font-medium">
                     {sidebarList.map(({ id, Icon, name, href }) => {
-                        const stateClass = location?.pathname?.startsWith(href)
-                            ? 'text-primary bg-primary100'
-                            : ' text-gray400';
+
                         return (
                             <li key={id}>
                                 <Link
                                     to={href}
-                                    className={`flex   flex-row  md:flex-col items-center  p-2 mb-4 text-xs text-gray-900 rounded-lg dark:text-white hover:bg-gray-100  dark:hover:bg-gray-700  ${stateClass}`}
+                                    className={`flex   flex-row  md:flex-col items-center  p-2 mb-4 text-xs text-gray-900  dark:text-white hover:bg-gray-100  dark:hover:bg-gray-700  ${isActive(href)}`}
                                 >
                                     <Icon />
                                     <span className="ml-3 md:ml-0">{name}</span>

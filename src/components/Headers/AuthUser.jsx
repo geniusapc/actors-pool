@@ -1,7 +1,7 @@
 import React from 'react';
 import { useProfileData } from '../../hooks/useUserData';
 import { useDispatch } from 'react-redux';
-import { logout } from '../../features/auth/auth';
+import { logout, openSignInModal } from '../../features/auth/auth';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -13,7 +13,7 @@ function AuthUser() {
     const dispatch = useDispatch();
     const [user, setUser] = useState({});
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { data } = useProfileData();
+    const { data, isError, error, } = useProfileData();
 
     const logoutHandler = () => {
         dispatch(logout());
@@ -23,9 +23,21 @@ function AuthUser() {
     useEffect(() => {
         const response = data?.data?.data;
         if (response) {
+
             setUser(response);
         }
     }, [data]);
+
+
+    useEffect(() => {
+        if (error?.response?.status === 401) {
+            dispatch(openSignInModal())
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isError])
+
+
+
 
     return (
         <div>

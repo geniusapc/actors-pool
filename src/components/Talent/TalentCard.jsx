@@ -32,8 +32,8 @@ const TalentCard = ({ talent }) => {
                     <span className="mr-2"> {talent.firstname}</span> {talent.lastname}
                 </p>
                 <p>
-                    <span className="capitalize mr-2">{talent.profession}</span>
-                    <span className="inline-block w-2 h-2 mr-2 ml-2 bg-white rounded-full"></span>
+                    <span className="capitalize">{talent.profession}</span>
+                    <span className="inline-block w-1.5 h-1.5 mr-2.5 ml-2.5 bg-white rounded-full"></span>
                     <span className="mr-2">Active since</span>
                     <Moment format="YYYY">{talent.activeSince}</Moment>
                 </p>

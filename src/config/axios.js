@@ -8,4 +8,8 @@ const instance = axios.create({
 
 instance.defaults.headers.common['Authorization'] = UserUtils.getUserToken();
 
+export function setDefaultHeader() {
+  instance.defaults.headers.common['Authorization'] = UserUtils.getUserToken();
+}
+
 export default instance;

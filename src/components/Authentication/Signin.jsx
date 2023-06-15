@@ -8,12 +8,16 @@ import { notifySuccess, notifyError } from '../../utils/notification';
 import { useNavigate } from 'react-router-dom';
 import { useSignIn } from '../../hooks/useAuthData';
 import { useLocation } from "react-router-dom"
+import { useProfileData } from '../../hooks/useUserData';
+import { setDefaultHeader } from '../../config/axios';
+
 
 
 function Signin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation()
+    const { refetch } = useProfileData();
 
     const [data, setData] = useState({});
     const isModalOpen = useSelector((state) => state.auth.isSignInModalOpen);
@@ -37,12 +41,14 @@ function Signin() {
         notifyError(response?.data?.message);
     };
 
-    const onSuccess = ({ data }) => {
+    const onSuccess = async ({ data }) => {
         const redirectUrl = (location.pathname === "/") ? "/directory" : location.pathname
         dispatch(authenticate(data));
-        navigate(redirectUrl);
-        notifySuccess(data?.message || 'success');
+        setDefaultHeader()
+        refetch()
+        notifySuccess('success');
         onCloseHandler()
+        navigate(redirectUrl);
     };
 
     const { mutate: signIn, isLoading } = useSignIn(onError, onSuccess);

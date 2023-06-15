@@ -11,7 +11,7 @@ function HelpCard() {
                 <li className="flex justify-between text-gray300 cursor-pointer">
                     Contact us <ArrrowNextIcon />
                 </li>
-                <li className="flex justify-between text-gray300 cursor-pointer">
+                <li className="flex justify-between text-gray300 cursor-pointer" onClick={() => navigate("/settings/faq")}>
                     Frequently asked questions <ArrrowNextIcon />
                 </li>
                 <li className="flex justify-between text-gray300 cursor-pointer" onClick={() => navigate("/settings/terms-and-conditions")}>

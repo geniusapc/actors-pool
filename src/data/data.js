@@ -16,4 +16,21 @@ export const termsAndCondition = {
   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eos nulla autem ullam culpa, cum similique dolor earum nostrum saepe mollitia facilis ad aliquam quasi corporis laboriosam excepturi, quas accusantium natus.`,
 };
 
-
+export const faq = [
+  {
+    question: 'Question 1',
+    answer: 'Answer 1',
+  },
+  {
+    question: 'Question 2',
+    answer: 'Answer 2',
+  },
+  {
+    question: 'Question 3',
+    answer: 'Answer 3',
+  },
+  {
+    question: 'Question 4',
+    answer: 'Answer 4',
+  },
+];

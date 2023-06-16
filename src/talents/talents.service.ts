@@ -1,18 +1,34 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  Logger,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { Talent } from './schemas/talents.schema';
 import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import {
-  ICreateTalentMulterFiles,
-  IGetTalentByIdQuery,
-  IGetTalentQuery,
-} from './interfaces';
+import { IGetTalentByIdQuery, IGetTalentQuery } from './interfaces';
 import { CreateTalentDto } from './dto/create-talent.dto';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
+import * as cloudinary from 'cloudinary';
+import { UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
+import * as fs from 'fs';
+import { UpdateTalentDto } from './dto/update-talent.dto';
 
-type CreateTalent = CreateTalentDto &
-  ICreateTalentMulterFiles & { userId?: string };
+const cloudinaryV2 = cloudinary.v2;
+
+cloudinaryV2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+type CreateTalent = CreateTalentDto & {
+  userId?: string;
+  gallery: { photo: string }[];
+};
 
 @Injectable()
 export class TalentsService {
@@ -20,6 +36,7 @@ export class TalentsService {
     @InjectModel(Talent.name) private readonly talentModel: Model<Talent>,
   ) {}
 
+  private readonly logger = new Logger(TalentsService.name);
   static storageOption() {
     return diskStorage({
       destination: './uploads/gallery',
@@ -34,6 +51,37 @@ export class TalentsService {
   static generateRandomUsername(name: string) {
     const randomDigit = Math.floor(Math.random() * 10000).toString();
     return name?.toLowerCase() + randomDigit;
+  }
+
+  async uploadImage(path: string, folder = ''): Promise<UploadApiResponse> {
+    return new Promise((resolve, reject) => {
+      cloudinaryV2.uploader.upload(
+        path,
+        { public_id: uuidv4(), folder: folder },
+        function (error: UploadApiErrorResponse, result: UploadApiResponse) {
+          if (error) reject(error?.message);
+          resolve(result);
+        },
+      );
+    });
+  }
+
+  async uploadGallery(files: Array<Express.Multer.File>) {
+    const urls = [];
+    for (const file of files) {
+      const { path } = file;
+      try {
+        const newPath = await this.uploadImage(path, 'gallery');
+        urls.push({ photo: newPath?.secure_url });
+        fs.unlinkSync(path);
+      } catch (error) {
+        this.logger.error(error);
+        throw new UnprocessableEntityException(
+          'We encoutered an issue uploading your gallery',
+        );
+      }
+    }
+    return urls;
   }
 
   async generateUsername(name: string) {
@@ -56,32 +104,46 @@ export class TalentsService {
   }
 
   async create(createTalentDto: CreateTalent) {
-    const gallery = createTalentDto?.gallery?.map((e) => ({
-      photo: `/gallery/${e.filename}`,
-    }));
-
     const username = await this.generateUsername(createTalentDto.firstname);
 
     const payload = {
-      firstname: createTalentDto.firstname,
-      lastname: createTalentDto.lastname,
       username: username,
-      userId: createTalentDto.userId,
-      phoneNumber: createTalentDto.phoneNumber,
-      country: createTalentDto.country,
-      state: createTalentDto.state,
       dob: createTalentDto.dob,
       about: createTalentDto.about,
+      state: createTalentDto.state,
+      movies: createTalentDto.movies,
+      userId: createTalentDto.userId,
+      gallery: createTalentDto.gallery,
+      country: createTalentDto.country,
+      lastname: createTalentDto.lastname,
+      firstname: createTalentDto.firstname,
+      phoneNumber: createTalentDto.phoneNumber,
       profession: createTalentDto.profession,
       activeSince: createTalentDto.activeSince,
-      photo: gallery && gallery[0]?.photo,
-      gallery: gallery,
+      photo: createTalentDto?.gallery[0]?.photo,
       socialMedia: createTalentDto.socialMedia,
-      movies: createTalentDto.movies,
     };
 
     const talent = await this.talentModel.create(payload);
     return talent;
+  }
+
+  async userHasPermissionToUpdate(
+    userId: string,
+    talentId: string,
+  ): Promise<void> {
+    const hasPermissiion = await this.talentModel.findOne({
+      _id: talentId,
+      userId,
+    });
+    if (!hasPermissiion)
+      throw new ForbiddenException(
+        "You don't have permission to update this profile",
+      );
+  }
+
+  async updateProfile(userId: string, updateProfileDto: UpdateTalentDto) {
+    return this.talentModel.updateOne({ _id: userId }, updateProfileDto);
   }
 
   async findAll({ query }: { query: IGetTalentQuery | undefined }) {
@@ -128,7 +190,6 @@ export class TalentsService {
 
   async findById(id: string, options?: IGetTalentByIdQuery) {
     const queryBuilder = this.talentModel.findById(id);
-
     // filter/select
     if (options?.select) queryBuilder.select(options?.select.split(','));
     return queryBuilder.exec();

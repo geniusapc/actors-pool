@@ -1,7 +1,6 @@
-import { Type, Transform } from 'class-transformer';
+import { Type } from 'class-transformer';
 import {
-  // IsArray,
-  // IsDateString,
+  IsArray,
   IsNotEmpty,
   IsNotEmptyObject,
   IsNumber,
@@ -54,7 +53,6 @@ export class CreateTalentDto {
   readonly profession: string;
 
   @IsOptional()
-  // @IsDateString()
   readonly dob?: Date;
 
   @IsNotEmpty()
@@ -70,13 +68,7 @@ export class CreateTalentDto {
   @Type(() => SocailMediaDTO)
   socialMedia!: SocailMediaDTO;
 
-  // @IsArray()
-  @ValidateIf((object, value) => {
-    return typeof value !== 'undefined';
-  })
-  @Transform((value) => {
-    return value;
-  })
-  @ValidateNested({ each: true })
+  @IsArray()
+  @IsOptional()
   movies!: MoviesDTO[];
 }

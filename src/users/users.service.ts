@@ -37,12 +37,4 @@ export class UsersService {
     const userDeleted = await this.userModel.findOneAndDelete({ _id: userId });
     if (!userDeleted) throw new BadRequestException('Invalid user');
   }
-
-  async addProfile(userId: string, talentId: string): Promise<void> {
-    const userDeleted = await this.userModel.updateOne(
-      { _id: userId },
-      { talentId: talentId },
-    );
-    if (!userDeleted) throw new BadRequestException('Invalid user');
-  }
 }

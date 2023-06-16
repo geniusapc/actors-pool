@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Patch,
   Body,
   UseInterceptors,
   UploadedFiles,
@@ -9,7 +10,6 @@ import {
   Query,
   HttpCode,
   HttpStatus,
-  Res,
   Req,
 } from '@nestjs/common';
 import { TalentsService } from './talents.service';
@@ -18,20 +18,18 @@ import { Public } from 'src/auth/decorators/meta';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { IGetTalentQuery, ICreateTalentMulterFiles } from './interfaces';
 import { CreateTopTalentDto } from './dto/create-top-talent.dto';
-import { ResponseDTO } from 'src/response.dto';
-import { Request, Response } from 'express';
-import { UsersService } from 'src/users/users.service';
+import { Request } from 'express';
+import { UpdateTalentDto } from './dto/update-talent.dto';
+import { TransformResponseInterceptor } from 'src/response.interceptor';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
 @Controller({ path: '/talents', version: '1' })
+@UseInterceptors(TransformResponseInterceptor)
 export class TalentsController {
-  constructor(
-    private readonly talentsService: TalentsService,
-    private readonly userService: UsersService,
-  ) {}
+  constructor(private readonly talentsService: TalentsService) {}
 
-  //  admin create project
+  // _____________________________________________________________ Add Talent Profile _____________________________________________
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(
     FileFieldsInterceptor(createTalentFileInterceptor, {
@@ -40,20 +38,17 @@ export class TalentsController {
   )
   @Post('')
   async createPoject(
-    @Req() req: Request,
-    @Res() res: Response,
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
+    const urls = await this.talentsService.uploadGallery(files.gallery);
+
     const payload = {
       ...createTalentDto,
-      gallery: files?.gallery,
+      gallery: urls,
     };
 
-    const talent = await this.talentsService.create(payload);
-    const message = 'Talent created successfully';
-    const response = new ResponseDTO(HttpStatus.OK, message, talent);
-    return response.send(res);
+    return this.talentsService.create(payload);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -65,64 +60,69 @@ export class TalentsController {
   @Post('my-profile')
   async create(
     @Req() req: Request,
-    @Res() res: Response,
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
+    const urls = await this.talentsService.uploadGallery(files.gallery);
     const userId = req?.user?._id;
     const payload = {
       ...createTalentDto,
       userId,
-      gallery: files?.gallery,
+      gallery: urls,
     };
 
-    const talent = await this.talentsService.create(payload);
-    await this.userService.addProfile(userId, talent?._id?.toString());
-    const message = 'Talent created successfully';
-    const response = new ResponseDTO(HttpStatus.OK, message, talent);
-    return response.send(res);
+    return this.talentsService.create(payload);
   }
 
-  //  Get my profile
-  @Get('my-profile')
-  async myProfile(@Req() req: Request, @Res() res: Response) {
-    const talent = await this.talentsService.findOne({
-      userId: req?.user?._id,
-    });
-
-    const message = 'Profile retrieved successfully';
-    const response = new ResponseDTO(HttpStatus.OK, message, talent);
-    return response.send(res);
-  }
-
-  //  Get Talent
+  // _____________________________________________________________ Get Talent Profile _____________________________________________
   @Public()
   @Get()
-  async get(
-    @Res() res: Response,
-    @Query() query?: IGetTalentQuery | undefined,
+  async get(@Query() query?: IGetTalentQuery | undefined) {
+    return this.talentsService.findAll({ query: query });
+  }
+
+  @Get('my-profile')
+  async myProfile(@Req() req: Request) {
+    return this.talentsService.findOne({
+      userId: req?.user?._id,
+    });
+  }
+
+  // _____________________________________________________________ Edit Talent Profile _____________________________________________
+  @UseInterceptors(
+    FileFieldsInterceptor(createTalentFileInterceptor, {
+      storage: TalentsService.storageOption(),
+    }),
+  )
+  @Patch(':id')
+  async editTalentProfile(
+    @Req() req: Request,
+    @Param('id') talentId: string,
+    @Body() updateTalentDTO: UpdateTalentDto,
   ) {
-    const talents = await this.talentsService.findAll({ query: query });
-    const message = 'Talents retrieved successfully';
-    const response = new ResponseDTO(HttpStatus.OK, message, talents);
-    return response.send(res);
+    const userId = req?.user?._id;
+    await this.talentsService.userHasPermissionToUpdate(userId, talentId);
+    await this.talentsService.updateProfile(talentId, updateTalentDTO);
+    return null;
   }
 
-  //  Get Top blazzers
+  // _____________________________________________________________ Blazzers _____________________________________________
   @Public()
-  @Post()
-  async addTopBlazzers() {
-    return '';
+  @Get('blazzers')
+  async getBlazzers() {
+    return await this.talentsService.getTopTalents();
   }
 
-  @Public()
-  @Get('top-talent')
-  async getTopTalent(@Res() res: Response) {
-    const topTalents = await this.talentsService.getTopTalents();
-    const message = 'Top talents retrieved successfully';
-    const response = new ResponseDTO(HttpStatus.OK, message, topTalents);
-    return response.send(res);
-  }
+  // @Post('top-blazzers')
+  // async addTopBlazzers(@Body() createTopTalentDto: CreateTopTalentDto) {
+  //   const topTalents = await this.talentsService.addBlazzers(
+  //     createTopTalentDto?.talentIds,
+  //   );
+
+  //   return topTalents;
+  // }
+
+  // _____________________________________________________________ Top Talents _____________________________________________
 
   @Public()
   @Post('top-talent')
@@ -135,14 +135,15 @@ export class TalentsController {
   }
 
   @Public()
+  @Get('top-talent')
+  async getTopTalent() {
+    return await this.talentsService.getTopTalents();
+  }
+
+  // _________________________________________________________Get user by username _____________________________________________
+  @Public()
   @Get('/:username')
-  async getTalentById(
-    @Res() res: Response,
-    @Param('username') username: string,
-  ) {
-    const talent = await this.talentsService.findOne({ username: username });
-    const message = 'Talent retrieved successfully';
-    const response = new ResponseDTO(HttpStatus.OK, message, talent);
-    return response.send(res);
+  async getTalentByUsername(@Param('username') username: string) {
+    return this.talentsService.findOne({ username: username });
   }
 }

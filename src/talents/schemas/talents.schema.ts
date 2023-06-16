@@ -51,6 +51,12 @@ export class Talent {
   @Prop({ trim: true, default: null })
   activeSince: Date;
 
+  @Prop({ default: true })
+  recieveDirectMessage: boolean;
+
+  @Prop({ default: true })
+  isProfileVisible: boolean;
+
   @Prop({})
   photo: string;
 
@@ -67,11 +73,12 @@ export class Talent {
   about: string;
 
   @Prop(
-    raw({
-      id: { type: String },
-      title: { type: String },
-      date: { type: Date },
-    }),
+    raw([
+      {
+        title: { type: String },
+        year: { type: Date, default: null },
+      },
+    ]),
   )
   movies: IMovie[];
 

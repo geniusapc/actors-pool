@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   Logger,
   UnprocessableEntityException,
@@ -14,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as cloudinary from 'cloudinary';
 import { UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
 import * as fs from 'fs';
+import { UpdateTalentDto } from './dto/update-talent.dto';
 
 const cloudinaryV2 = cloudinary.v2;
 
@@ -105,25 +107,43 @@ export class TalentsService {
     const username = await this.generateUsername(createTalentDto.firstname);
 
     const payload = {
-      firstname: createTalentDto.firstname,
-      lastname: createTalentDto.lastname,
       username: username,
-      userId: createTalentDto.userId,
-      phoneNumber: createTalentDto.phoneNumber,
-      country: createTalentDto.country,
-      state: createTalentDto.state,
       dob: createTalentDto.dob,
       about: createTalentDto.about,
+      state: createTalentDto.state,
+      movies: createTalentDto.movies,
+      userId: createTalentDto.userId,
+      gallery: createTalentDto.gallery,
+      country: createTalentDto.country,
+      lastname: createTalentDto.lastname,
+      firstname: createTalentDto.firstname,
+      phoneNumber: createTalentDto.phoneNumber,
       profession: createTalentDto.profession,
       activeSince: createTalentDto.activeSince,
       photo: createTalentDto?.gallery[0]?.photo,
-      gallery: createTalentDto.gallery,
       socialMedia: createTalentDto.socialMedia,
-      movies: createTalentDto.movies,
     };
 
     const talent = await this.talentModel.create(payload);
     return talent;
+  }
+
+  async userHasPermissionToUpdate(
+    userId: string,
+    talentId: string,
+  ): Promise<void> {
+    const hasPermissiion = await this.talentModel.findOne({
+      _id: talentId,
+      userId,
+    });
+    if (!hasPermissiion)
+      throw new ForbiddenException(
+        "You don't have permission to update this profile",
+      );
+  }
+
+  async updateProfile(userId: string, updateProfileDto: UpdateTalentDto) {
+    return this.talentModel.updateOne({ _id: userId }, updateProfileDto);
   }
 
   async findAll({ query }: { query: IGetTalentQuery | undefined }) {
@@ -170,7 +190,6 @@ export class TalentsService {
 
   async findById(id: string, options?: IGetTalentByIdQuery) {
     const queryBuilder = this.talentModel.findById(id);
-
     // filter/select
     if (options?.select) queryBuilder.select(options?.select.split(','));
     return queryBuilder.exec();

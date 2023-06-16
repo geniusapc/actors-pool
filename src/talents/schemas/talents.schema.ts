@@ -51,6 +51,12 @@ export class Talent {
   @Prop({ trim: true, default: null })
   activeSince: Date;
 
+  @Prop({ default: true })
+  recieveDirectMessage: boolean;
+
+  @Prop({ default: true })
+  isProfileVisible: boolean;
+
   @Prop({})
   photo: string;
 

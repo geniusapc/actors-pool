@@ -7,7 +7,9 @@ const fetchProfile = (q) => {
 
 const useProfileData = () => {
   return useQuery(['my-talent-profile'], () => fetchProfile(), {
-    retry: 0,
+    refetchOnWindowFocus: false,
+    retry: false,
+    staleTime: 30000,
   });
 };
 

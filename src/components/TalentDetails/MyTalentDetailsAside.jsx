@@ -6,20 +6,17 @@ function MyTalentDetailsAside({ talent }) {
     return (
         <div className=" shadow-3xl mb-8   p-4">
             <div className="h-[308px] w-[298px]">
-                <img
-                    src={`${talent?.photo}`}
-                    className="h-[308px] w-[298px]"
-                    alt={talent?.name}
-                />
+                <img src={`${talent?.photo}`} className="h-[308px] w-[298px]" alt={talent?.name} />
             </div>
             <p className="mt-5 text-xl  font-bold capitalize">
                 <span className="mr-2 "> {talent?.firstname}</span> {talent?.lastname}
             </p>
 
-            <div className="mt-2.5 font-normal text-[#040503]">
+            <div className="mt-2.5 font-normal text-black100 items-center ">
                 <span className="capitalize ">{talent?.profession}</span>
-                <span className="inline-block w-2 h-2 mr-2 ml-2 bg-[#040503] rounded-full"></span>
-                <span className='mr-2'> Active since</span>
+                <span className="inline-block w-1 h-1 mr-2 ml-2 bg-black100 rounded-full my-auto"></span>
+
+                <span className="mr-2"> Active since</span>
                 <Moment format="YYYY">{talent?.activeSince}</Moment>
             </div>
 

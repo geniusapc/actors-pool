@@ -7,8 +7,10 @@ import {
 } from '../../features/settings/settings';
 import { ReactComponent as ArrrowNextIcon } from '../../assets/icons/angle-right.svg';
 
+
 function AccountCard() {
     const dispatch = useDispatch();
+
     return (
         <div className="shadow-3xl flex  flex-col  rounded-lg py-5 px-7 ">
             <h1 className="text-xl mb-6 font-semibold">Account</h1>

@@ -22,9 +22,19 @@ const addTalentProfile = (data) => {
   });
 };
 
+const editTalentProfile = ({ id, data }) => {
+  return axios.patchForm(`/api/v1/talents/${id}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
 const useMyTalentProfile = () => {
   return useQuery(['talent-my-profile'], () => fetchMyTalentProfile(), {
-    retry: 1,
+    refetchOnWindowFocus: false,
+    retry: false,
+    staleTime: 30000,
   });
 };
 
@@ -44,4 +54,14 @@ const useAddTalent = (onError, onSuccess) => {
   return useMutation(addTalentProfile, { onError, onSuccess });
 };
 
-export { useTalentsData, useMyTalentProfile, useTalentsDataByUsername, useAddTalent };
+const useEditTalent = (onError, onSuccess) => {
+  return useMutation(editTalentProfile, { onError, onSuccess });
+};
+
+export {
+  useTalentsData,
+  useMyTalentProfile,
+  useTalentsDataByUsername,
+  useAddTalent,
+  useEditTalent,
+};

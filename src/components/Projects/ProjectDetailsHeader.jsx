@@ -43,7 +43,7 @@ const Header = ({ project }) => {
                     <span>projects/</span> <span className="font-bold">{project?.name}</span>
                 </p>
                 <div className="flex items-center gap-x-4">
-                    <Button variant="primary">Download List</Button>
+                    <Button variant="primary" onClick={() => navigate(`/projects-talents/download?id=${project?._id}`)}>Download List</Button>
                     <div className="relative select-none">
                         <MoreIcon onClick={() => setToggle((e) => !e)} />
 
@@ -63,7 +63,7 @@ const Header = ({ project }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 export default Header;

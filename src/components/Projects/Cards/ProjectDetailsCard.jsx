@@ -40,7 +40,7 @@ const ProjectTalentCard = ({ talent }) => {
                     <Moment format="YYYY">{talent.activeSince}</Moment>
                 </p>
             </div>
-            <div className="absolute top-2 right-2" onClick={deleteTalentHandler}>
+            <div className="absolute top-2 right-2 cursor-pointer" onClick={deleteTalentHandler}>
                 <DeleteIcon className=" w-12 h-12 text-primary " />
             </div>
         </div>

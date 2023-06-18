@@ -19,7 +19,7 @@ function CreateProjectModal({ refetch: refetchProjects }) {
     const isModalOpen = useSelector((state) => state.projects[CREATE_PROJECT_MODAL]);
 
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
-    const { data: talentData, refetch } = useTalentsData({ query });
+    const { refetch } = useTalentsData({ query });
 
     const onCloseModalHandler = () => {
         setProject({});
@@ -38,21 +38,15 @@ function CreateProjectModal({ refetch: refetchProjects }) {
         }));
     };
 
-    const promiseOptions = (inputValue) => {
+    const debounceSearch = async (value) => {
+        setSearchTalentField(value);
         return new Promise(async (resolve) => {
-            setSearchTalentField(inputValue);
-
-            if (inputValue?.length < 2) resolve(formatData(talentData?.data?.data?.talent));
-
-            let timer;
-            clearTimeout(timer);
-
-            timer = setTimeout(async () => {
+            clearTimeout(debounceSearch.timer);
+            debounceSearch.timer = setTimeout(async () => {
                 const { data } = await refetch();
-                const result = data?.data?.data?.talent;
-                resolve(formatData(result));
-            }, 2000);
-            clearTimeout(timer);
+                const result = formatData(data?.data?.data?.talent)
+                resolve(result);
+            }, 1000);
         });
     };
 
@@ -95,7 +89,7 @@ function CreateProjectModal({ refetch: refetchProjects }) {
                     required
                 />
 
-                <AsyncSelect isMulti cacheOptions loadOptions={promiseOptions} onChange={onChangeTalentHandler} />
+                <AsyncSelect isMulti cacheOptions loadOptions={debounceSearch} onChange={onChangeTalentHandler} />
 
                 <div className="w-full flex">
                     <Button className="mx-auto" type="submit" variant="primary" isLoading={isLoading}>

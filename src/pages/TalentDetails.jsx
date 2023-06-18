@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout/Layout';
-import SimilarTalents from '../components/Talent/SimilarTalents';
+// import SimilarTalents from '../components/Talent/SimilarTalents';
 import TalentDetailsAbout from '../components/TalentDetails/TalentDetailsAbout';
 import TalentDetailsAside from '../components/TalentDetails/TalentDetailsAside';
 import TalentDetailsGallery from '../components/TalentDetails/TalentDetailsGallery';
@@ -16,7 +16,7 @@ const RenderComponent = ({ data: talent }) => {
         <div className="flex w-full gap-8">
             <div className="w-[308px]">
                 <TalentDetailsAside talent={talent} />
-                <SimilarTalents />
+                {/* <SimilarTalents /> */}
             </div>
             <div className="w-3/4 shadow-3xl">
                 <TalentDetailsTab hash={location.hash} />

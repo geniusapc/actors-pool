@@ -24,11 +24,16 @@ function ProjectCard({ project }) {
                     <p className="text-gray text-sm ml-12">No talent</p>
                 ) : (
                     <>
-                        <div>
-                            <img className="w-8 h-8" src={project.talents[0]?.photo} alt="" />
+                        <div class="flex -space-x-4">
+                            <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src={project.talents[0]?.photo} alt="" />
+                            {project.talents[1]?.photo && <img class="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src={project.talents[0]?.photo} alt="" />}
+
                         </div>
                         <div className="flex space-x-4 items-center">
-                            <p>{project.talents[0]?.name}</p>
+                            <p className='space-x-2'>
+                                <span>{project.talents[0]?.firstname}</span>
+                                <span>{project.talents[0]?.lastname}</span>
+                            </p>
                             {project?.talents?.length > 2 && (
                                 <span className="text-gray text-xs">
                                     (+ {project?.talents?.length - 1} more talents)

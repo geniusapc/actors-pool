@@ -27,7 +27,6 @@ const Render = ({ data }) => {
 
 function ProjectDetails() {
     const param = useParams();
-
     const { data, isLoading, refetch } = useProjectDataByID(param?.id);
     const project = data?.data?.data;
     const talents = project?.talents;

@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import Layout from '../components/Layout/Layout';
+import Layout from '../../components/Layout/Layout';
 // import SimilarTalents from '../components/Talent/SimilarTalents';
-import TalentDetailsAbout from '../components/TalentDetails/TalentDetailsAbout';
-import TalentDetailsAside from '../components/TalentDetails/TalentDetailsAside';
-import TalentDetailsGallery from '../components/TalentDetails/TalentDetailsGallery';
-import TalentDetailsMovies from '../components/TalentDetails/TalentDetailsMovies';
-import TalentDetailsTab from '../components/TalentDetails/TalentDetailsTab';
-import { useTalentsDataByUsername } from '../hooks/useTalentData';
+import TalentDetailsAbout from '../../components/TalentDetails/TalentDetailsAbout';
+import TalentDetailsAside from '../../components/TalentDetails/TalentDetailsAside';
+import TalentDetailsGallery from '../../components/TalentDetails/TalentDetailsGallery';
+import TalentDetailsMovies from '../../components/TalentDetails/TalentDetailsMovies';
+import TalentDetailsTab from '../../components/TalentDetails/TalentDetailsTab';
+import { useTalentsDataByUsername } from '../../hooks/useTalentData';
 import { useLocation, useParams } from 'react-router-dom';
-import DataController from '../components/DataController/DataController';
+import DataController from '../../components/DataController/DataController';
 
 const RenderComponent = ({ data: talent }) => {
     let location = useLocation();

@@ -26,7 +26,7 @@ function SearchTalentSection() {
         setTalent(e.target.value);
     };
     const searchTalentHandler = () => {
-        navigate(`/directory?q=${talent}`);
+        navigate(`/talents?q=${talent}`);
     };
 
     return (

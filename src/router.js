@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
-import Directory from './pages/Directory';
-import Landing from './pages/Landing';
-import TalentDetails from './pages/TalentDetails';
+import Landing from './pages/Home/Landing';
+import Directory from './pages/Talents/Directory';
+import TalentDetails from './pages/Talents/TalentDetails';
 import Messages from './pages/Messages';
 import Projects from './pages/Projects/Projects';
 import ProjectDetails from './pages/Projects/ProjectDetails';
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: 'directory',
+    path: 'talents',
     element: <Directory />,
   },
   {

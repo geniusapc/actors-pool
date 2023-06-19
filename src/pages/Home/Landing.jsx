@@ -1,14 +1,14 @@
-import Signin from '../components/Authentication/Signin';
-import Signup from '../components/Authentication/Signup';
-import Footer from '../components/Footer/Footer';
-import GetStartedGuide from '../components/GetStartedGuide/GetStartedGuide';
-import GuestHeader from '../components/Headers/GuestHeader';
-import NewsletterSubscription from '../components/NewsletterSubscription/NewsletterSubscription';
-import SearchTalent from '../components/SearchTalent/SearchTalent';
-import TrailBlazers from '../components/Landing/TailBlazers';
-import Toptalents from '../components/Talent/TopTalents';
-import SearchTalentSection from '../components/Landing/SearchTalentSection';
-import TnC from '../components/Landing/TnC';
+import Signin from '../../components/Authentication/Signin';
+import Signup from '../../components/Authentication/Signup';
+import Footer from '../../components/Footer/Footer';
+import GetStartedGuide from '../../components/GetStartedGuide/GetStartedGuide';
+import GuestHeader from '../../components/Headers/GuestHeader';
+import NewsletterSubscription from '../../components/NewsletterSubscription/NewsletterSubscription';
+import SearchTalent from '../../components/SearchTalent/SearchTalent';
+import TrailBlazers from '../../components/Landing/TailBlazers';
+import Toptalents from '../../components/Talent/TopTalents';
+import SearchTalentSection from '../../components/Landing/SearchTalentSection';
+import TnC from '../../components/Landing/TnC';
 
 function Landing() {
   return (

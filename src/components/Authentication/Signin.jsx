@@ -42,7 +42,7 @@ function Signin() {
     };
 
     const onSuccess = async ({ data }) => {
-        const redirectUrl = (location.pathname === "/") ? "/directory" : location.pathname
+        const redirectUrl = (location.pathname === "/") ? "/talents" : location.pathname
         dispatch(authenticate(data));
         setDefaultHeader()
         refetch()

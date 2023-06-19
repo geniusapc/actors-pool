@@ -1,10 +1,10 @@
 import React from 'react';
-import Layout from '../components/Layout/Layout';
-import { useTalentsData } from '../hooks/useTalentData';
+import Layout from '../../components/Layout/Layout';
+import { useTalentsData } from '../../hooks/useTalentData';
 import { useLocation } from 'react-router-dom';
-import { DataController } from '../components/DataController';
-import { TemporaryProjectModal } from '../components/Projects/Modals';
-import { AllTalents, DirectoryHeader } from '../components/HomePage';
+import { DataController } from '../../components/DataController';
+import { TemporaryProjectModal } from '../../components/Projects/Modals';
+import { AllTalents, DirectoryHeader } from '../../components/HomePage';
 
 function Directory() {
     const location = useLocation();

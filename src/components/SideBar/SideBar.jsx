@@ -10,7 +10,7 @@ import { ReactComponent as SettingsIcon } from '../../assets/icons/settings.svg'
 import { ReactComponent as LogoutIcon } from '../../assets/icons/logout.svg';
 
 const sidebarList = [
-    { id: 1, name: 'Directory', Icon: DirectoryIcon, href: '/directory' },
+    { id: 1, name: 'Directory', Icon: DirectoryIcon, href: '/talents' },
     { id: 2, name: 'Profile', Icon: UserIcon, href: '/profile' },
     { id: 3, name: 'Messages', Icon: MessageIcon, href: '/messages' },
     { id: 4, name: 'Projects', Icon: ClipboardIcon, href: '/projects' },

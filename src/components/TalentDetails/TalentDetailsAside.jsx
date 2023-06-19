@@ -6,6 +6,7 @@ import { ReactComponent as IGIcon } from '../../assets/icons/instagram.svg';
 import { ReactComponent as TwitterIcon } from '../../assets/icons/twitter.svg';
 import { ReactComponent as TikIcon } from '../../assets/icons/tik-tok.svg';
 import { ReactComponent as SnapchatIcon } from '../../assets/icons/snapchat.svg';
+import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
 
 function TalentDetailsAside({ talent }) {
     const { fb, ig, tw, tik, snap } = talent?.socialMedia || {};
@@ -24,8 +25,8 @@ function TalentDetailsAside({ talent }) {
             </div>
             <div className="flex justify-between items-center mt-6">
                 <Button variant="primary">Add to Project</Button>
-                <span>
-                    <img src="/icons/message.svg" alt="" />
+                <span className="cursor-pointer">
+                    <MessageIcon className="text-primary" />
                 </span>
             </div>
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />

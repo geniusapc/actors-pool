@@ -1,20 +1,38 @@
 import React from 'react';
-import Button from '../Button/Button';
 import Moment from 'react-moment';
+import Button from '../Button/Button';
+import {
+    SELECT_PROJECT_MODAL,
+    addTalentToProjectHandler,
+    openModal,
+} from '../../features/projects/projects';
 import { ReactComponent as FaceBookIcon } from '../../assets/icons/facebook.svg';
 import { ReactComponent as IGIcon } from '../../assets/icons/instagram.svg';
 import { ReactComponent as TwitterIcon } from '../../assets/icons/twitter.svg';
 import { ReactComponent as TikIcon } from '../../assets/icons/tik-tok.svg';
 import { ReactComponent as SnapchatIcon } from '../../assets/icons/snapchat.svg';
 import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
+import { useDispatch, useSelector } from 'react-redux';
 
 function TalentDetailsAside({ talent }) {
+    const dispatch = useDispatch();
     const { fb, ig, tw, tik, snap } = talent?.socialMedia || {};
     const hasSociaMediaAccount = fb || ig || tw || tik || snap;
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
+
+    const AddTalentToProjectHandler = () => {
+        if (!isAuth) dispatch(addTalentToProjectHandler(talent));
+        else dispatch(openModal(SELECT_PROJECT_MODAL));
+    };
+
     return (
         <div className="shadow-3xl mb-8 p-4">
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80 ">
-                <img src={`${talent?.photo}`} className="h-full w-full object-cover object-center lg:h-full lg:w-full" alt={talent?.name} />
+                <img
+                    src={`${talent?.photo}`}
+                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                    alt={talent?.name}
+                />
             </div>
             <div className="text-xl font-semibold mt-5"> {talent?.name}</div>
             <div className="mt-2.5 flex items-center space-x-2">
@@ -24,7 +42,9 @@ function TalentDetailsAside({ talent }) {
                 <Moment format="YYYY">{talent?.activeSince}</Moment>
             </div>
             <div className="flex justify-between items-center mt-6">
-                <Button variant="primary">Add to Project</Button>
+                <Button variant="primary" onClick={AddTalentToProjectHandler}>
+                    Add to Project
+                </Button>
                 <span className="cursor-pointer">
                     <MessageIcon className="text-primary" />
                 </span>

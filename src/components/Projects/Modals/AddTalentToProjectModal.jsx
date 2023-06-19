@@ -14,7 +14,7 @@ function AddTalentToProjectModal({ refetchProject }) {
     const dispatch = useDispatch();
     const [project, setProject] = useState({});
     const [searchTalentField, setSearchTalentField] = useState('');
-    const isModalOpen = useSelector((state) => state.projects[ADD_TALENT_TO_PROJECT_MODAL]);
+    const isModalOpen = useSelector((state) => state.projects[ADD_TALENT_TO_PROJECT_MODAL]); 
 
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
     const { refetch } = useTalentsData({ query });

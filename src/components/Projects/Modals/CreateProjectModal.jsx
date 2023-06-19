@@ -9,7 +9,7 @@ import AsyncSelect from 'react-select/async';
 import { useAddProject } from '../../../hooks/useProjectData';
 import { notifyError, notifySuccess } from '../../../utils/notification';
 
-function CreateProjectModal({ refetch: refetchProjects }) {
+function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false }) {
     const dispatch = useDispatch();
 
     const [project, setProject] = useState({});
@@ -89,7 +89,7 @@ function CreateProjectModal({ refetch: refetchProjects }) {
                     required
                 />
 
-                <AsyncSelect isMulti cacheOptions loadOptions={debounceSearch} onChange={onChangeTalentHandler} />
+                {!hideTalentField && <AsyncSelect isMulti cacheOptions loadOptions={debounceSearch} onChange={onChangeTalentHandler} />}
 
                 <div className="w-full flex">
                     <Button className="mx-auto" type="submit" variant="primary" isLoading={isLoading}>

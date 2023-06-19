@@ -4,7 +4,7 @@ import { ReactComponent as SearchIcon } from "../../assets/icons/search.svg"
 function InputWithButton({
     style = {},
     hideBtn = false,
-    value,
+    value = "",
     placeHolder = 'Search',
     onSubmit = () => { },
     onChange = () => { },

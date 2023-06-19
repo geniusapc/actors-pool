@@ -12,13 +12,13 @@ const TalentCard = ({ talent }) => {
     return (
         <div className="relative">
             <div
-                className="absolute top-2 right-2"
+                className="absolute top-2 right-2 cursor-pointer"
                 onClick={() => dispatch(addTalentToProjectHandler(talent))}
             >
                 <CopyIcon />
             </div>
             <div
-                className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80 "
+                className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80  cursor-pointer"
                 onClick={() => navigate(`/talent/${talent.username}`)}
             >
                 <img

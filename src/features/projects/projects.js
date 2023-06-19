@@ -6,6 +6,7 @@ export const CREATE_PROJECT_MODAL = 'isCreateProjModalOpen';
 export const DELETE_PROJECT_MODAL = 'isDeleteProjectModalOpen';
 export const EDIT_PROJECT_MODAL = 'isEditProjModalOpen';
 export const ADD_TALENT_TO_PROJECT_MODAL = 'isAddTalentToProjModalOpen';
+export const SELECT_PROJECT_MODAL = 'isSelectProjModalOpen';
 export const REMOVE_TALENT_FROM_PROJECT_MODAL = 'isRemoveTalentFromProjModalOpen';
 export const CLEAR_PROJECT_MODAL = 'isClearProjModalOpen';
 export const TEMP_PROJ_MODAL = 'isTempProjModalOpen';
@@ -19,6 +20,7 @@ const initialState = {
   [DELETE_PROJECT_MODAL]: false,
   [EDIT_PROJECT_MODAL]: false,
   [ADD_TALENT_TO_PROJECT_MODAL]: false,
+  [SELECT_PROJECT_MODAL]: false,
   [REMOVE_TALENT_FROM_PROJECT_MODAL]: false,
   [CLEAR_PROJECT_MODAL]: false,
   [TEMP_PROJ_MODAL]: false,

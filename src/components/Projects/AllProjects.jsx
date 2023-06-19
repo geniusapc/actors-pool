@@ -1,6 +1,6 @@
 import React from 'react';
 import CreateNewProjectCard from './Cards/CreateNewProjectCard';
-import ProjectCard from './Cards/ProjectCard';
+import ProjectCard from './Cards/ProjectCardWithLink';
 
 function AllProjects({ data }) {
     return (

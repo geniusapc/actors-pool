@@ -54,7 +54,7 @@ function Header({ showTalentHidden = false }) {
                                     <InputWithButton
                                         style={{ input: 'h-10' }}
                                         placeHolder="search for talent"
-                                        value={talentSearchValue}
+                                        value={talentSearchValue || ""}
                                         hideBtn
                                         onSubmit={onSubmitTalentHandler}
                                         onChange={onChangeSearchTalent}

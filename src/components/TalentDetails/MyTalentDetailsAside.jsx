@@ -12,16 +12,19 @@ function MyTalentDetailsAside({ talent }) {
                 <span className="mr-2 "> {talent?.firstname}</span> {talent?.lastname}
             </p>
 
-            <div className="mt-2.5 font-normal text-black100 items-center ">
+            <div className="mt-2.5 font-normal text-black100 flex items-center ">
                 <span className="capitalize ">{talent?.profession}</span>
-                <span className="inline-block w-1 h-1 mr-2 ml-2 bg-black100 rounded-full my-auto"></span>
-
+                <span className="inline-block w-1 h-1 mr-2 ml-2 bg-black100 rounded-full"></span>
                 <span className="mr-2"> Active since</span>
                 <Moment format="YYYY">{talent?.activeSince}</Moment>
             </div>
+            <p className='text-gray400 text-sm'>
+                <span>{`${talent?.country}, ${talent?.state}`}</span>
+                <span className="inline-block bg-gray400 w-1 h-1 mr-2 ml-2 rounded-full my-auto"></span>
+                <span>{talent?.phoneNumber}</span>
+            </p>
 
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
-            <h3 className="text-gray text-xs">Social</h3>
             <SocailAccounts talent={talent} />
         </div>
     );

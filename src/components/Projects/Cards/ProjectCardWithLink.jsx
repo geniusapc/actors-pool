@@ -25,8 +25,8 @@ function ProjectCardWithLink({ project }) {
                 ) : (
                     <>
                         <div className="flex -space-x-4">
-                            <img className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src={project?.talents?.[0]?.photo} alt="" />
-                            {project?.talents?.[1]?.photo && <img className="w-8 h-8 border-2 border-white rounded-full dark:border-gray-800" src={project.talents?.[1]?.photo} alt="" />}
+                            <img className="w-8 h-8 border-2 border-white rounded-md dark:border-gray-800" src={project?.talents?.[0]?.photo} alt="" />
+                            {project?.talents?.[1]?.photo && <img className="w-8 h-8 border-2 border-white rounded-md dark:border-gray-800" src={project.talents?.[1]?.photo} alt="" />}
 
                         </div>
                         <div className="flex space-x-4 items-center">

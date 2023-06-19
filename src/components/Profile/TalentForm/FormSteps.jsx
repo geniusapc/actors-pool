@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import ProfileDescription from "../TalentProfiles/ProfileDescription";
-import ProfileGallery from "../TalentProfiles/ProfileGallery";
-import ProfileInformation from "../TalentProfiles/ProfileInformation";
-import ProfileWorks from "../TalentProfiles/ProfileWorks";
-import SocialAccount from "../TalentProfiles/SocialAccount";
+import ProfileDescription from "./ProfileDescription";
+import ProfileGallery from "./ProfileGallery";
+import ProfileInformation from "./ProfileInformation";
+import ProfileWorks from "./ProfileWorks";
+import SocialAccount from "./SocialAccount";
 
 const RenderProfileFormStep = () => {
     const step = useSelector((state) => state.createProfile.step);

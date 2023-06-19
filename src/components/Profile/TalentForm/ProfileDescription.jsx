@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import MarkdownEditor from "@uiw/react-markdown-editor";
 import { useDispatch, useSelector } from "react-redux";
 import ActionButtons from "./ActionButton";
-import { nextStep, setFormData } from "../../features/profile/profile";
-import { aboutSchema } from "../../validation/profile";
-import { notifyError } from "../../utils/notification";
+import { nextStep, setFormData } from "../../../features/profile/profile";
+import { aboutSchema } from "../../../validation/profile";
+import { notifyError } from "../../../utils/notification";
 
 
 const ProfileDescription = () => {

@@ -23,7 +23,7 @@ function ShareProfile() {
             <ShareProfileCard username={data?.data?.data?.username} />
 
             <div className="flex flex-col gap-4 py-4 items-center mt-16">
-                <Button className="mx-auto md:px-[90px]" type="submit" variant="primary">
+                <Button className="mx-auto md:px-[90px]" type="submit" variant="primary" onClick={onCloseHandler}>
                     Done
                 </Button>
             </div>

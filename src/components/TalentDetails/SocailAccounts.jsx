@@ -1,30 +1,39 @@
-import React from 'react'
-import { ReactComponent as FbIcon } from "../../assets/icons/facebook.svg"
-import { ReactComponent as IgIcon } from "../../assets/icons/instagram.svg"
-import { ReactComponent as TwIcon } from "../../assets/icons/twitter.svg"
-import { ReactComponent as TikTokIcon } from "../../assets/icons/tik-tok.svg"
-import { ReactComponent as SnapchatIcon } from "../../assets/icons/snapchat.svg"
+import React from 'react';
+import { ReactComponent as FaceBookIcon } from '../../assets/icons/facebook.svg';
+import { ReactComponent as IGIcon } from '../../assets/icons/instagram.svg';
+import { ReactComponent as TwitterIcon } from '../../assets/icons/twitter.svg';
+import { ReactComponent as TikIcon } from '../../assets/icons/tik-tok.svg';
+import { ReactComponent as SnapchatIcon } from '../../assets/icons/snapchat.svg';
 
-function SocailAccounts({ talent }) {
+function SocailAccounts({ socialMedia }) {
+    const { fb, ig, tw, tik, snap } = socialMedia || {};
+    const hasSociaMediaAccount = fb || ig || tw || tik || snap;
+
     return (
-        <div className="flex gap-2 mt-5">
-            <a href={talent?.socialMedia?.fb}>
-                <FbIcon />
-            </a>
-            <a href={talent?.socialMedia?.ig}>
-                <IgIcon />
-            </a>
-            <a href={talent?.socialMedia?.tw}>
-                <TwIcon />
-            </a>
-            <a href={talent?.socialMedia?.tik}>
-                <TikTokIcon />
-            </a>
-            <a href={talent?.socialMedia?.snap}>
-                <SnapchatIcon />
-            </a>
-        </div>
-    )
+        <>
+            <h3 className="text-gray text-xs">Social</h3>
+
+            {!hasSociaMediaAccount && <div>No social media account </div>}
+
+            <div className="flex gap-2 mt-5">
+                <a href={fb} className={`${!fb && 'hidden'}`}>
+                    <FaceBookIcon />
+                </a>
+                <a href={ig} className={`${!ig && 'hidden'}`}>
+                    <IGIcon />
+                </a>
+                <a href={tw} className={`${!tw && 'hidden'}`}>
+                    <TwitterIcon />
+                </a>
+                <a href={tik} className={`${!tik && 'hidden'}`}>
+                    <TikIcon />
+                </a>
+                <a href={snap} className={`${!snap && 'hidden'}`}>
+                    <SnapchatIcon />
+                </a>
+            </div>
+        </>
+    );
 }
 
-export default SocailAccounts
+export default SocailAccounts;

@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { ReactComponent as AddIcon } from '../../assets/icons/add.svg';
+import { ReactComponent as AddIcon } from '../../../assets/icons/add.svg';
 import ActionButtons from './ActionButton';
-import { gallerySchema } from '../../validation/profile';
-import { notifyError } from '../../utils/notification';
-import { nextStep, setFormData } from '../../features/profile/profile';
+import { gallerySchema } from '../../../validation/profile';
+import { notifyError } from '../../../utils/notification';
+import { nextStep, setFormData } from '../../../features/profile/profile';
 import { useDispatch, useSelector } from 'react-redux';
 
 const ProfileGallery = () => {

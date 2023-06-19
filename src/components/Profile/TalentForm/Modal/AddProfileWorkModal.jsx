@@ -1,7 +1,7 @@
 
-import Button from '../../Button/Button';
-import Input from '../../Input/Input';
-import Modal from '../../Modal/Modal';
+import Button from '../../../Button/Button';
+import Input from '../../../Input/Input';
+import Modal from '../../../Modal/Modal';
 
 const AddProfileWorkModal = ({ isModalOpen, onCloseHandler, onAddWorkHander, work, setWork }) => {
   const onChangeHandler = (e) => {

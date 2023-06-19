@@ -1,5 +1,5 @@
-import ProfileWorkCard from '../Profile/Cards/ProfileWorkCard';
-import { ReactComponent as AddIcon } from '../../assets/icons/add.svg';
+import ProfileWorkCard from '../Cards/ProfileWorkCard';
+import { ReactComponent as AddIcon } from '../../../assets/icons/add.svg';
 import AddProfileWork from './AddProfileWork';
 
 const ProfileWorkList = ({ openModal, workList }) => {

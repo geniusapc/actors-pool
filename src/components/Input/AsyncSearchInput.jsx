@@ -13,10 +13,7 @@ function AsyncSearchInput({ searchQuery, setSearchQuery, searchResult, isResultL
     };
 
     return (
-
-
         <div className="relative">
-
             <Input
                 id="talent"
                 label="Add Talents to this project (Optional)"
@@ -29,21 +26,21 @@ function AsyncSearchInput({ searchQuery, setSearchQuery, searchResult, isResultL
 
             {selectResult && (
                 <div className="absolute bg-white z-50 w-full min-h-[200px] top-20">
-
                     <ul className="flex flex-col gap-4">
-
-                        {
-                            isResultLoading ? <Loading /> :
-                                searchResult?.map((result) =>
-                                    <li key={result._id} id={result?._id} className="h-12 flex items-center">
-                                        <img src="" className="h-12 w-12 mr-5" alt="" />
-                                        <p className="text-black font-medium">
-                                            <span>{result.firstname} {result.lastname}</span>
-                                        </p>
-                                    </li>
-
-                                )
-                        }
+                        {isResultLoading ? (
+                            <Loading />
+                        ) : (
+                            searchResult?.map((result) => (
+                                <li key={result._id} id={result?._id} className="h-12 flex items-center">
+                                    <img src="" className="h-12 w-12 mr-5" alt="" />
+                                    <p className="text-black font-medium">
+                                        <span>
+                                            {result.firstname} {result.lastname}
+                                        </span>
+                                    </p>
+                                </li>
+                            ))
+                        )}
                     </ul>
                 </div>
             )}

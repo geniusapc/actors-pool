@@ -49,7 +49,7 @@ export const projects = createSlice({
       if (state.step > 1) state.step -= 1;
     },
     nextStep: (state) => {
-      if (state.step < state.stages.length) state.step += 1;
+      state.step += 1;
     },
 
     setFormData: (state, action) => {

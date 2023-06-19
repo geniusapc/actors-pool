@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import ActionButtons from './ActionButton';
 import ProfileWorkList from './ProfileWorkList';
 import AddProfileWorkModal from './Modal/AddProfileWorkModal';
-import { movieSchema } from '../../validation/profile';
-import { notifyError } from '../../utils/notification';
-import { nextStep, setFormData } from '../../features/profile/profile';
+import { movieSchema } from '../../../validation/profile';
+import { notifyError } from '../../../utils/notification';
+import { nextStep, setFormData } from '../../../features/profile/profile';
 
 const ProfileWorks = () => {
   const dispatch = useDispatch();

@@ -1,14 +1,14 @@
 import React from 'react';
-import Input from '../Input/Input';
-import SelectInput from '../Input/Select';
+import Input from '../../Input/Input';
+import SelectInput from '../../Input/Select';
 import { useState } from 'react';
-import { coutries } from '../../data/countries';
-import { NGA } from '../../data/states';
+import { coutries } from '../../../data/countries';
+import { NGA } from '../../../data/states';
 import ActionButtons from './ActionButton';
-import { nextStep, setFormData } from '../../features/profile/profile';
+import { nextStep, setFormData } from '../../../features/profile/profile';
 import { useDispatch, useSelector } from 'react-redux';
-import { personalInfoSchema } from '../../validation/profile';
-import { notifyError } from '../../utils/notification';
+import { personalInfoSchema } from '../../../validation/profile';
+import { notifyError } from '../../../utils/notification';
 
 const ProfileInformation = () => {
   const dispatch = useDispatch();

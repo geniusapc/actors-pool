@@ -1,4 +1,4 @@
-import { ReactComponent as AddIcon } from '../../assets/icons/add.svg';
+import { ReactComponent as AddIcon } from '../../../assets/icons/add.svg';
 const AddProfileWork = ({ openModal }) => {
   return (
     <div>

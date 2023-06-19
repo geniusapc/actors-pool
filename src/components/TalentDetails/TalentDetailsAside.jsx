@@ -1,23 +1,19 @@
 import React from 'react';
 import Moment from 'react-moment';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button/Button';
 import {
     SELECT_PROJECT_MODAL,
     addTalentToProjectHandler,
     openModal,
 } from '../../features/projects/projects';
-import { ReactComponent as FaceBookIcon } from '../../assets/icons/facebook.svg';
-import { ReactComponent as IGIcon } from '../../assets/icons/instagram.svg';
-import { ReactComponent as TwitterIcon } from '../../assets/icons/twitter.svg';
-import { ReactComponent as TikIcon } from '../../assets/icons/tik-tok.svg';
-import { ReactComponent as SnapchatIcon } from '../../assets/icons/snapchat.svg';
+
 import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import SocailAccounts from './SocailAccounts';
 
 function TalentDetailsAside({ talent }) {
     const dispatch = useDispatch();
-    const { fb, ig, tw, tik, snap } = talent?.socialMedia || {};
-    const hasSociaMediaAccount = fb || ig || tw || tik || snap;
+
     const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
     const AddTalentToProjectHandler = () => {
@@ -50,27 +46,7 @@ function TalentDetailsAside({ talent }) {
                 </span>
             </div>
             <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
-            <h3 className="text-gray text-xs">Social</h3>
-
-            {!hasSociaMediaAccount && <div>No social media account </div>}
-
-            <div className="flex gap-2 mt-5">
-                <a href={fb} className={`${!fb && 'hidden'}`}>
-                    <FaceBookIcon />
-                </a>
-                <a href={ig} className={`${!ig && 'hidden'}`}>
-                    <IGIcon />
-                </a>
-                <a href={tw} className={`${!tw && 'hidden'}`}>
-                    <TwitterIcon />
-                </a>
-                <a href={tik} className={`${!tik && 'hidden'}`}>
-                    <TikIcon />
-                </a>
-                <a href={snap} className={`${!snap && 'hidden'}`}>
-                    <SnapchatIcon />
-                </a>
-            </div>
+            <SocailAccounts socialMedia={talent?.socialMedia} />
         </div>
     );
 }

@@ -13,8 +13,8 @@ function TalentDetailsAside({ talent }) {
     const hasSociaMediaAccount = fb || ig || tw || tik || snap;
     return (
         <div className="shadow-3xl mb-8 p-4">
-            <div className="h-[308px] w-[298px]">
-                <img src={`${talent?.photo}`} className="h-[308px] w-[298px]" alt={talent?.name} />
+            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80 ">
+                <img src={`${talent?.photo}`} className="h-full w-full object-cover object-center lg:h-full lg:w-full" alt={talent?.name} />
             </div>
             <div className="text-xl font-semibold mt-5"> {talent?.name}</div>
             <div className="mt-2.5 flex items-center space-x-2">

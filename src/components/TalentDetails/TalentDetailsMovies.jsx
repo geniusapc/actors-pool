@@ -2,9 +2,10 @@ import React from 'react';
 import ProfileWorkCard from '../Profile/Cards/ProfileWorkCard';
 
 function TalentDetailsMovies({ talent }) {
+    const noMovies = !talent?.movies?.length
     return (
-        <div className="grid grid-cols-3 gap-2 justify-start content-center">
-            {!talent?.movies?.length ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 justify-start ">
+            {noMovies ? (
                 <>No movies</>
             ) : (
                 talent?.movies?.map((movie) => (

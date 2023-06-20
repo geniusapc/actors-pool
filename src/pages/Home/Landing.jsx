@@ -5,7 +5,7 @@ import GetStartedGuide from '../../components/GetStartedGuide/GetStartedGuide';
 import GuestHeader from '../../components/Headers/GuestHeader';
 import NewsletterSubscription from '../../components/NewsletterSubscription/NewsletterSubscription';
 import SearchTalent from '../../components/Talent/SearchTalent';
-import TrailBlazers from '../../components/Landing/TailBlazers';
+import TrailBlazers from '../../components/Landing/TrailBlazers';
 import Toptalents from '../../components/Talent/TopTalents';
 import SearchTalentSection from '../../components/Landing/SearchTalentSection';
 import TnC from '../../components/Landing/TnC';

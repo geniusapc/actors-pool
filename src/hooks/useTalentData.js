@@ -11,6 +11,10 @@ const fetchTalentByUsername = (username) => {
   return axios.get(`/api/v1/talents/${username}`);
 };
 
+const fetchTrailBlazers = () => {
+  return axios.get(`/api/v1/talents/blazzers`);
+};
+
 const fetchTopTalent = () => {
   return axios.get(`/api/v1/talents/top-talents`);
 };
@@ -54,6 +58,9 @@ const useTalentsDataByUsername = (username) => {
   return useQuery(['talent', username], () => fetchTalentByUsername(username));
 };
 
+const useTrailBlazzer = () => {
+  return useQuery(['trail-blazzers'], fetchTrailBlazers);
+};
 const useTopTalents = () => {
   return useQuery(['top-talents'], fetchTopTalent);
 };
@@ -72,5 +79,6 @@ export {
   useTalentsDataByUsername,
   useAddTalent,
   useEditTalent,
+  useTrailBlazzer,
   useTopTalents,
 };

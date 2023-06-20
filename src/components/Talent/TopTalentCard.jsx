@@ -22,7 +22,7 @@ function TopTalentCard({ talent }) {
                 <div className="flex  justify-between">
                     <p className="text-base">{`${talent?.firstname}  ${talent?.lastname}`}</p>
                     <ArrowUpIcon
-                        className="w-2 h-2 mt-1 text-white cursor-pointer"
+                        className="w-3.5 h-3.5 mt-1 text-white cursor-pointer"
                         onClick={() => navigate(`/talent/${talent.username}`)}
                     />
                 </div>

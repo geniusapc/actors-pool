@@ -29,10 +29,9 @@ export class CreateTalentDto {
   readonly lastname: string;
 
   @IsOptional()
+  @Type(() => Number)
   @IsNumber()
-  @MinLength(10)
-  @MaxLength(20)
-  readonly phoneNumber?: string;
+  readonly phoneNumber: number;
 
   @MaxLength(50)
   @MinLength(2)

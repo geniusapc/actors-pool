@@ -198,7 +198,16 @@ export class TalentsService {
   async getTopTalents() {
     return this.talentModel
       .find({ rating: { $exists: true } })
-      .select('rating firstname lastname profession photo about')
+      .select('rating firstname lastname username profession photo about')
+      .sort({ rating: -1 })
+      .lean();
+  }
+  async getTrailBlazzers() {
+    return this.talentModel
+      .find({ rating: { $exists: true } })
+      .select(
+        'rating firstname lastname username profession photo about movies dob activeSince ',
+      )
       .sort({ rating: -1 })
       .lean();
   }

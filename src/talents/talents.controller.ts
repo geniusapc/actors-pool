@@ -110,7 +110,7 @@ export class TalentsController {
   @Public()
   @Get('blazzers')
   async getBlazzers() {
-    return await this.talentsService.getTopTalents();
+    return await this.talentsService.getTrailBlazzers();
   }
 
   // @Post('top-blazzers')
@@ -125,7 +125,7 @@ export class TalentsController {
   // _____________________________________________________________ Top Talents _____________________________________________
 
   @Public()
-  @Post('top-talent')
+  @Post('top-talents')
   async addTopTalent(@Body() createTopTalentDto: CreateTopTalentDto) {
     const topTalents = await this.talentsService.addTopTalents(
       createTopTalentDto?.talentIds,
@@ -135,7 +135,7 @@ export class TalentsController {
   }
 
   @Public()
-  @Get('top-talent')
+  @Get('top-talents')
   async getTopTalent() {
     return await this.talentsService.getTopTalents();
   }

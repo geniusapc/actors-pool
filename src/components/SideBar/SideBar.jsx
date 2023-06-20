@@ -29,10 +29,10 @@ function SideBar() {
 
     const isActive = (href) => {
         if (location?.pathname?.startsWith('/talent') && href === '/talents')
-            return 'text-primary bg-primary100  border-r-2 ';
+            return 'text-primary bg-primary100  border-r-2  border-primary100';
 
         return location?.pathname?.startsWith(href)
-            ? 'text-primary bg-primary100  border-r-2 '
+            ? 'text-primary bg-primary100  border-r-2 border-primary100 '
             : ' text-gray400';
     };
 

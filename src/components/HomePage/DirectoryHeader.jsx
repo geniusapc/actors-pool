@@ -6,7 +6,7 @@ const DirectoryHeader = () => {
     const dispatch = useDispatch();
     return (
         <div className="flex  justify-between mb-8">
-            <h1 className="text-[#040503] text-3xl ">Talents Directory</h1>
+            <h1 className="text-[#040503] text-base md:text-3xl font-bold ">Talents Directory</h1>
             <div className="flex gap-2">
                 <Button
                     variant="primary"

@@ -23,8 +23,8 @@ function Header({ showTalentHidden = false }) {
     const onSubmitTalentHandler = (e) => {
         e.preventDefault();
         if (talentSearchValue)
-            navigate(`/directory?q=${talentSearchValue}`);
-        else navigate(`/directory`);
+            navigate(`/talents?q=${talentSearchValue}`);
+        else navigate(`/talents`);
     };
 
     return (

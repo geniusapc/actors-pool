@@ -43,8 +43,8 @@ function SearchTalentSection() {
             <div className="flex  gap-8 mt-8">
                 {!isSearchTalent ? (
                     <>
-                        <Button onClick={listAsTalentHandler}>List Me as a Talent</Button>
-                        <Button variant="primary" onClick={() => setIsSearchTalent(true)}>
+                        <Button onClick={listAsTalentHandler} className='w-[140px] md:w-[200px]'>List Me as a Talent</Button>
+                        <Button variant="primary" className='w-[140px] md:w-[200px]'  onClick={() => setIsSearchTalent(true)}>
                             Search Talents
                         </Button>
                     </>

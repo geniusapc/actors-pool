@@ -9,7 +9,7 @@ function Button({
   ...rest
 }) {
   const btnSize =
-    'px-[16px] md:px-[38px] py-3 rounded-2xl md:rounded-3xl focus:ring-4 focus:outline-none text-xs font-medium';
+    'px-[16px] md:px-[38px] py-3 rounded-3xl md:rounded-3xl focus:ring-4 focus:outline-none text-xs font-medium';
 
   const defaultClases = 'flex items-center justify-center font-semibold disabled:opacity-25 gap-1';
 

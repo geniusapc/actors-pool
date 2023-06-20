@@ -61,7 +61,6 @@ function SideBar() {
                     })}
                 </ul>
                 <button
-                    href="#1"
                     onClick={logoutHandler}
                     className="flex flex-row md:flex-col items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >

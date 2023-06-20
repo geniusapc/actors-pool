@@ -24,6 +24,7 @@ module.exports = {
       },
       backgroundImage: {
         'default-bg-img': "url('./assets/img/bg.png')",
+        'mystery-bg': "url('./assets/img/mystery-bg.svg')",
       },
     },
   },

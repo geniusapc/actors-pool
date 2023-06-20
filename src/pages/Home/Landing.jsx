@@ -25,10 +25,13 @@ function Landing() {
       <Toptalents />
       <TrailBlazers />
       <GetStartedGuide />
-      <section className="bg-default-bg-img bg-cover w-full h-full text-white ">
+      <section className="bg-default-bg-img bg-cover w-full h-full text-white  py-12 md:py-40">
         <div className="absolute h-full w-full bg-gradient-to-r from-[#050504] to-[#0b1717] -z-10 "></div>
-        <SearchTalent />
-        <NewsletterSubscription />
+        <div className='container mx-auto px-5 pb-40 space-y-16 flex flex-col items-center'>
+          <SearchTalent />
+          <NewsletterSubscription />
+
+        </div>
         <hr className="w-full h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700" />
         <Footer />
       </section>

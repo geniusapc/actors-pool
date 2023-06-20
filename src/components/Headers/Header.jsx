@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-
 import InputWithButton from '../Input/InputWithButton';
 import { ReactComponent as HamBugerIcon } from "../../assets/icons/hamburger.svg"
 import { ReactComponent as Logo } from "../../assets/icons/logo.svg"

@@ -28,8 +28,8 @@ const MyProfileDetailtHeader = ({ talent, refetch = () => { } }) => {
                 isChecked={isProfileVisible}
                 onChange={onClickProfileVisibility}
             />
-            <Button variant="outlined">Hide Specific Details</Button>
-            <Button variant="primary">Edit Profile</Button>
+            <Button className='cursor-not-allowed' variant="outlined">Hide Specific Details</Button>
+            <Button className='cursor-not-allowed' variant="primary">Edit Profile</Button>
         </div>
     );
 };

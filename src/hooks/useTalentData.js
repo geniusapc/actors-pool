@@ -10,6 +10,10 @@ const fetchTalent = (q) => {
 const fetchTalentByUsername = (username) => {
   return axios.get(`/api/v1/talents/${username}`);
 };
+
+const fetchTopTalent = () => {
+  return axios.get(`/api/v1/talents/top-talents`);
+};
 const fetchMyTalentProfile = (id) => {
   return axios.get(`/api/v1/talents/my-profile`);
 };
@@ -50,6 +54,10 @@ const useTalentsDataByUsername = (username) => {
   return useQuery(['talent', username], () => fetchTalentByUsername(username));
 };
 
+const useTopTalents = () => {
+  return useQuery(['top-talents'], fetchTopTalent);
+};
+
 const useAddTalent = (onError, onSuccess) => {
   return useMutation(addTalentProfile, { onError, onSuccess });
 };
@@ -64,4 +72,5 @@ export {
   useTalentsDataByUsername,
   useAddTalent,
   useEditTalent,
+  useTopTalents,
 };

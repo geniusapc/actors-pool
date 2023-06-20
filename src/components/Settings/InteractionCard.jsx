@@ -52,7 +52,7 @@ function InteractionCard() {
             <ul className="space-y-4 ">
                 <li className="flex justify-between text-gray300 ">
                     <label htmlFor="directMessage" className="cursor-pointer">
-                        Receive direct messages{' '}
+                        Receive direct messages
                     </label>
                     <CheckButton
                         id="directMessage"
@@ -63,7 +63,7 @@ function InteractionCard() {
                 <li className="flex justify-between text-gray300">
                     <label htmlFor="profileVisibility" className="cursor-pointer">
                         Make talent profile visible
-                    </label>{' '}
+                    </label>
                     <CheckButton
                         id="profileVisibility"
                         isChecked={isProfileVisible}

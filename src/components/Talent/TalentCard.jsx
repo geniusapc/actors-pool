@@ -12,30 +12,32 @@ const TalentCard = ({ talent }) => {
     return (
         <div className="relative">
             <div
-                className="absolute top-2 right-2 cursor-pointer"
+                className="absolute top-2 right-2 cursor-copy z-10"
                 onClick={() => dispatch(addTalentToProjectHandler(talent))}
             >
                 <CopyIcon />
             </div>
-            <div
-                className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80  cursor-pointer"
-                onClick={() => navigate(`/talent/${talent.username}`)}
-            >
+
+            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80  relative">
                 <img
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                    src={`${talent.photo}`}
-                    alt=""
+                    src={`${talent?.photo}`}
+                    alt={talent?.username}
                 />
             </div>
-            <div className="absolute bottom-0 left-0 text-left w-full p-4 text-white bg-gradient-to-t from-black to-transparent ">
-                <p className="">
-                    <span className="mr-2"> {talent.firstname}</span> {talent.lastname}
-                </p>
-                <p>
-                    <span className="capitalize">{talent.profession}</span>
-                    <span className="inline-block w-1.5 h-1.5 mr-2.5 ml-2.5 bg-white rounded-full"></span>
-                    <span className="mr-2">Active since</span>
-                    <Moment format="YYYY">{talent.activeSince}</Moment>
+
+            <div
+                className="absolute bottom-0 left-0  w-full h-full  bg-gradient-to-b from-transparent via-transparent to-black cursor-pointer "
+                onClick={() => navigate(`/talent/${talent?.username}`)}
+            ></div>
+
+            <div className="absolute bottom-0 left-0 text-left w-full  p-4 text-white space-y-2.5 select-none" >
+                <p className="text-base">{`${talent?.firstname}  ${talent?.lastname}`}</p>
+                <p className="flex items-center space-x-2 text-sm">
+                    <span className="capitalize">{talent?.profession}</span>
+                    <span className="inline-block w-1.5 h-1.5 bg-white rounded-full"></span>
+                    <span>Active since</span>
+                    <Moment format="YYYY">{talent?.activeSince}</Moment>
                 </p>
             </div>
         </div>

@@ -49,7 +49,7 @@ const Header = ({ project }) => {
 
                         {toggle && (
                             <div className="absolute top-10 right-1 text-xs w-60 flex flex-col shadow-lg text-left gap-4 px-5 p-3 z-50">
-                                <button className="text-left" onClick={editModeHandler}>
+                                <button className="text-left  cursor-not-allowed" onClick={editModeHandler}>
                                     Edit project details
                                 </button>
                                 <button className="text-left" onClick={removeAllTalentHandler}>

@@ -8,7 +8,7 @@ function HelpCard() {
         <div className="shadow-3xl flex  flex-col  rounded-lg py-5 px-7 ">
             <h1 className="text-xl mb-6 font-semibold">Help</h1>
             <ul className="space-y-4 ">
-                <li className="flex justify-between text-gray300 cursor-pointer">
+                <li className="flex justify-between text-gray300 cursor-not-allowed">
                     Contact us <ArrrowNextIcon />
                 </li>
                 <li className="flex justify-between text-gray300 cursor-pointer" onClick={() => navigate("/settings/faq")}>

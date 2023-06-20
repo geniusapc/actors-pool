@@ -15,7 +15,7 @@ const DirectoryHeader = () => {
                 >
                     View Project
                 </Button>
-                <Button variant="outlined" className="text-black">
+                <Button variant="outlined" className="text-black cursor-not-allowed">
                     filter
                 </Button>
             </div>

@@ -30,7 +30,7 @@ function AccountCard() {
                     <ArrrowNextIcon />
                 </li>
                 <li
-                    className="flex justify-between text-gray300 cursor-pointer select-none"
+                    className="flex justify-between text-gray300 cursor-not-allowed select-none"
                     onClick={() => dispatch(openDeleteModal())}
                 >
                     Deactivate or delete account

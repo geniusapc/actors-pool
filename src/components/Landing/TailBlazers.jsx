@@ -5,7 +5,8 @@ import TailBrazersCard from './TailBlazersCard'
 function TailBlazers() {
     const trail = tailBrazer[3]
     return (
-        <section className='w-full flex flex-col items-center text-center text-white bg-gradient-to-r  from-[#050504] to-[#0b1717]   pb-32'>
+        <section className="bg-default-bg-img bg-cover w-full flex flex-col items-center text-center text-white pb-32">
+            <div className="absolute h-full w-full bg-gradient-to-r from-[#050504] to-[#0b1717] -z-10 "></div>
             <div className='container mx-auto py-10 md:py-16'>
                 <h2 className='text-4xl mb-4'>Trail Blazers</h2>
                 <p>Young upcoming stars making waves in the entertainment industry</p>

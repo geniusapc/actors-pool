@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Layout from '../../components/Layout/Layout';
+import { Layout } from '../../components/Layout';
 import { useTalentsDataByUsername } from '../../hooks/useTalentData';
 import { useParams } from 'react-router-dom';
 import DataController from '../../components/DataController/DataController';
@@ -35,7 +35,7 @@ function TalentDetails() {
 
             {/* Modals */}
             <ListAllProjectsModal />
-            
+
         </Layout>
     );
 }

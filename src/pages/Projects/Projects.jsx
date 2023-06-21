@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../../components/Layout/Layout'
+import { Layout } from '../../components/Layout'
 import { CreateProjectModal } from '../../components/Projects/Modals'
 import { useProjectsData } from '../../hooks/useProjectData'
 import DataController from '../../components/DataController/DataController'
@@ -12,7 +12,7 @@ function Projects() {
     const projects = data?.data?.data
     useEffect(() => {
         refetch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

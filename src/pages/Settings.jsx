@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '../components/Layout/Layout'
+import { Layout } from '../components/Layout'
 import ChangePassword from '../components/Settings/ChangePassword'
 import DeleteAccount from '../components/Settings/DeleteAccount'
 import ShareProfile from '../components/Settings/ShareProfile'

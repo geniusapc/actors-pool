@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/Layout/Layout';
+import { Layout } from '../../components/Layout';
 import { useTalentsData } from '../../hooks/useTalentData';
 import { useLocation } from 'react-router-dom';
 import { DataController } from '../../components/DataController';

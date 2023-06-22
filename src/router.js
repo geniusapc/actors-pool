@@ -11,6 +11,8 @@ import FAQ from './pages/FAQ';
 import MyProfile from './pages/Profile/MyProfile';
 import CreateProfile from './pages/Profile/CreateProfile';
 import Pdf from './pages/ViewPDF';
+import NotFound from './pages/_404';
+import * as Admin from './pages/Admin';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +63,14 @@ const router = createBrowserRouter([
   {
     path: 'settings/faq',
     element: <FAQ />,
+  },
+  {
+    path: 'admin/dashboard',
+    element: <Admin.Dashboard />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]);
 

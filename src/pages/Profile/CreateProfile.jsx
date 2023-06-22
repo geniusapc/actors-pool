@@ -6,6 +6,7 @@ import { ProfileHeaderCard, ProfileSectionCard } from '../../components/Profile/
 import { PreviewMyProfile } from '../../components/Profile';
 import { FormSteps } from '../../components/Profile';
 import { useMyTalentProfile } from '../../hooks/useTalentData';
+import { notifySuccess } from '../../utils/notification';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -17,11 +18,15 @@ const Profile = () => {
   if (talent) {
     navigate('/profile');
   }
+  const onFormSuccess = () => {
+    notifySuccess('Profile created successfully');
+    navigate("/profile");
+  }
 
   if (step > stages?.length) {
     return (
       <ProfileLayout>
-        <PreviewMyProfile />
+        <PreviewMyProfile onFormSuccess={onFormSuccess} />
       </ProfileLayout>
     )
   }

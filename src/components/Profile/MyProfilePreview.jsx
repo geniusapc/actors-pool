@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const MyProfilePreview = () => {
+const MyProfilePreview = ({ onFormSuccess: onFormSuccess }) => {
   const [talent, setTalent] = useState(null);
   const [previewData, setPreviewData] = useState(null);
   const stages = useSelector((state) => state.createProfile.stages);
@@ -37,7 +37,7 @@ const MyProfilePreview = () => {
 
   return (
     <main>
-      <PreviewProfileDetailsHeader talent={talent} />
+      <PreviewProfileDetailsHeader talent={talent} onSubmitSucces={onFormSuccess} />
       <div className="flex flex-col md:flex-row w-full gap-8">
         <div className="w-full md:w-[308px] ">
           <MyTalentDetailsAside talent={previewData} />

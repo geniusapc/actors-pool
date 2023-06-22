@@ -69,6 +69,10 @@ const router = createBrowserRouter([
     element: <Admin.Dashboard />,
   },
   {
+    path: 'admin/talents/create',
+    element: <Admin.CreateTalent />,
+  },
+  {
     path: '*',
     element: <NotFound />,
   },

@@ -23,7 +23,7 @@ const fetchMyTalentProfile = (id) => {
 };
 
 const addTalentProfile = (data) => {
-  return axios.postForm(`/api/v1/talents/my-profile`, data, {
+  return axios.postForm(`/api/v1/talents`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

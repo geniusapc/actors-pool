@@ -15,8 +15,6 @@ function Layout({ showTalentHidden, sideBarHidden, children, isAuthRequired = tr
     const user = data?.data?.data
     const userRole = user?.role;
 
-
-
     return (
         <div>
             <Header showTalentHidden={showTalentHidden} />

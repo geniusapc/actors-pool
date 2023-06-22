@@ -1,13 +1,10 @@
-import { useNavigate } from 'react-router-dom';
-import { notifyError, notifySuccess } from '../../../utils/notification';
+import { notifyError, } from '../../../utils/notification';
 import Button from '../../Button/Button';
 import { useAddTalent } from '../../../hooks/useTalentData';
 
-const PreviewProfileDetailsHeader = ({ talent }) => {
-    const navigate = useNavigate()
+const PreviewProfileDetailsHeader = ({ talent, onSubmitSucces = () => { } }) => {
     const onSuccess = () => {
-        notifySuccess('Profile created successfully');
-        navigate('/profile');
+        onSubmitSucces()
     };
     const onError = ({ response }) => {
         notifyError(response?.data?.message);

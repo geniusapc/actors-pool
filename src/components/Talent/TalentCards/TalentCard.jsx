@@ -1,8 +1,8 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { useNavigate } from 'react-router-dom';
-import { addTalentToProjectHandler } from '../../features/projects/projects';
-import { ReactComponent as CopyIcon } from '../../assets/icons/copy.svg';
+import { addTalentToProjectHandler } from '../../../features/projects/projects';
+import { ReactComponent as CopyIcon } from '../../../assets/icons/copy.svg';
 import { useDispatch } from 'react-redux';
 
 const TalentCard = ({ talent }) => {

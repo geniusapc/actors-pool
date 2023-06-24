@@ -1,12 +1,13 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { ProfileHeaderCard, ProfileSectionCard } from '../../components/Profile/Cards';
-import { PreviewMyProfile } from '../../components/Profile';
-import { FormSteps } from '../../components/Profile';
-import { notifySuccess } from '../../utils/notification';
-import { ReactComponent as ArrowLeft } from '../../assets/icons/arrow-left.svg';
 import { useNavigate } from 'react-router-dom';
-import { previousStep, resetForm } from '../../features/profile/profile';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { FormSteps } from '../../../components/Profile';
+import { PreviewProfile } from '../../../components/Profile';
+import { notifySuccess } from '../../../utils/notification';
+import { ProfileHeaderCard, ProfileSectionCard } from '../../../components/Profile/Cards';
+import { ReactComponent as ArrowLeft } from '../../../assets/icons/arrow-left.svg';
+import { previousStep, resetForm } from '../../../features/profile/profile';
 
 const CreateTalent = () => {
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ const CreateTalent = () => {
     };
 
     if (step > stages?.length) {
-        return <PreviewMyProfile onFormSuccess={onFormSuccess} />;
+        return <PreviewProfile onFormSuccess={onFormSuccess} />;
     }
     return (
         <>
@@ -33,7 +34,7 @@ const CreateTalent = () => {
                 <ArrowLeft />
                 <span>Back</span>
             </div>
-            <div className="flex flex-col  justify-between md:flex-row md:space-x-10 w-full">
+            <div className="flex flex-col  justify-between md:flex-row md:space-x-10 w-full items-start">
                 <div className="hidden md:block shadow-3xl rounded-[10px] w-[400px]">
                     {stages.map((item, index) => (
                         <ProfileSectionCard
@@ -45,7 +46,7 @@ const CreateTalent = () => {
                     ))}
                 </div>
 
-                <div className="p-8 shadow-3xl rounded-[10px]  w-full">
+                <div className="p-8 shadow-3xl rounded-xl  w-full">
                     <ProfileHeaderCard />
                     <FormSteps />
                 </div>

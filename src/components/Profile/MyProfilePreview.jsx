@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const MyProfilePreview = ({ onFormSuccess }) => {
+const PreviewProfile = ({ onFormSuccess }) => {
   const [talent, setTalent] = useState(null);
   const [previewData, setPreviewData] = useState(null);
   const stages = useSelector((state) => state.createProfile.stages);
@@ -50,4 +50,4 @@ const MyProfilePreview = ({ onFormSuccess }) => {
   );
 };
 
-export default MyProfilePreview;
+export default PreviewProfile;

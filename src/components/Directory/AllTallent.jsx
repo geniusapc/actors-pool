@@ -1,4 +1,4 @@
-import TalentCard from '../Talent/TalentCard';
+import TalentCard from '../Talent/TalentCards/TalentCard';
 
 const AllTalents = ({ data }) => {
     return (

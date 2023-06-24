@@ -56,7 +56,7 @@ const router = createBrowserRouter([
     element: <Directory />,
   },
   {
-    path: 'talent/:username',
+    path: 'talents/:username',
     element: <TalentDetails />,
   },
   {
@@ -96,6 +96,10 @@ const router = createBrowserRouter([
     element: <FAQ />,
   },
   {
+    path: 'admin',
+    element: <AppRoute component={Admin.Dashboard} roles={[ROLES.Admin]} layout={AdminLayout} />,
+  },
+  {
     path: 'admin/dashboard',
     element: <AppRoute component={Admin.Dashboard} roles={[ROLES.Admin]} layout={AdminLayout} />,
   },
@@ -109,7 +113,13 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin/talents/:username',
-    element: <AppRoute component={Admin.TalentDetails} roles={[ROLES.Admin]} layout={AdminLayout} />,
+    element: (
+      <AppRoute component={Admin.TalentDetails} roles={[ROLES.Admin]} layout={AdminLayout} />
+    ),
+  },
+  {
+    path: 'admin/settings',
+    element: <AppRoute component={Admin.Settings} roles={[ROLES.Admin]} layout={AdminLayout} />,
   },
   {
     path: '*',

@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Layout } from '../../components/Layout';
-import { useTalentsDataByUsername } from '../../hooks/useTalentData';
+import { useTalentsDataByUsername } from '../../../hooks/useTalentData';
 import { useParams } from 'react-router-dom';
-import DataController from '../../components/DataController/DataController';
-import { TalentFullDetails } from '../../components/TalentDetails';
+import DataController from '../../../components/DataController/DataController';
+import { TalentFullDetails } from '../../../components/TalentDetails';
 import { useDispatch } from 'react-redux';
-import { selectTalent } from '../../features/talents/talents';
+import { selectTalent } from '../../../features/talents/talents';
 
 function TalentDetails() {
     const dispatch = useDispatch();
@@ -27,7 +26,7 @@ function TalentDetails() {
             empty={!talent}
             error={isError}
             data={talent}
-        Render={TalentFullDetails}
+            Render={TalentFullDetails}
         />
     );
 }

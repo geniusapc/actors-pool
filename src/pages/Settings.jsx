@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from '../components/Layout'
-import ChangePassword from '../components/Settings/ChangePassword'
+import ChangePassword from '../components/Settings/ChangePasswordModal'
 import DeleteAccount from '../components/Settings/DeleteAccount'
 import ShareProfile from '../components/Settings/ShareProfile'
 import AccountCard from '../components/Settings/AccountCard'

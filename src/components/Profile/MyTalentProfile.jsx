@@ -1,6 +1,4 @@
-import MyTalentDetailsAside from '../TalentDetails/MyTalentDetailsAside';
-import ShareProfileCard from '../TalentDetails/ShareProfile';
-import TalentDetailsTab from '../TalentDetails/TalentDetailsTab';
+import { MyTalentDetailsAside, TalentDetailsTab, ShareProfileCard } from '../TalentDetails';
 import { useMyTalentProfile } from '../../hooks/useTalentData';
 import MyProfileDetailtHeader from './Headers/MyProfileDetailsHeader';
 

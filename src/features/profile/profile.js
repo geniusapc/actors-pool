@@ -42,8 +42,9 @@ export const projects = createSlice({
   name: 'projects',
   initialState,
   reducers: {
-    setStep: (state, action) => {
-      state.step = action.payload;
+    resetForm: (state) => {
+      state.step = initialState.step;
+      state.stages = initialState.stages;
     },
     previousStep: (state) => {
       if (state.step > 1) state.step -= 1;
@@ -60,6 +61,6 @@ export const projects = createSlice({
   },
 });
 
-export const { nextStep, previousStep, setFormData } = projects.actions;
+export const { nextStep, previousStep, resetForm, setFormData } = projects.actions;
 
 export default projects.reducer;

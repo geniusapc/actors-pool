@@ -17,7 +17,7 @@ const ProfileLayout = ({ children }) => {
 
   return (
     <>
-      <Header showTalentHidden={false} />
+      <Header />
       <div className="flex flex-col justify-center container mx-auto my-20">
         <div className="flex pb-8 cursor-pointer items-center gap-2" onClick={handlePrevStep}>
           <ArrowLeft />

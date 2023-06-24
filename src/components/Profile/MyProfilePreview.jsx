@@ -1,10 +1,10 @@
-import { TalentDetailsTab, MyTalentDetailsAside } from '../TalentDetails';
+import { TalentDetailsTab, TalentFullDetails } from '../TalentDetails';
 import { PreviewProfileDetailsHeader } from './Headers';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const MyProfilePreview = ({ onFormSuccess: onFormSuccess }) => {
+const MyProfilePreview = ({ onFormSuccess }) => {
   const [talent, setTalent] = useState(null);
   const [previewData, setPreviewData] = useState(null);
   const stages = useSelector((state) => state.createProfile.stages);
@@ -36,13 +36,13 @@ const MyProfilePreview = ({ onFormSuccess: onFormSuccess }) => {
   }, [stages]);
 
   return (
-    <main>
+    <main >
       <PreviewProfileDetailsHeader talent={talent} onSubmitSucces={onFormSuccess} />
-      <div className="flex flex-col md:flex-row w-full gap-8">
+      <div className="flex flex-col justify-between md:flex-row w-full gap-8">
         <div className="w-full md:w-[308px] ">
-          <MyTalentDetailsAside talent={previewData} />
+          <TalentFullDetails talent={previewData} />
         </div>
-        <div className="w-full md:w-3/4 shadow-3xl">
+        <div className="w-full  shadow-3xl">
           <TalentDetailsTab talent={previewData} />
         </div>
       </div>

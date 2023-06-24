@@ -28,7 +28,7 @@ const TalentCard = ({ talent }) => {
 
             <div
                 className="absolute bottom-0 left-0  w-full h-full  bg-gradient-to-b from-transparent via-transparent to-black cursor-pointer "
-                onClick={() => navigate(`/talent/${talent?.username}`)}
+                onClick={() => navigate(`${talent?.username}`)}
             ></div>
 
             <div className="absolute bottom-0 left-0 text-left w-full  p-4 text-white space-y-2.5 select-none" >

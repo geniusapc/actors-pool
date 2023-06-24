@@ -39,8 +39,8 @@ const useProjectsData = (options) => {
   });
 };
 
-const useProjectDataByID = (id) => {
-  return useQuery(['project', id], () => fetchProjectById(id));
+const useProjectDataByID = (id, options = {}) => {
+  return useQuery(['project', id], () => fetchProjectById(id), { ...options });
 };
 
 const useAddProject = (onError, onSuccess) => {

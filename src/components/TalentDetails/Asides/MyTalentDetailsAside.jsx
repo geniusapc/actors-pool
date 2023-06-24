@@ -1,8 +1,8 @@
 import React from 'react';
 import Moment from 'react-moment';
-import SocailAccounts from './SocailAccounts';
+import SocailAccounts from '../SocailAccounts';
 
-function MyTalentDetailsAside({ talent }) {
+function TalentFullDetailsAside({ talent }) {
     return (
         <div className=" shadow-3xl mb-8  p-4">
             <div className="h-[308px] w-[298px]">
@@ -32,4 +32,4 @@ function MyTalentDetailsAside({ talent }) {
     );
 }
 
-export default MyTalentDetailsAside;
+export default TalentFullDetailsAside;

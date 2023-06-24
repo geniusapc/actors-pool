@@ -16,7 +16,7 @@ const ProfileWorkList = ({ openModal, workList }) => {
         </span>
       </div>
       {workList.map((item) => (
-        <ProfileWorkCard title={item.title} year={item.year} />
+        <ProfileWorkCard key={`${item.title}-${item.year}`} title={item.title} year={item.year} />
       ))}
     </div>
   );

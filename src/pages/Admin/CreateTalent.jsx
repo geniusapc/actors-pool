@@ -1,31 +1,38 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import ProfileLayout from '../../components/Layout/ProfileLayout';
+import { useDispatch, useSelector } from 'react-redux';
 import { ProfileHeaderCard, ProfileSectionCard } from '../../components/Profile/Cards';
 import { PreviewMyProfile } from '../../components/Profile';
 import { FormSteps } from '../../components/Profile';
 import { notifySuccess } from '../../utils/notification';
-import {  useNavigate } from 'react-router-dom';
+import { ReactComponent as ArrowLeft } from '../../assets/icons/arrow-left.svg';
+import { useNavigate } from 'react-router-dom';
+import { previousStep, resetForm } from '../../features/profile/profile';
 
 const CreateTalent = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const step = useSelector((state) => state.createProfile.step);
     const stages = useSelector((state) => state.createProfile.stages);
 
     const onFormSuccess = () => {
         notifySuccess('Profile created successfully');
-        navigate("/");
-    }
+        dispatch(resetForm())
+    };
+
+    const handlePrevStep = () => {
+        if (step === 1) navigate(-1);
+        else dispatch(previousStep());
+    };
 
     if (step > stages?.length) {
-        return (
-            <ProfileLayout>
-                <PreviewMyProfile onFormSuccess={onFormSuccess} />
-            </ProfileLayout>
-        )
+        return <PreviewMyProfile onFormSuccess={onFormSuccess} />;
     }
     return (
-        <ProfileLayout>
+        <>
+            <div className="flex pb-8 cursor-pointer items-center gap-2" onClick={handlePrevStep}>
+                <ArrowLeft />
+                <span>Back</span>
+            </div>
             <div className="flex flex-col  justify-between md:flex-row md:space-x-10 w-full">
                 <div className="hidden md:block shadow-3xl rounded-[10px] w-[400px]">
                     {stages.map((item, index) => (
@@ -43,7 +50,7 @@ const CreateTalent = () => {
                     <FormSteps />
                 </div>
             </div>
-        </ProfileLayout>
+        </>
     );
 };
 

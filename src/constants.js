@@ -4,3 +4,9 @@ export const LOCAL_STORAGE_KEYS = {
   USER_KEY: '__USER',
   PROJECT_KEY: '__PROJECT',
 };
+
+export const ROLES = {
+  Guest: '',
+  Admin: 'Admin',
+  User: 'User',
+};

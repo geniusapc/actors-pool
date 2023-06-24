@@ -1,15 +1,15 @@
 import React from 'react';
 import Moment from 'react-moment';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '../Button/Button';
+import Button from '../../Button/Button';
 import {
     SELECT_PROJECT_MODAL,
     addTalentToProjectHandler,
     openModal,
-} from '../../features/projects/projects';
+} from '../../../features/projects/projects';
 
-import { ReactComponent as MessageIcon } from '../../assets/icons/message.svg';
-import SocailAccounts from './SocailAccounts';
+import { ReactComponent as MessageIcon } from '../../../assets/icons/message.svg';
+import SocailAccounts from '../SocailAccounts';
 
 function TalentDetailsAside({ talent }) {
     const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import React from 'react';
-import TalentDetailsAside from './Asides/TalentDetailsAside';
+import TalentDetailsAside from './Asides/TalentFullDetailsAside';
 import TalentDetailsTab from './TalentDetailsTab/TalentDetailsTab';
 
 const TalentDetails = ({ data: talent }) => {

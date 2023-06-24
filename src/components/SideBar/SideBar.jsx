@@ -21,7 +21,8 @@ const sidebarList = [
 const adminSidebarList = [
     { id: 1, name: 'Dashbord', Icon: MessageIcon, href: '/admin/dashboard' },
     { id: 2, name: 'Directory', Icon: DirectoryIcon, href: '/admin/talents' },
-    { id: 3, name: 'Settings', Icon: SettingsIcon, href: '/admin/settings' },
+    { id: 3, name: 'Add Talent', Icon: DirectoryIcon, href: '/admin/talents/create' },
+    { id: 4, name: 'Settings', Icon: SettingsIcon, href: '/admin/settings' },
 ];
 
 
@@ -40,7 +41,7 @@ function SideBar({ role = "User" }) {
 
     const isActive = (href, hightlightState = []) => {
         const routes = [...hightlightState, href]
-        return routes.some((route) => location?.pathname?.startsWith(route))
+        return routes.some((route) => location?.pathname === route)
     };
 
 

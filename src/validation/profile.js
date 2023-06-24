@@ -15,7 +15,7 @@ export const aboutSchema = string().required().min(25).max(225).label('About');
 
 export const movieSchema = object({
   title: string().required().label('Movie title').min(2).max(50),
-  year: date().optional().label('Year').min(4, 'Invalid year').max(4000, 'Invalid year'),
+  year: date().optional().label('Year'),
 });
 
 export const moviesSchema = array(movieSchema);

@@ -13,10 +13,9 @@ const Pdf = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const paramValue = params.get('id');
-
-    const { data, isLoading, isError } = useProjectDataByID(paramValue);
-    const project = data?.data?.data;
-    const talents = project?.talents;
+    const options = { enabled: !!paramValue };
+    const { data, isLoading, isError } = useProjectDataByID(paramValue, options);
+    const talents = data?.data?.data?.talents;
 
     const tempProject = useSelector((state) => state.projects.tempProject);
     useEffect(() => {
@@ -24,24 +23,15 @@ const Pdf = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    if (!paramValue) {
-        <PDFViewer width="100%" height={window.innerHeight}>
-            <TalentsPdf talents={tempProject} />
-        </PDFViewer>;
-    }
+    const talentData = paramValue ? talents : tempProject;
+
+    if (isLoading) return <Loading />;
+    if (isError) return <Error />;
 
     return (
-        <div>
-            {isLoading ? (
-                <Loading />
-            ) : isError ? (
-                <Error />
-            ) : (
-                <PDFViewer width="100%" height={window.innerHeight}>
-                    <TalentsPdf talents={talents} />
-                </PDFViewer>
-            )}
-        </div>
+        <PDFViewer width="100%" height={window.innerHeight}>
+            <TalentsPdf talents={talentData} />
+        </PDFViewer>
     );
 };
 

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, useNavigate } from 'react-router-dom';
 import Landing from './pages/Home/Landing';
 import Directory from './pages/Talents/Directory';
 import TalentDetails from './pages/Talents/TalentDetails';
@@ -16,12 +16,12 @@ import * as Admin from './pages/Admin';
 import { AdminLayout } from './components/Layout';
 import { useProfileData } from './hooks/useUserData';
 import { ROLES } from './constants';
-import NoAuth from './components/Authentication/NoAuth';
-import { Modal } from 'flowbite-react';
 import Loading from './components/DataController/Loading';
 import { useEffect } from 'react';
+import { notifyError } from './utils/notification';
 
 const AppRoute = ({ component: Component, layout: Layout, isProtected = true, roles = [] }) => {
+  const navigate = useNavigate();
   const { data, isFetchedAfterMount, refetch } = useProfileData({ enabled: isProtected });
   const userRole = data?.data?.data?.role;
   const userHasAccess = roles.includes(userRole);
@@ -33,13 +33,8 @@ const AppRoute = ({ component: Component, layout: Layout, isProtected = true, ro
   }, []);
 
   if (isProtected && isFetchedAfterMount && !userHasAccess) {
-    return (
-      <Modal show={true} popup>
-        <Modal.Body>
-          <NoAuth />
-        </Modal.Body>
-      </Modal>
-    );
+    notifyError('Unauthorized');
+    navigate('/');
   }
 
   return <Layout>{showComponent ? <Component /> : <Loading />}</Layout>;

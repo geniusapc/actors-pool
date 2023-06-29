@@ -10,16 +10,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-.dots {
-  width: 4px;
-  height: 4px;
-  background: black;
-  border-radius: 50%;
-  position: relative;
-  display: inline-block;
-  margin: auto 6px;
+* {
+  box-sizing: border-box;
 }

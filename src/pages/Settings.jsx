@@ -1,6 +1,6 @@
 import React from 'react'
-import Layout from '../components/Layout/Layout'
-import ChangePassword from '../components/Settings/ChangePassword'
+import { Layout } from '../components/Layout'
+import ChangePassword from '../components/Settings/ChangePasswordModal'
 import DeleteAccount from '../components/Settings/DeleteAccount'
 import ShareProfile from '../components/Settings/ShareProfile'
 import AccountCard from '../components/Settings/AccountCard'
@@ -13,7 +13,7 @@ function Settings() {
     return (
         <Layout>
             <h1 className='text-3xl mb-8 font-semibold text-center'>Settings</h1>
-            <div className='grid grid-cols-2 gap-2 justify-start content-center mx-20'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-2 justify-start content-center md:mx-20'>
                 <AccountCard />
                 <HelpCard />
                 <InteractionCard />
@@ -23,7 +23,6 @@ function Settings() {
             <ChangePassword />
             <ShareProfile />
             <DeleteAccount />
-
         </Layout>
     )
 }

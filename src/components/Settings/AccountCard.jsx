@@ -1,34 +1,44 @@
-import React from 'react'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import {
+    openChangePasswordModal,
+    openShareProfileModal,
+    openDeleteModal,
+} from '../../features/settings/settings';
+import { ReactComponent as ArrrowNextIcon } from '../../assets/icons/angle-right.svg';
+
 
 function AccountCard() {
+    const dispatch = useDispatch();
+
     return (
-        <div className='shadow-3xl flex  flex-col  rounded-lg py-5 px-7 '>
-            <h1 className='text-xl mb-6 font-semibold'>Account</h1>
-            <ul className='space-y-4 '>
-                <li className='flex justify-between text-gray300 cursor-pointer'
-                    data-modal-target="change-password-modal"
-                    data-modal-toggle="change-password-modal"
+        <div className="shadow-3xl flex  flex-col  rounded-lg py-5 px-7 ">
+            <h1 className="text-xl mb-6 font-semibold">Account</h1>
+            <ul className="space-y-4 ">
+                <li
+                    className="flex justify-between text-gray300 cursor-pointer select-none"
+                    onClick={() => dispatch(openChangePasswordModal())}
                 >
                     Password
-                    <img src="/icons/arrow-next.svg" alt="arrow-next" />
+                    <ArrrowNextIcon />
                 </li>
-                <li className='flex justify-between text-gray300 cursor-pointer'
-                    data-modal-target="share-profile-modal"
-                    data-modal-toggle="share-profile-modal"
+                <li
+                    className="flex justify-between text-gray300 cursor-pointer select-none"
+                    onClick={() => dispatch(openShareProfileModal())}
                 >
                     Share profile
-                    <img src="/icons/arrow-next.svg" alt="arrow-next" />
+                    <ArrrowNextIcon />
                 </li>
-                <li className='flex justify-between text-gray300 cursor-pointer'
-                    data-modal-target="delete-account-modal"
-                    data-modal-toggle="delete-account-modal"
+                <li
+                    className="flex justify-between text-gray300 cursor-not-allowed select-none"
+                    onClick={() => dispatch(openDeleteModal())}
                 >
                     Deactivate or delete account
-                    <img src="/icons/arrow-next.svg" alt="arrow-next" />
+                    <ArrrowNextIcon />
                 </li>
             </ul>
         </div>
-    )
+    );
 }
 
-export default AccountCard
+export default AccountCard;

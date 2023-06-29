@@ -16,11 +16,16 @@ import { TalentsService } from './talents.service';
 import { CreateTalentDto } from './dto/create-talent.dto';
 import { Public } from 'src/auth/decorators/meta';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { IGetTalentQuery, ICreateTalentMulterFiles } from './interfaces';
+import {
+  IGetTalentQuery,
+  ICreateTalentMulterFiles,
+  CreateTalent,
+} from './interfaces';
 import { CreateTopTalentDto } from './dto/create-top-talent.dto';
 import { Request } from 'express';
 import { UpdateTalentDto } from './dto/update-talent.dto';
 import { TransformResponseInterceptor } from 'src/response.interceptor';
+import { Roles } from 'src/users/enum';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
@@ -29,7 +34,7 @@ const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 export class TalentsController {
   constructor(private readonly talentsService: TalentsService) {}
 
-  // _____________________________________________________________ Add Talent Profile _____________________________________________
+  // _________________________________________ Add Talent Profile _____________________________________________
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(
     FileFieldsInterceptor(createTalentFileInterceptor, {
@@ -38,25 +43,22 @@ export class TalentsController {
   )
   @Post('')
   async createPoject(
+    @Req() req: Request,
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
+    //
     const urls = await this.talentsService.uploadGallery(files.gallery);
 
-    const payload = {
+    const payload: CreateTalent = {
       ...createTalentDto,
       gallery: urls,
     };
+    if (req.user?.role !== Roles.Admin) payload.userId = req?.user?._id;
 
     return this.talentsService.create(payload);
   }
 
-  @HttpCode(HttpStatus.OK)
-  @UseInterceptors(
-    FileFieldsInterceptor(createTalentFileInterceptor, {
-      storage: TalentsService.storageOption(),
-    }),
-  )
   @Post('my-profile')
   async create(
     @Req() req: Request,
@@ -74,7 +76,7 @@ export class TalentsController {
     return this.talentsService.create(payload);
   }
 
-  // _____________________________________________________________ Get Talent Profile _____________________________________________
+  // __________________________________________ Get Talent Profile _____________________________________________
   @Public()
   @Get()
   async get(@Query() query?: IGetTalentQuery | undefined) {
@@ -88,7 +90,7 @@ export class TalentsController {
     });
   }
 
-  // _____________________________________________________________ Edit Talent Profile _____________________________________________
+  // _________________________________ Edit Talent Profile _____________________________________________
   @UseInterceptors(
     FileFieldsInterceptor(createTalentFileInterceptor, {
       storage: TalentsService.storageOption(),
@@ -106,7 +108,7 @@ export class TalentsController {
     return null;
   }
 
-  // _____________________________________________________________ Blazzers _____________________________________________
+  // ________________________________________________ Blazzers _____________________________________________
   @Public()
   @Get('blazzers')
   async getBlazzers() {
@@ -122,7 +124,7 @@ export class TalentsController {
   //   return topTalents;
   // }
 
-  // _____________________________________________________________ Top Talents _____________________________________________
+  // _________________________________________ Top Talents _____________________________________________
 
   @Public()
   @Post('top-talents')

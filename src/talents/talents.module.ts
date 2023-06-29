@@ -12,5 +12,6 @@ import { UsersModule } from 'src/users/users.module';
   ],
   controllers: [TalentsController],
   providers: [TalentsService],
+  exports: [TalentsService],
 })
 export class TalentsModule {}

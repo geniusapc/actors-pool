@@ -8,8 +8,11 @@ import {
 import { Talent } from './schemas/talents.schema';
 import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { IGetTalentByIdQuery, IGetTalentQuery } from './interfaces';
-import { CreateTalentDto } from './dto/create-talent.dto';
+import {
+  CreateTalent,
+  IGetTalentByIdQuery,
+  IGetTalentQuery,
+} from './interfaces';
 import { diskStorage } from 'multer';
 import { v4 as uuidv4 } from 'uuid';
 import * as cloudinary from 'cloudinary';
@@ -19,22 +22,17 @@ import { UpdateTalentDto } from './dto/update-talent.dto';
 
 const cloudinaryV2 = cloudinary.v2;
 
-cloudinaryV2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-type CreateTalent = CreateTalentDto & {
-  userId?: string;
-  gallery: { photo: string }[];
-};
-
 @Injectable()
 export class TalentsService {
   constructor(
     @InjectModel(Talent.name) private readonly talentModel: Model<Talent>,
-  ) {}
+  ) {
+    cloudinaryV2.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+  }
 
   private readonly logger = new Logger(TalentsService.name);
   static storageOption() {
@@ -66,7 +64,14 @@ export class TalentsService {
     });
   }
 
-  async uploadGallery(files: Array<Express.Multer.File>) {
+  async countTalent(options?: { [key: string]: string }) {
+    return this.talentModel.countDocuments(options);
+  }
+  async countUserWithTalentProfile() {
+    return this.talentModel.countDocuments({ userId: { $exists: true } });
+  }
+
+  async uploadGallery(files: Array<Express.Multer.File> = []) {
     const urls = [];
     for (const file of files) {
       const { path } = file;
@@ -198,7 +203,16 @@ export class TalentsService {
   async getTopTalents() {
     return this.talentModel
       .find({ rating: { $exists: true } })
-      .select('rating firstname lastname profession photo about')
+      .select('rating firstname lastname username profession photo about')
+      .sort({ rating: -1 })
+      .lean();
+  }
+  async getTrailBlazzers() {
+    return this.talentModel
+      .find({ rating: { $exists: true } })
+      .select(
+        'rating firstname lastname username profession photo about movies dob activeSince ',
+      )
       .sort({ rating: -1 })
       .lean();
   }

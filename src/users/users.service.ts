@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { FilterQuery, Model } from 'mongoose';
 import { User } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
+import { Roles } from './enum';
 @Injectable()
 export class UsersService {
   constructor(
@@ -12,6 +13,14 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
+  }
+
+  async countUsers(options?: { [key: string]: string }) {
+    return this.userModel.countDocuments(options);
+  }
+
+  async countAdmin() {
+    return this.userModel.countDocuments({ role: Roles.Admin });
   }
 
   async findOne(

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 
 import { User } from '../users/schemas/user.schema';
@@ -29,5 +29,15 @@ export class AuthService {
     if (!user) return null;
     const passwordMatch = await bcrypt.compare(pass, user?.password);
     return passwordMatch ? user : null;
+  }
+
+  async ensureNewPasswordIsUnique(userId: string, pass: string): Promise<void> {
+    const user = await this.usersService.findById(userId, {
+      select: '+password',
+    });
+    if (!user) throw new BadRequestException('Invalid user');
+    const passwordMatch = await bcrypt.compare(pass, user?.password);
+    if (passwordMatch)
+      throw new BadRequestException('Password matches current password');
   }
 }

@@ -31,8 +31,11 @@ export class UsersService {
     return users;
   }
 
-  async findById(id: string): Promise<User | null> {
-    return this.userModel.findById(id);
+  async findById(
+    id: string,
+    options?: { select: string },
+  ): Promise<User | null> {
+    return this.userModel.findById(id, options?.select);
   }
 
   async changePassword(userId: string, password: string): Promise<void> {

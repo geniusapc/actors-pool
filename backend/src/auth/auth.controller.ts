@@ -44,7 +44,10 @@ export class AuthController {
     @Body() body: ChangePasswordDto,
     @Req() req: Request,
   ): Promise<any> {
-    await this.usersService.changePassword(req.user._id, body.password);
+    const { _id: userId } = req.user;
+    const { password } = body;
+    await this.authService.ensureNewPasswordIsUnique(userId, password);
+    await this.usersService.changePassword(userId, password);
     return;
   }
 }

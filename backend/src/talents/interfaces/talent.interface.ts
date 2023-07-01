@@ -6,6 +6,7 @@ export interface IGetTalentQuery {
   skip: string;
   select: string;
   'q.age': string;
+  'q.gender': string;
 }
 
 export interface CreateTalent extends CreateTalentDto {

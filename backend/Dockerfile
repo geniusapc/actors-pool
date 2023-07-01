@@ -7,5 +7,8 @@ RUN npm i --omit-dev
 COPY . .
 RUN npm run build
 
-CMD [ "npm", "start:prod" ]
-EXPOSE 8080
+ENV PORT=8081
+
+CMD [ "npm", "run", "start:prod" ]
+
+EXPOSE 8081

@@ -152,6 +152,9 @@ export class TalentsService {
   }
 
   async findAll({ query }: { query: IGetTalentQuery | undefined }) {
+
+    const gender = query && query['q.gender'];
+    const name = query?.q;
     let condition = {};
     const defaultLimit = 25;
     const maxLimit = 100;
@@ -159,8 +162,8 @@ export class TalentsService {
     const skip = Number(query?.skip) || 0;
     const select = query?.select?.split(',') || [];
 
-    if (query?.q)
-      condition = { firstname: { $regex: new RegExp(query?.q, 'i') } };
+    if (name) condition = { firstname: { $regex: new RegExp(name, 'i') } };
+    if (gender) condition = { gender: { $regex: new RegExp(gender, 'i') } };
 
     const queryBuilder = this.talentModel
       .find()

@@ -36,6 +36,9 @@ export class Talent {
   @Prop({ default: null, enum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] })
   rating?: number;
 
+  @Prop({ required: true, enum: ['male', 'female'], lowercase: true })
+  gender: string;
+
   @Prop({ required: true, minlength: 2, trim: true })
   country: string;
 

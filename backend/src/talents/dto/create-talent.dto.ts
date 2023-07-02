@@ -33,6 +33,14 @@ export class CreateTalentDto {
   @IsNumber()
   readonly phoneNumber: number;
 
+  @IsOptional()
+  @IsString()
+  readonly gender: string;
+
+  @IsOptional()
+  @IsArray()
+  readonly languages: string[];
+
   @MaxLength(50)
   @MinLength(2)
   @IsString()

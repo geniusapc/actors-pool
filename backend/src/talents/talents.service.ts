@@ -19,9 +19,20 @@ import * as cloudinary from 'cloudinary';
 import { UploadApiResponse, UploadApiErrorResponse } from 'cloudinary';
 import * as fs from 'fs';
 import { UpdateTalentDto } from './dto/update-talent.dto';
+import * as moment from 'moment';
 
 const cloudinaryV2 = cloudinary.v2;
 
+interface IFindAllQuery {
+  query: IGetTalentQuery | undefined;
+}
+
+type GetTallentFilter = {
+  firstname: any;
+  gender: string;
+  languages: string;
+  dob: any;
+};
 @Injectable()
 export class TalentsService {
   constructor(
@@ -89,7 +100,7 @@ export class TalentsService {
     return urls;
   }
 
-  async generateUsername(name: string) {
+  private async generateUsername(name: string) {
     let username = name;
     let trialCount = 0;
     let usernameExits: number = await this.talentModel.countDocuments({
@@ -123,6 +134,8 @@ export class TalentsService {
       lastname: createTalentDto.lastname,
       firstname: createTalentDto.firstname,
       phoneNumber: createTalentDto.phoneNumber,
+      gender: createTalentDto.gender,
+      languages: createTalentDto.languages,
       profession: createTalentDto.profession,
       activeSince: createTalentDto.activeSince,
       photo: createTalentDto?.gallery[0]?.photo,
@@ -151,19 +164,45 @@ export class TalentsService {
     return this.talentModel.updateOne({ _id: userId }, updateProfileDto);
   }
 
-  async findAll({ query }: { query: IGetTalentQuery | undefined }) {
+  private static buildFindTalentFilter(query: Partial<IGetTalentQuery> = {}) {
+    const name = query.q;
+    const gender = query['q.gender'];
+    const language = query['q.language'];
+    const ageUpperLimit = query['q.age.lte'];
+    const ageLowerLimit = query['q.age.gte'];
 
-    const gender = query && query['q.gender'];
-    const name = query?.q;
-    let condition = {};
+    const condition: Partial<GetTallentFilter> = {};
+    if (name) condition.firstname = { $regex: new RegExp(name, 'i') };
+    if (gender) condition.gender = gender;
+    if (language) condition.languages = language;
+
+    if (ageUpperLimit) {
+      condition.dob = { $lte: moment().subtract(ageUpperLimit, 'years') };
+    }
+
+    // include the upperAgeLimit if exist in order to get a range
+    if (ageLowerLimit) {
+      condition.dob = {
+        ...condition.dob,
+        $gte: moment().subtract(ageLowerLimit, 'years'),
+      };
+    }
+
+    return condition;
+  }
+
+  private static getPaginateValues(query: Partial<IGetTalentQuery> = {}) {
     const defaultLimit = 25;
     const maxLimit = 100;
     const limit = Math.min(Number(query?.limit) || defaultLimit, maxLimit);
     const skip = Number(query?.skip) || 0;
-    const select = query?.select?.split(',') || [];
+    return { limit, skip };
+  }
 
-    if (name) condition = { firstname: { $regex: new RegExp(name, 'i') } };
-    if (gender) condition = { gender: { $regex: new RegExp(gender, 'i') } };
+  async findAll({ query }: IFindAllQuery) {
+    const select = query?.select?.split(',') || [];
+    const condition = TalentsService.buildFindTalentFilter(query);
+    const { limit, skip } = TalentsService.getPaginateValues(query);
 
     const queryBuilder = this.talentModel
       .find()

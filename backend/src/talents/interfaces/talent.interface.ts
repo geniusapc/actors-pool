@@ -5,8 +5,11 @@ export interface IGetTalentQuery {
   limit: string;
   skip: string;
   select: string;
-  'q.age': string;
+  'q.age.eq': string;
+  'q.age.lte': string;
+  'q.age.gte': string;
   'q.gender': string;
+  'q.language': string;
 }
 
 export interface CreateTalent extends CreateTalentDto {

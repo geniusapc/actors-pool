@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
 import { FilterQuery, UpdateQuery, Model, Types } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';

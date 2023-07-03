@@ -8,6 +8,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { TalentsModule } from './talents/talents.module';
 import { ProjectsModule } from './projects/projects.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ProjectsModule } from './projects/projects.module';
     AuthModule,
     TalentsModule,
     ProjectsModule,
+    NotificationModule,
   ],
   controllers: [AppController],
   providers: [

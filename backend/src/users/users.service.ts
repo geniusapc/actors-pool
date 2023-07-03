@@ -1,7 +1,8 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dto/create-user.dto';
-import { FilterQuery, Model } from 'mongoose';
-import { User } from './schemas/user.schema';
+import { FilterQuery, UpdateQuery, Model, Types } from 'mongoose';
+import { User, UserDocument } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Roles } from './enum';
 import { defaultAdminUser } from './data/user.data';
@@ -46,23 +47,21 @@ export class UsersService {
   async findOne(
     condition: FilterQuery<User>,
     options?: { select: string },
-  ): Promise<User | null> {
+  ): Promise<UserDocument | null> {
     const users = await this.userModel.findOne(condition, options?.select);
     return users;
   }
 
-  async findById(
-    id: string,
-    options?: { select: string },
-  ): Promise<User | null> {
-    return this.userModel.findById(id, options?.select);
+  async updateOne(condition: FilterQuery<User>, update: UpdateQuery<User>) {
+    const users = await this.userModel.updateOne(condition, update);
+    return users;
   }
 
-  async changePassword(userId: string, password: string): Promise<void> {
-    const user = await this.userModel.findById(userId, '+password');
-    if (!user) throw new BadRequestException('Invalid user');
-    user.password = password;
-    user.save();
+  async findById(
+    id: Types.ObjectId,
+    options?: { select: string },
+  ): Promise<UserDocument | null> {
+    return this.userModel.findById(id, options?.select);
   }
 
   async deleteAccount(userId: string): Promise<void> {

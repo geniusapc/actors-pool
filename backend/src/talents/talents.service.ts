@@ -6,7 +6,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { Talent } from './schemas/talents.schema';
-import { Model, ObjectId } from 'mongoose';
+import { FilterQuery, Model, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   CreateTalent,
@@ -27,12 +27,6 @@ interface IFindAllQuery {
   query: IGetTalentQuery | undefined;
 }
 
-type GetTallentFilter = {
-  firstname: any;
-  gender: string;
-  languages: string;
-  dob: any;
-};
 @Injectable()
 export class TalentsService {
   constructor(
@@ -171,7 +165,7 @@ export class TalentsService {
     const ageUpperLimit = query['q.age.lte'];
     const ageLowerLimit = query['q.age.gte'];
 
-    const condition: Partial<GetTallentFilter> = {};
+    const condition: FilterQuery<Talent> = {};
     if (name) condition.firstname = { $regex: new RegExp(name, 'i') };
     if (gender) condition.gender = gender;
     if (language) condition.languages = language;

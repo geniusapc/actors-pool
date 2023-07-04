@@ -22,7 +22,7 @@ function Landing() {
 
         <GuestHeader />
         <SearchTalentSection />
-        <div className="flex flex-col items-center  w-4/5 h-[200px] md:h-[400px] lg:h-[560px] xl:h-[600px] mx-auto overflow-y-hidden -mt-40 xl:-mt-60">
+        <div className="flex flex-col items-center  w-4/5 h-[200px] md:h-[400px] lg:h-[560px] xl:h-[600px] mx-auto overflow-y-hidden -mt-28 md:-mt-40 xl:-mt-60">
           <img src="images/landing-page-dir-img.svg" alt="landing page" />
         </div>
       </section>

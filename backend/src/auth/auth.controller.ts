@@ -80,8 +80,10 @@ export class AuthController {
   @HttpCode(204)
   @Post('/forgot-password')
   async sendForgotPasswordMail(@Body() body: ForgotPasswordDto): Promise<void> {
-    const user = await this.authService.createForgotPasswordToken(body.email);
-    await this.notificationService.sendForgottenPasswdMail(user);
+    try {
+      const user = await this.authService.createForgotPasswordToken(body.email);
+      await this.notificationService.sendForgottenPasswdMail(user);
+    } catch (error) {}
   }
 
   @Public()

@@ -39,12 +39,7 @@ const PreviewProfile = ({ onFormSuccess }) => {
     <main >
       <PreviewProfileDetailsHeader talent={talent} onSubmitSucces={onFormSuccess} />
       <div className="flex flex-col justify-between md:flex-row w-full gap-8">
-        <div className="w-full md:w-[308px] ">
-          <TalentFullDetails talent={previewData} />
-        </div>
-        <div className="w-full  shadow-3xl">
-          <TalentDetailsTab talent={previewData} />
-        </div>
+        <TalentFullDetails data={previewData} />
       </div>
     </main>
   );

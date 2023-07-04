@@ -6,14 +6,18 @@ import Signin from '../Authentication/Signin'
 import Signup from '../Authentication/Signup'
 import { useSelector } from 'react-redux'
 import { useProfileData } from '../../hooks/useUserData'
+import { useNavigate } from 'react-router-dom'
 
 
 function Layout({ showTalentHidden, sideBarHidden, children, isAuthRequired = true }) {
+    const navigate = useNavigate()
     const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
     const { data } = useProfileData()
-    const user = data?.data?.data
+    const user = data?.data
     const userRole = user?.role;
+
+    if (userRole === "Admin") navigate("/admin")
 
     return (
         <div>

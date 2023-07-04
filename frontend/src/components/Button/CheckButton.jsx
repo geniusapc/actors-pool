@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CheckButton({ id, text = '', isChecked = true, onChange, disabled = true }) {
+function CheckButton({ id, text = '', isChecked = true, onChange, disabled = false }) {
     return (
         <label className={`relative inline-flex items-center ${!disabled && "cursor-pointer"}  my-auto`}>
             <input id={id} type="checkbox" value="" className="sr-only peer" checked={isChecked} onChange={onChange} disabled={disabled} />

@@ -5,8 +5,8 @@ const fetchProfile = (q) => {
   return axios.get('/api/v1/users/my-profile');
 };
 
-const useProfileData = (options) => {
-  return useQuery(['my-talent-profile'], () => fetchProfile(), {
+const useProfileData = (options = {}) => {
+  return useQuery(['my-user-profile'], () => fetchProfile(), {
     refetchOnWindowFocus: false,
     retry: false,
     staleTime: 30000,

@@ -18,7 +18,8 @@ function Signin() {
     const dispatch = useDispatch();
     const location = useLocation()
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    const { refetch } = useProfileData({ enabled: isAuthenticated });
+    const [isEnabled, setIsEnabled] = useState(isAuthenticated)
+    const { refetch } = useProfileData({ enabled: isEnabled });
 
     const [data, setData] = useState({});
     const isModalOpen = useSelector((state) => state.auth.isSignInModalOpen);
@@ -50,6 +51,7 @@ function Signin() {
     const onSuccess = async ({ data }) => {
         const redirectUrl = (location.pathname === "/") ? "/talents" : location.pathname
         dispatch(authenticate(data));
+        setIsEnabled(true)
         setDefaultHeader()
         refetch()
         notifySuccess('success');

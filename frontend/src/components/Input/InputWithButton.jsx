@@ -9,7 +9,7 @@ function InputWithButton({
     buttonText = "Search",
     onSubmit = () => { },
     onChange = () => { },
-}) {
+a}) {
     return (
         <form className={`w-full ${style.form}`} onSubmit={onSubmit}>
             <label

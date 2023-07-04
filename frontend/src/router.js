@@ -83,11 +83,11 @@ const router = createBrowserRouter([
     element: <Settings />,
   },
   {
-    path: 'settings/terms-and-conditions',
+    path: 'terms-and-conditions',
     element: <TermsAndCondition />,
   },
   {
-    path: 'settings/faq',
+    path: 'faq',
     element: <FAQ />,
   },
   {

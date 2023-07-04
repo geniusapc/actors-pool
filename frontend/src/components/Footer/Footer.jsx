@@ -1,7 +1,19 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
+
 import { ReactComponent as Logo } from "../../assets/icons/logo.svg"
+import { openSignUpModal, openSignInModal } from '../../features/auth/auth'
+
+const socialMedia = {
+    tiktok: "https://tiktok.com",
+    twitter: "https://twitter.com",
+    snachat: "https://snapchat.com",
+    instagram: "https://instagram.com"
+}
 
 function Footer() {
+    const dispatch = useDispatch(0)
     return (
         <div className=''>
             <div className='container mx-auto px-4 flex flex-col md:flex-row'>
@@ -13,32 +25,33 @@ function Footer() {
                     <div className='flex flex-col'>
                         <h3 className='text-xl pb-4 md:pb-8'>Product</h3>
                         <div className='flex flex-col  gap-6'>
-                            <a href="#1">About</a>
-                            <a href="#1">Sign Up</a>
-                            <a href="#1">Login</a>
+                            <Link to="/about">About</Link>
+                            <button className="text-left" onClick={() => dispatch(openSignUpModal())}>Sign Up</button>
+                            <button className="text-left" onClick={() => dispatch(openSignInModal())}>Login</button>
                         </div>
                     </div>
                     <div className='flex flex-col'>
                         <h3 className='text-xl pb-4 md:pb-8'>Legal</h3>
                         <div className='flex flex-col  gap-6'>
-                            <a href="#1">Privacy Policy</a>
-                            <a href="#1">Terms of Service</a>
+                            <Link to={"/terms-and-conditions"}>Privacy Policy</Link>
+                            <Link to={"/terms-and-conditions"}>Terms of Service</Link>
                         </div>
                     </div>
                     <div className='flex flex-col'>
                         <h3 className='text-xl pb-4 md:pb-8'>Help</h3>
                         <div className='flex flex-col  gap-6'>
-                            <a href="#1">FAQ</a>
-                            <a href="#1">Contact Us</a>
+                            <Link to={"/faq"}>FAQ</Link>
+                            <Link to={"/contact-us"}>Contact Us</Link>
+
                         </div>
                     </div>
                     <div className='flex flex-col'>
                         <h3 className='text-xl pb-4 md:pb-8'>Follow us</h3>
                         <div className='flex flex-col gap-6'>
-                            <a href="#1">TikTok</a>
-                            <a href="#1">Twitter</a>
-                            <a href="#1">Snapchat</a>
-                            <a href="#1">Instagram</a>
+                            <a href={socialMedia.tiktok}>TikTok</a>
+                            <a href={socialMedia.twitter}>Twitter</a>
+                            <a href={socialMedia.snachat}>Snapchat</a>
+                            <a href={socialMedia.instagram}>Instagram</a>
                         </div>
                     </div>
 

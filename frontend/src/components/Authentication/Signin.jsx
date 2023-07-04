@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
-import { closeSignInModal, openSignUpModal, authenticate } from '../../features/auth/auth';
+import { closeSignInModal, openSignUpModal, openForgotPwdModal, authenticate } from '../../features/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +17,8 @@ function Signin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const location = useLocation()
-    const { refetch } = useProfileData();
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const { refetch } = useProfileData({ enabled: isAuthenticated });
 
     const [data, setData] = useState({});
     const isModalOpen = useSelector((state) => state.auth.isSignInModalOpen);
@@ -30,6 +31,11 @@ function Signin() {
     const openSignUpHandler = () => {
         onCloseHandler()
         dispatch(openSignUpModal())
+    }
+
+    const handleForgotPassword = () => {
+        onCloseHandler()
+        dispatch(openForgotPwdModal())
     }
 
     const onChangeHandler = (e) => {
@@ -79,9 +85,9 @@ function Signin() {
                     onChange={onChangeHandler}
                 />
                 <div className="mt-4">
-                    <a className="text-sm " href="#1">
+                    <div className="text-sm cursor-pointer " onClick={handleForgotPassword}>
                         Forgot Password
-                    </a>
+                    </div>
                 </div>
 
                 <div className="flex flex-col gap-4 py-4 items-center">

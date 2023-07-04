@@ -1,8 +1,8 @@
 import Button from '../Button/Button';
 import { openSignInModal, openSignUpModal } from '../../features/auth/auth';
 import { useDispatch } from 'react-redux';
-import { ReactComponent as HamBugerIcon } from "../../assets/icons/hamburger.svg"
-import { ReactComponent as Logo } from "../../assets/icons/logo.svg"
+import { ReactComponent as HamBugerIcon } from '../../assets/icons/hamburger.svg';
+import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import { Link } from 'react-router-dom';
 
 function GuestHeader() {
@@ -31,7 +31,6 @@ function GuestHeader() {
           >
             <span className="sr-only">Open main menu</span>
             <HamBugerIcon />
-
           </button>
         </div>
         <div
@@ -41,7 +40,7 @@ function GuestHeader() {
           <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:bg-transparent md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <Link
-                href="/"
+                to="/"
                 className="block py-2 pl-3 pr-4 text-white  md:text-white  bg-blue-700 rounded md:bg-transparent  md:p-0 md:dark:text-blue-500"
                 aria-current="page"
               >
@@ -50,7 +49,7 @@ function GuestHeader() {
             </li>
             <li>
               <Link
-                href="#1"
+                to="/about"
                 className="block py-2 pl-3 pr-4 text-gray-900  md:text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
               >
                 About

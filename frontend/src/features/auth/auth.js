@@ -4,6 +4,7 @@ import { UserUtils } from '../../utils/user';
 const initialState = {
   isSignInModalOpen: false,
   isSignUpModalOpen: false,
+  isForgotPwdModalOpen: false,
   isAuthenticated: UserUtils.isLoggedIn,
 };
 
@@ -19,12 +20,18 @@ export const auth = createSlice({
     openSignUpModal: (state) => {
       state.isSignUpModalOpen = true;
     },
+    openForgotPwdModal: (state) => {
+      state.isForgotPwdModalOpen = true;
+    },
     openChangePasswordModal: (state) => {
       state.isChangePasswordModalOpen = true;
     },
 
     closeSignInModal: (state) => {
       state.isSignInModalOpen = false;
+    },
+    closeForgotPwdModal: (state) => {
+      state.isForgotPwdModalOpen = false;
     },
     closeSignUpModal: (state) => {
       state.isSignUpModalOpen = false;
@@ -43,9 +50,11 @@ export const auth = createSlice({
 
 export const {
   openSignInModal,
+  openForgotPwdModal,
   openSignUpModal,
   openChangePasswordModal,
   closeSignInModal,
+  closeForgotPwdModal,
   closeSignUpModal,
   authenticate,
   logout,

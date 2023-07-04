@@ -166,7 +166,12 @@ export class TalentsService {
     const ageLowerLimit = query['q.age.gte'];
 
     const condition: FilterQuery<Talent> = {};
-    if (name) condition.firstname = { $regex: new RegExp(name, 'i') };
+    if (name) {
+      condition['$or'] = [
+        { firstname: { $regex: new RegExp(name, 'i') } },
+        { lastname: { $regex: new RegExp(name, 'i') } },
+      ];
+    }
     if (gender) condition.gender = gender;
     if (language) condition.languages = language;
 

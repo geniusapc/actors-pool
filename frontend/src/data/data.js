@@ -18,18 +18,22 @@ export const termsAndCondition = {
 
 export const faq = [
   {
+    _id: 1,
     question: 'Question 1',
     answer: 'Answer 1',
   },
   {
+    _id: 2,
     question: 'Question 2',
     answer: 'Answer 2',
   },
   {
+    _id: 3,
     question: 'Question 3',
     answer: 'Answer 3',
   },
   {
+    _id: 4,
     question: 'Question 4',
     answer: 'Answer 4',
   },

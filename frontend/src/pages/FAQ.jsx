@@ -30,7 +30,7 @@ function FAQ() {
                     data-inactive-classes="text-gray-500 dark:text-gray-400"
                 >
                     {faq?.map((e, index) => (
-                        <>
+                        <div key={e._id}>
                             <h2 id={`accordion-flush-heading-${index}`}>
                                 <button
                                     type="button"
@@ -50,7 +50,7 @@ function FAQ() {
                             >
                                 <div class="py-5 border-b border-gray-200 dark:border-gray-700">{e.answer}</div>
                             </div>
-                        </>
+                        </div>
                     ))}
                 </div>
             </div>

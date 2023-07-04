@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import * as bcrypt from 'bcrypt';
 
 import { UsersService } from '../users/users.service';
-import { User, UserDocument } from '../users/schemas/user.schema';
+import { UserDocument } from '../users/schemas/user.schema';
 
 import { JwtService } from '@nestjs/jwt';
 import { Types } from 'mongoose';
@@ -126,13 +126,15 @@ export class AuthService {
     return { ...parsedUser, accessToken: this.jwtService.sign(payload) };
   }
 
-  async validateUser(username: string, pass: string): Promise<User | null> {
+  async validateUser(username: string, pass: string): Promise<UserDocument> {
     const user = await this.usersService.findOne(
       { email: username },
       { select: '+password' },
     );
-    if (!user) return null;
+    if (!user) throw new BadRequestException('Invalid email or password');
     const passwordMatch = await bcrypt.compare(pass, user?.password);
-    return passwordMatch ? user : null;
+    if (!passwordMatch)
+      throw new BadRequestException('Invalid email or password');
+    return user;
   }
 }

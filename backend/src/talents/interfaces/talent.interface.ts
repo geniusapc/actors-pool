@@ -10,6 +10,7 @@ export interface IGetTalentQuery {
   'q.age.gte': string;
   'q.gender': string;
   'q.language': string;
+  'q.activeSince': string;
 }
 
 export interface CreateTalent extends CreateTalentDto {

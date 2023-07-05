@@ -21,7 +21,7 @@ function AuthUser() {
     };
 
     useEffect(() => {
-        const response = data?.data?.data;
+        const response = data?.data
         if (response) {
 
             setUser(response);

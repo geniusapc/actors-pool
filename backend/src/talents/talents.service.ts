@@ -164,6 +164,7 @@ export class TalentsService {
     const language = query['q.language'];
     const ageUpperLimit = query['q.age.lte'];
     const ageLowerLimit = query['q.age.gte'];
+    const activeSince = query['q.activeSince'];
 
     const condition: FilterQuery<Talent> = {};
     if (name) {
@@ -174,6 +175,7 @@ export class TalentsService {
     }
     if (gender) condition.gender = gender;
     if (language) condition.languages = language;
+    if (activeSince) condition.activeSince = { $gte: activeSince };
 
     if (ageUpperLimit) {
       condition.dob = { $lte: moment().subtract(ageUpperLimit, 'years') };

@@ -33,6 +33,8 @@ function Input({
         value={value}
         className={`${defaultClass}  ${inputClass}`}
         placeholder={placeholder}
+      
+  
         {...rest}
       />
     </div>

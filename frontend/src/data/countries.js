@@ -1,1 +1,1 @@
-export const coutries = [{ label: 'Nigeria', value: 'NGA' }];
+export const coutries = [{ label: 'Nigeria', value: 'Nigeria' }];

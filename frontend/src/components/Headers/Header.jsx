@@ -69,34 +69,6 @@ function Header({ showTalentHidden = false }) {
                             )}
                         </div>
                     </div>
-
-                    <div
-                        className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-                        id="logo-sidebar"
-                    >
-                        <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:bg-transparent md:flex-row md:space-x-8 md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                            <li>
-                                <Link
-                                    to="/"
-                                    className="block py-2 pl-3 pr-4 text-white  md:text-white  bg-blue-700 rounded md:bg-transparent  md:p-0 md:dark:text-blue-500"
-                                    aria-current="page"
-                                >
-                                    Home
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/about"
-                                    className="block py-2 pl-3 pr-4 text-gray-900  md:text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:p-0 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                                >
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <button className="text-gray-900  md:text-white pl-3 pr-4">Login</button>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </nav>

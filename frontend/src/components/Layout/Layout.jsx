@@ -24,7 +24,7 @@ function Layout({ showTalentHidden, sideBarHidden, children, isAuthRequired = tr
             <Header showTalentHidden={showTalentHidden} />
             {!sideBarHidden && <SideBar role={userRole} />}
             <div className="p-y-4 px-5 md:px-10  md:ml-28  md:mx-auto my-20">
-                <div className='containter mx-auto '>
+                <div className='mx-auto'>
                     {(isAuthRequired && !isAuth) ? <NoAuth /> : children}
                     {/* Modal */}
                     <Signin />

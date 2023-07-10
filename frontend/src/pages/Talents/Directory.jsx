@@ -29,7 +29,7 @@ function Directory() {
             <DirectoryHeader setFilter={setFilter} />
             <DataStatus empty={!talents?.length} isError={isError} isLoading={isLoading}>
                 {talents?.length && (
-                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                    <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 xl:gap-x-8">
                         {talents.map((talent) => (
                             <TalentCard key={talent?._id} talent={talent} />
                         ))}

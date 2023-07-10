@@ -3,20 +3,21 @@ import Moment from 'react-moment';
 import { useNavigate } from 'react-router-dom';
 import { addTalentToProjectHandler } from '../../../features/projects/projects';
 import { ReactComponent as CopyIcon } from '../../../assets/icons/copy.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const TalentCard = ({ talent }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
     return (
         <div className="relative">
-            <div
+            {!isAuth && <div
                 className="absolute top-2 right-2 cursor-copy z-10"
                 onClick={() => dispatch(addTalentToProjectHandler(talent))}
             >
                 <CopyIcon />
-            </div>
+            </div>}
 
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80  relative">
                 <img

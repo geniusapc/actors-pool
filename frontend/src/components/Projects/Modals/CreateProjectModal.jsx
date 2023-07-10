@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../../Modal/Modal';
 import Input from '../../Input/Input';
 import Button from '../../Button/Button';
@@ -14,17 +14,25 @@ function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false 
 
     const [project, setProject] = useState({});
     const [searchTalentField, setSearchTalentField] = useState('');
-
+    const [initialDataOptions, setInitialData] = useState([]);
 
     const isModalOpen = useSelector((state) => state.projects[CREATE_PROJECT_MODAL]);
 
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
-    const { refetch } = useTalentsData({ query });
+    const { refetch, data } = useTalentsData({ query });
 
     const onCloseModalHandler = () => {
         setProject({});
         dispatch(closeModal(CREATE_PROJECT_MODAL));
     };
+
+    useEffect(() => {
+        const talents = data?.data?.data?.talent;
+        if (talents) {
+            const init = formatData(talents);
+            setInitialData(init);
+        }
+    }, [data]);
 
     const formatData = (data) => {
         return data?.map((e) => ({
@@ -40,19 +48,19 @@ function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false 
 
     const debounceSearch = async (value) => {
         setSearchTalentField(value);
+
         return new Promise(async (resolve) => {
             clearTimeout(debounceSearch.timer);
             debounceSearch.timer = setTimeout(async () => {
                 const { data } = await refetch();
-                const result = formatData(data?.data?.data?.talent)
+                const result = formatData(data?.data?.data?.talent);
                 resolve(result);
             }, 1000);
         });
     };
 
     const onError = ({ response }) => {
-
-        notifyError(response?.data?.message)
+        notifyError(response?.data?.message);
     };
     const onSuccess = () => {
         notifySuccess('Project created successfully');
@@ -67,12 +75,11 @@ function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false 
         createProject(project);
     };
 
-
     const onChangeTalentHandler = (e) => {
-        const ids = e?.map((res) => res?.value)
-        setProject((prev) => ({ ...prev, talents: ids }))
-    }
-    const onChangeNameHandler = (e) => setProject((prev) => ({ ...prev, name: e?.target?.value }))
+        const ids = e?.map((res) => res?.value);
+        setProject((prev) => ({ ...prev, talents: ids }));
+    };
+    const onChangeNameHandler = (e) => setProject((prev) => ({ ...prev, name: e?.target?.value }));
 
     return (
         <Modal isOpen={isModalOpen} onClose={onCloseModalHandler}>
@@ -89,7 +96,24 @@ function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false 
                     required
                 />
 
-                {!hideTalentField && <AsyncSelect isMulti cacheOptions loadOptions={debounceSearch} onChange={onChangeTalentHandler} />}
+                {!hideTalentField && (
+                    <AsyncSelect
+                        styles={{
+                            control: (styles) => ({
+                                ...styles,
+                                borderRadius: "43px",
+                                height: "56px",
+                                paddingLeft: "12px"
+                            }),
+                        }}
+                        defaultOptions={initialDataOptions}
+                        isMulti
+                        cacheOptions
+                        loadOptions={debounceSearch}
+                        onChange={onChangeTalentHandler}
+                    
+                    />
+                )}
 
                 <div className="w-full flex">
                     <Button className="mx-auto" type="submit" variant="primary" isLoading={isLoading}>

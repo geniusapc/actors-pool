@@ -8,12 +8,14 @@ import { DirectoryHeader } from '../../components/Directory';
 import DataStatus from '../../components/DataController/DataStatus';
 import TalentCard from '../../components/Talent/TalentCards/TalentCard';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 function Directory() {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const paramValue = params.get('q');
     const [filter, setFilter] = useState({});
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
     const query = {
         select: 'photo,gallery,firstname,lastname,profession,activeSince,username',
@@ -26,7 +28,7 @@ function Directory() {
 
     return (
         <Layout showTalentHidden isAuthRequired={false}>
-            <DirectoryHeader setFilter={setFilter} />
+            <DirectoryHeader setFilter={setFilter} hideProjectButton={isAuth}/>
             <DataStatus empty={!talents?.length} isError={isError} isLoading={isLoading}>
                 {talents?.length && (
                     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 xl:gap-x-8">

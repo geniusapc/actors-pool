@@ -80,6 +80,7 @@ const DirectoryHeader = ({ hideProjectButton = false, setFilter }) => {
                             data={GENDER}
                             label="Gender"
                             defaultOptionLabel="Choose gender"
+                            size={"md"}
                         />
 
                         <Input
@@ -89,6 +90,7 @@ const DirectoryHeader = ({ hideProjectButton = false, setFilter }) => {
                             value={data?.activeSince}
                             onChange={handleOnChange}
                             label="Active Since"
+                            size={"md"}
                         />
                         <SelectInput
                             id="language"
@@ -98,6 +100,7 @@ const DirectoryHeader = ({ hideProjectButton = false, setFilter }) => {
                             data={LANGUAGES}
                             label="Language"
                             defaultOptionLabel="Choose language"
+                            size={"md"}
                         />
                         <div className="flex  items-end gap-x-2">
                             <SelectInput
@@ -111,6 +114,7 @@ const DirectoryHeader = ({ hideProjectButton = false, setFilter }) => {
                                 }))}
                                 label="Age"
                                 defaultOptionLabel="Min"
+                                size={"md"}
                             />
 
                             <SelectInput
@@ -123,6 +127,7 @@ const DirectoryHeader = ({ hideProjectButton = false, setFilter }) => {
                                     label: `${Number(data?.ageLowerLimit || 0) + i + 1} yrs`,
                                 }))}
                                 defaultOptionLabel="Max"
+                                size={"md"}
                             />
                         </div>
                     </div>

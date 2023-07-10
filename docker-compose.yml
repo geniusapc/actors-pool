@@ -5,6 +5,8 @@ services:
     build: frontend
     ports:
       - 3000:3000
+    networks:
+      - shared-network
     environment:
       - REACT_APP_SERVER_BASEURL=http://backend:8081
     depends_on:
@@ -13,3 +15,12 @@ services:
     build: backend
     ports:
       - 8081:8081
+    environment:
+      - PORT = 8081
+    env_file:
+      - ./.env
+    networks:
+      - shared-network
+
+networks:
+  shared-network:

@@ -46,11 +46,12 @@ const useMyTalentProfile = () => {
 };
 
 const useTalentsData = (options) => {
-  const { query } = options || {};
+  const { query, options: useQueryOptions = {} } = options || {};
   const q = qs.stringify(query);
   return useQuery(['talents', q], () => fetchTalent(q), {
     refetchOnWindowFocus: false,
     retry: false,
+    ...useQueryOptions,
   });
 };
 

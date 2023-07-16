@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { ReactComponent as Logo } from "../../assets/icons/logo.svg"
@@ -13,6 +13,7 @@ const socialMedia = {
 }
 
 function Footer() {
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
     const dispatch = useDispatch(0)
     return (
         <div className=''>
@@ -27,7 +28,7 @@ function Footer() {
                         <div className='flex flex-col  gap-6'>
                             <Link to="/about">About</Link>
                             <button className="text-left" onClick={() => dispatch(openSignUpModal())}>Sign Up</button>
-                            <button className="text-left" onClick={() => dispatch(openSignInModal())}>Login</button>
+                            {!isAuth && <button className="text-left" onClick={() => dispatch(openSignInModal())}>Login</button>}
                         </div>
                     </div>
                     <div className='flex flex-col'>

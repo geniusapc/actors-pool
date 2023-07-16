@@ -19,7 +19,7 @@ function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false 
     const isModalOpen = useSelector((state) => state.projects[CREATE_PROJECT_MODAL]);
 
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
-    const { refetch, data } = useTalentsData({ query });
+    const { refetch, data } = useTalentsData({ query, options: { enabled: isModalOpen } });
 
     const onCloseModalHandler = () => {
         setProject({});
@@ -111,7 +111,7 @@ function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false 
                         cacheOptions
                         loadOptions={debounceSearch}
                         onChange={onChangeTalentHandler}
-                    
+
                     />
                 )}
 

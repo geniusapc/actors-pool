@@ -8,7 +8,7 @@ function ShareProfileCard({ className, username }) {
   const [profileLink, setProfileLink] = useState();
   useEffect(() => {
     const origin = window.location.origin;
-    const tempLink = `${origin}/talent/${username}`;
+    const tempLink = `${origin}/talents/${username}`;
     setProfileLink(tempLink);
   }, [username]);
 

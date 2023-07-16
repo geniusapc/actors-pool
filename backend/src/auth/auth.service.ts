@@ -101,22 +101,51 @@ export class AuthService {
   async resetPassword(email: string, token: string, password: string) {
     const user = await this.getResetPwdToken(email, token);
     if (!user) throw new BadRequestException('Invalid token');
-    await this.changePassword(user._id, password);
+    await this.changePwd(user._id, password);
     await this.nullifyResetToken(user?.email);
   }
+  private getUserWithPwd(userId: Types.ObjectId) {
+    return this.usersService.findById(userId, {
+      select: '+password',
+    });
+  }
 
-  async changePassword(
-    userId: Types.ObjectId,
-    password: string,
-  ): Promise<void> {
+  private async pwdMatched(password: string, hashedPwd: string) {
+    return bcrypt.compare(password, hashedPwd);
+  }
+  private async changePwd(userId: Types.ObjectId, newPassword: string) {
     const user = await this.usersService.findById(userId, {
       select: '+password',
     });
     if (!user) throw new BadRequestException('Invalid user');
-    const passwordMatch = await bcrypt.compare(password, user?.password);
+
+    const passwordMatch = await bcrypt.compare(newPassword, user?.password);
     if (passwordMatch)
       throw new BadRequestException('Password matches current password');
-    user.password = password;
+
+    user.password = newPassword;
+    user.save();
+  }
+
+  async changePwdAndValidateOldPwd(
+    userId: Types.ObjectId,
+    oldPassword: string,
+    newPassword: string,
+  ): Promise<void> {
+    const user = await this.getUserWithPwd(userId);
+    if (!user) throw new BadRequestException('Invalid user');
+
+    const oldPasswordIsCorrect = await this.pwdMatched(
+      oldPassword,
+      user?.password,
+    );
+
+    if (!oldPasswordIsCorrect)
+      throw new BadRequestException('Incorrect password');
+
+    if (oldPassword === newPassword)
+      throw new BadRequestException('Password matches current password');
+    user.password = newPassword;
     user.save();
   }
 

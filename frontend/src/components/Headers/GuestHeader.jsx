@@ -1,12 +1,14 @@
 import Button from '../Button/Button';
 import { openSignInModal, openSignUpModal } from '../../features/auth/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as HamBugerIcon } from '../../assets/icons/hamburger.svg';
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function GuestHeader() {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   return (
     <nav className="dark:bg-gray-900  w-full mt-0  ">
@@ -18,9 +20,10 @@ function GuestHeader() {
           </span>
         </Link>
         <div className="flex md:order-2">
-          <Button className="hidden md:flex" onClick={() => dispatch(openSignUpModal())}>
+          {!isAuth && <Button className="hidden md:flex" onClick={() => dispatch(openSignUpModal())}>
             Get started
-          </Button>
+          </Button>}
+
 
           <button
             data-collapse-toggle="navbar-sticky"
@@ -55,14 +58,23 @@ function GuestHeader() {
                 About
               </Link>
             </li>
-            <li>
-              <button
-                className="text-gray-900  md:text-white pl-3 pr-4"
-                onClick={() => dispatch(openSignInModal())}
-              >
-                Login
-              </button>
-            </li>
+            {
+              isAuth ? <li>
+                <button
+                  className="text-gray-900  md:text-white pl-3 pr-4"
+                  onClick={() => navigate("/talents")}
+                >
+                  Directory
+                </button>
+              </li> : <li>
+                <button
+                  className="text-gray-900  md:text-white pl-3 pr-4"
+                  onClick={() => dispatch(openSignInModal())}
+                >
+                  Login
+                </button>
+              </li>
+            }
           </ul>
         </div>
       </div>

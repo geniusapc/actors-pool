@@ -56,8 +56,13 @@ export class AuthController {
     @Req() req: Request,
   ): Promise<void> {
     const { _id: userId } = req.user;
-    const { password } = body;
-    await this.authService.changePassword(userId, password);
+    const { oldPassword, newPassword } = body;
+
+    await this.authService.changePwdAndValidateOldPwd(
+      userId,
+      oldPassword,
+      newPassword,
+    );
   }
 
   @HttpCode(204)

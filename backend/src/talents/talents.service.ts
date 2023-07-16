@@ -167,6 +167,9 @@ export class TalentsService {
     const activeSince = query['q.activeSince'];
 
     const condition: FilterQuery<Talent> = {};
+
+    // ensure we dont send no visible profiles
+    condition.isProfileVisible = true;
     if (name) {
       condition['$or'] = [
         { firstname: { $regex: new RegExp(name, 'i') } },

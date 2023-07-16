@@ -35,7 +35,7 @@ function SearchTalentSection() {
                 <span className="text-white">The Largest Directory of</span>
                 <span className="block">African Entertainers</span>
             </h1>
-            <p className="py-1 text-xs">
+            <p className="py-1 text-sm">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
                 been the industry's standard dummy text ever since the 1500s.
             </p>

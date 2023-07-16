@@ -19,7 +19,7 @@ function AddTalentToProjectModal({ refetchProject }) {
     const isModalOpen = useSelector((state) => state.projects[ADD_TALENT_TO_PROJECT_MODAL]);
 
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
-    const { refetch, data } = useTalentsData({ query });
+    const { refetch, data } = useTalentsData({ query, options: { enabled: isModalOpen } });
 
 
     useEffect(() => {

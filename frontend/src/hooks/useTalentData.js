@@ -37,11 +37,12 @@ const editTalentProfile = ({ id, data }) => {
   });
 };
 
-const useMyTalentProfile = () => {
+const useMyTalentProfile = (options = {}) => {
   return useQuery(['talent-my-profile'], () => fetchMyTalentProfile(), {
     refetchOnWindowFocus: false,
     retry: false,
     staleTime: 30000,
+    ...options,
   });
 };
 

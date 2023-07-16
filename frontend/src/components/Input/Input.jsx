@@ -1,3 +1,4 @@
+
 function Input({
   id,
   label,
@@ -8,6 +9,7 @@ function Input({
   onChange = () => { },
   value = '',
   size = "lg",
+  LeftComponent = () => { },
   ...rest
 }) {
   const sizeClass = size === "md" ? " h-[46px] py-2.5 px-4" : " h-[56px] px-6 py-2 "
@@ -27,18 +29,29 @@ function Input({
           {label}
         </label>
       )}
-      <input
-        type={type}
-        name={id}
-        onChange={onChange}
-        id={id}
-        value={value}
-        className={`${defaultClass}  ${inputClass} ${sizeClass}`}
-        placeholder={placeholder}
+      <div className="w-full relative">
+
+        <input
+          type={type}
+          name={id}
+          onChange={onChange}
+          id={id}
+          value={value}
+          className={`  ${defaultClass}  ${inputClass} ${sizeClass}`}
+          placeholder={placeholder}
 
 
-        {...rest}
-      />
+          {...rest}
+        />
+
+
+        {LeftComponent &&
+          <span className="w-8 h-8 absolute top-1/2 transform -translate-y-1/2 right-3 pt-1 z-50" >
+            <LeftComponent />
+          </span>
+        }
+
+      </div>
     </div>
   );
 }

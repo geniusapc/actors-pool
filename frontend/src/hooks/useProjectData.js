@@ -35,9 +35,8 @@ const deleteTalentFromProject = ({ projectId, talentId }) => {
 const useProjectsData = (options) => {
   const { query, options: useQueryOptions = {} } = options || {};
   const q = qs.stringify(query);
-  return useQuery(['projects', q], () => fetchProjects(q), {
+  return useQuery(['my-projects', q], () => fetchProjects(q), {
     retry: false,
-    enabled: UserUtils.isLoggedIn,
     ...useQueryOptions,
   });
 };

@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import { openSignInModal, openSignUpModal } from '../../features/auth/auth';
+import { logout, openSignInModal, openSignUpModal } from '../../features/auth/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as HamBugerIcon } from '../../assets/icons/hamburger.svg';
 import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function GuestHeader() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   return (
@@ -20,10 +20,15 @@ function GuestHeader() {
           </span>
         </Link>
         <div className="flex md:order-2">
-          {!isAuth && <Button className="hidden md:flex" onClick={() => dispatch(openSignUpModal())}>
-            Get started
-          </Button>}
-
+          {!isAuth ? (
+            <Button className="hidden md:flex" onClick={() => dispatch(openSignUpModal())}>
+              Get started
+            </Button>
+          ) : (
+            <Button className="hidden md:flex" onClick={() => dispatch(logout())}>
+              Logout
+            </Button>
+          )}
 
           <button
             data-collapse-toggle="navbar-sticky"
@@ -58,15 +63,17 @@ function GuestHeader() {
                 About
               </Link>
             </li>
-            {
-              isAuth ? <li>
+            {isAuth ? (
+              <li>
                 <button
                   className="text-gray-900  md:text-white pl-3 pr-4"
-                  onClick={() => navigate("/talents")}
+                  onClick={() => navigate('/talents')}
                 >
                   Directory
                 </button>
-              </li> : <li>
+              </li>
+            ) : (
+              <li>
                 <button
                   className="text-gray-900  md:text-white pl-3 pr-4"
                   onClick={() => dispatch(openSignInModal())}
@@ -74,7 +81,7 @@ function GuestHeader() {
                   Login
                 </button>
               </li>
-            }
+            )}
           </ul>
         </div>
       </div>

@@ -26,6 +26,7 @@ function CreateProjectModal({ refetch: refetchProjects, hideTalentField = false 
         dispatch(closeModal(CREATE_PROJECT_MODAL));
     };
 
+
     useEffect(() => {
         const talents = data?.data?.data?.talent;
         if (talents) {

@@ -4,6 +4,7 @@ import { closeChangePasswordModal } from '../../features/settings/settings';
 import { useSelector, useDispatch } from 'react-redux';
 import ChangePassword from './ChangePassword';
 
+
 function ChangePasswordModal() {
     const dispatch = useDispatch();
 

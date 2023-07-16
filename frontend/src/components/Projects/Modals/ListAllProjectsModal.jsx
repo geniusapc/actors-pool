@@ -7,7 +7,6 @@ import { CREATE_PROJECT_MODAL, SELECT_PROJECT_MODAL, closeModal, openModal } fro
 import { ReactComponent as AddIcon } from '../../../assets/icons/add.svg';
 import Button from '../../Button/Button';
 import { notifyError, notifySuccess } from '../../../utils/notification';
-// import {} from ""
 import { CreateProjectModal } from "../../Projects/Modals"
 
 

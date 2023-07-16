@@ -1,6 +1,12 @@
 import { ReactComponent as CloseIcon } from "../../assets/icons/close.svg"
+import useEscapeKey from "../../hooks/useEscapeKey";
 
 const Modal = ({ isOpen, onClose, children, width = "" }) => {
+
+    useEscapeKey(onClose)
+
+
+
     if (!isOpen) return null;
     const modalStyles = `bg-white p-6 rounded shadow-lg z-10 relative w-full md:w-[500px] ${width}`;
 

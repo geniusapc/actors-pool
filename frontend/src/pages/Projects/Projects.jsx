@@ -4,16 +4,13 @@ import { CreateProjectModal } from '../../components/Projects/Modals'
 import { useProjectsData } from '../../hooks/useProjectData'
 import DataController from '../../components/DataController/DataController'
 import { AllProjects, NoProject } from '../../components/Projects'
-import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 
 function Projects() {
-    const { data, isLoading, error, refetch } = useProjectsData()
+    const isAuth = useSelector((state) => state.auth.isAuthenticated);
+    const { data, isLoading, error, refetch } = useProjectsData({ options: { enabled: isAuth } })
     const projects = data?.data?.data
-    useEffect(() => {
-        refetch()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
         <Layout showSearchTalent>

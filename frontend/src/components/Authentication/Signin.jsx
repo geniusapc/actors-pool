@@ -10,6 +10,7 @@ import { useSignIn } from '../../hooks/useAuthData';
 import { useLocation } from "react-router-dom"
 import { useProfileData } from '../../hooks/useUserData';
 import { setDefaultHeader } from '../../config/axios';
+import PaswordInput from '../Input/PaswordInput';
 
 
 
@@ -24,10 +25,12 @@ function Signin() {
     const [data, setData] = useState({});
     const isModalOpen = useSelector((state) => state.auth.isSignInModalOpen);
 
+
     const onCloseHandler = () => {
         setData({});
         dispatch(closeSignInModal());
     };
+
 
     const openSignUpHandler = () => {
         onCloseHandler()
@@ -59,6 +62,9 @@ function Signin() {
         navigate(redirectUrl);
     };
 
+
+
+
     const { mutate: signIn, isLoading } = useSignIn(onError, onSuccess);
 
     const signInHandler = (e) => {
@@ -70,7 +76,7 @@ function Signin() {
     return (
         <Modal isOpen={isModalOpen} onClose={onCloseHandler}>
             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">Log In</h3>
-            <form className="space-y-6" onSubmit={signInHandler}>
+            <form className="space-y-8" onSubmit={signInHandler}>
                 <Input
                     id="email"
                     label="Email Address"
@@ -78,12 +84,10 @@ function Signin() {
                     value={data?.email}
                     onChange={onChangeHandler}
                 />
-                <Input
+                <PaswordInput
                     id="password"
                     label="Password"
-                    placeholder="●●●●●●●●●●●●"
                     value={data?.password}
-                    type="password"
                     onChange={onChangeHandler}
                 />
                 <div className="mt-4">

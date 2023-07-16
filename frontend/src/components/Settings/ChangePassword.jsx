@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Button from '../Button/Button';
-import Input from '../Input/Input';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useChangePassword } from '../../hooks/useAuthData';
 import { useEffect } from 'react';
+import PaswordInput from '../Input/PaswordInput';
 
 function ChangePassword({ onSuccess = () => { } }) {
     const [data, setData] = useState({});
@@ -49,21 +49,17 @@ function ChangePassword({ onSuccess = () => { } }) {
         <>
             <h3 className="mb-2 text-xl font-medium text-gray-900 dark:text-white">Change Password</h3>
             <p className='text-gray300 text-sm mb-8'>Enter your new password</p>
-            <form className="space-y-6" onSubmit={changePasswordHandler}>
-                <Input
+            <form className="space-y-6 select-none" onSubmit={changePasswordHandler}>
+                <PaswordInput
                     id="oldPassword"
                     label="Old Password"
-                    type="password"
-                    placeholder="●●●●●●●●●●●●"
                     value={data?.oldPassword}
                     onChange={onChangeHandler}
                 />
-                <Input
+                <PaswordInput
                     id="newPassword"
                     label="New Password"
-                    placeholder="●●●●●●●●●●●●"
                     value={data?.newPassword}
-                    type="password"
                     onChange={onChangeHandler}
                 />
 

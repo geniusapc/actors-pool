@@ -1,8 +1,6 @@
 import axios from '../config/axios';
 import { useMutation, useQuery } from 'react-query';
-
 import qs from 'qs';
-import { UserUtils } from '../utils/user';
 
 const fetchProjects = (q) => {
   return axios.get(`/api/v1/projects?${q}`);

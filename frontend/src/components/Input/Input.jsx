@@ -9,7 +9,7 @@ function Input({
   onChange = () => { },
   value = '',
   size = "lg",
-  LeftComponent = () => { },
+  LeftComponent,
   ...rest
 }) {
   const sizeClass = size === "md" ? " h-[46px] py-2.5 px-4" : " h-[56px] px-6 py-2 "

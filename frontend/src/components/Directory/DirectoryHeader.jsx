@@ -9,7 +9,7 @@ import { GENDER } from '../../data/gender';
 import { LANGUAGES } from '../../data/languages';
 import { useEffect } from 'react';
 
-const DirectoryHeader = ({ hideProjectButton = false, setFilter }) => {
+const DirectoryHeader = ({ hideProjectButton = false, setFilter = () => { } }) => {
     const dispatch = useDispatch();
     const [isToggleOpen, setIsToggleOpen] = useState(false);
     const [data, setData] = useState({});

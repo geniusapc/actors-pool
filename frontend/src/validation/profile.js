@@ -1,5 +1,11 @@
 import { object, string, date, array } from 'yup';
 
+const countWords = (text) => {
+  const words = text.trim().split(/\s+/);
+
+  return words.length;
+};
+
 export const personalInfoSchema = object({
   firstname: string().required().label('First name').min(2).max(50),
   lastname: string().required().label('Last name').min(2).max(50),
@@ -9,9 +15,18 @@ export const personalInfoSchema = object({
   gender: string().required().label('Gender'),
   dob: date().required().label('Date of Birth'),
   activeSince: date().required().label('Active Since'),
+  languages: array().required().label('Languages'),
 }).required('Please fill the form');
 
-export const aboutSchema = string().required().min(25).max(225).label('About');
+export const aboutSchema = string()
+  .required()
+  .test('wordCount', 'about must should be between 10 to 120 words', (value) => {
+    const wordCount = countWords(value);
+    const minWordCount = 10;
+    const maxWordCount = 120;
+    return minWordCount <= wordCount && wordCount <= maxWordCount;
+  })
+  .label('About');
 
 export const movieSchema = object({
   title: string().required().label('Movie title').min(2).max(50),

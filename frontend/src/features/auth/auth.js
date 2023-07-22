@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserUtils } from '../../utils/user';
 
+const { saveUser, isLoggedIn, getLoggedInUser } = UserUtils;
+
 const initialState = {
   isSignInModalOpen: false,
   isSignUpModalOpen: false,
   isForgotPwdModalOpen: false,
-  isAuthenticated: UserUtils.isLoggedIn,
+  isAuthenticated: isLoggedIn,
+  currentLoggedInUser: getLoggedInUser(),
 };
-
-const { saveUser } = UserUtils;
 
 export const auth = createSlice({
   name: 'auth',

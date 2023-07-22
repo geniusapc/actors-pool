@@ -11,7 +11,7 @@ function GuestHeader() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <nav className="dark:bg-gray-900  w-full mt-0  ">
+    <nav className="dark:bg-gray-900  w-full mt-0">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link to="/" className="flex items-center">
           <Logo className="h-8 mr-3" />

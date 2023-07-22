@@ -16,9 +16,6 @@ export const useEscapeKey = (doSomething) => {
   }, [doSomething]);
 };
 
-
-
-
 export function useClickOutside(ref, cb) {
   useEffect(() => {
     function handleClickOutside(event) {
@@ -27,9 +24,9 @@ export function useClickOutside(ref, cb) {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [ref, cb])
+  }, [ref, cb]);
 }

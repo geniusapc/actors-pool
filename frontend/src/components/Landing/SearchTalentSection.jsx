@@ -40,11 +40,11 @@ function SearchTalentSection() {
                 been the industry's standard dummy text ever since the 1500s.
             </p>
 
-            <div className="flex  gap-8 mt-8 z-50">
+            <div className="flex  gap-4 md:gap-8 mt-8 z-50">
                 {!isSearchTalent ? (
                     <>
-                        <Button onClick={listAsTalentHandler} className='w-[140px] md:w-[200px]'>List Me as a Talent</Button>
-                        <Button variant="primary" className='w-[140px] md:w-[200px]' onClick={() => setIsSearchTalent(true)}>
+                        <Button onClick={listAsTalentHandler} className='w-[156px] md:w-[200px]'>List Me as a Talent</Button>
+                        <Button variant="primary" className='w-[156px] md:w-[200px]' onClick={() => setIsSearchTalent(true)}>
                             Search Talents
                         </Button>
                     </>

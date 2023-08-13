@@ -28,6 +28,7 @@ const PreviewProfileDetailsHeader = ({ talent, onSubmitSucces = () => { } }) => 
         formData.append('country', talent.country);
         formData.append('state', talent.state);
         formData.append('gender', talent.gender);
+        formData.append('dob', talent.dob);
         formData.append('activeSince', talent.activeSince);
         formData.append('phoneNumber', talent.phoneNumber);
         formData.append('profession', talent.profession);

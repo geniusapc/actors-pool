@@ -1,7 +1,7 @@
 import { Roles } from '../enum';
 
 export const defaultAdminUser = {
-  email: 'admin@actorspool.com',
+  email: 'admin@theactorspool.com',
   password: '12345678',
   role: Roles.Admin,
   firstname: 'actors-pool',

@@ -25,6 +25,7 @@ const PreviewProfile = ({ onFormSuccess }) => {
       activeSince: payload?.activeSince,
       country: payload?.country,
       language: payload?.language,
+      dob: payload?.dob,
       state: payload?.state,
       phoneNumber: payload?.phoneNumber,
       socialMedia: payload?.socialMedia,
@@ -33,7 +34,7 @@ const PreviewProfile = ({ onFormSuccess }) => {
       gallery: payload?.previewUrl?.map((photo) => ({ photo })),
       movies: payload?.workList,
     };
- 
+
     setPreviewData(previewPayload);
     setTalent(payload);
   }, [stages]);

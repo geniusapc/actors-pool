@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import InputWithButton from '../Input/InputWithButton';
-import { ReactComponent as HamBugerIcon } from "../../assets/icons/hamburger.svg"
-import { ReactComponent as Logo } from "../../assets/icons/logo.svg"
+import { ReactComponent as HamBugerIcon } from '../../assets/icons/hamburger.svg';
+import { ReactComponent as Logo } from '../../assets/icons/logo.svg';
 import AuthUser from './AuthUser';
 import { openSignUpModal } from '../../features/auth/auth';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,8 +22,7 @@ function Header({ showTalentHidden = false }) {
 
     const onSubmitTalentHandler = (e) => {
         e.preventDefault();
-        if (talentSearchValue)
-            navigate(`/talents?q=${talentSearchValue}`);
+        if (talentSearchValue) navigate(`/talents?q=${talentSearchValue}`);
         else navigate(`/talents`);
     };
 
@@ -33,9 +32,7 @@ function Header({ showTalentHidden = false }) {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center justify-start">
                         <button
-                            data-drawer-target="logo-sidebar"
-                            data-drawer-toggle="logo-sidebar"
-                            aria-controls="logo-sidebar"
+                            data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
                             type="button"
                             className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                         >
@@ -53,7 +50,7 @@ function Header({ showTalentHidden = false }) {
                                     <InputWithButton
                                         style={{ input: 'h-10' }}
                                         placeHolder="search for talent"
-                                        value={talentSearchValue || ""}
+                                        value={talentSearchValue || ''}
                                         hideBtn
                                         onSubmit={onSubmitTalentHandler}
                                         onChange={onChangeSearchTalent}

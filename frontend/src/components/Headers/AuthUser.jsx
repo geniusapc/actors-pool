@@ -1,43 +1,29 @@
-import React from 'react';
-import { useProfileData } from '../../hooks/useUserData';
-import { useDispatch } from 'react-redux';
-import { logout, openSignInModal } from '../../features/auth/auth';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../features/auth/auth';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import { ReactComponent as UserIcon } from '../../assets/icons/user.svg';
 import { ReactComponent as DropDownIcon } from '../../assets/icons/drop-down-arrow.svg';
+import { useClickOutside, useEscapeKey } from '../../hooks/useEvents';
 
 function AuthUser() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [user, setUser] = useState({});
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const { data, isError, error, } = useProfileData();
+    const user = useSelector((state) => state.auth.currentLoggedInUser);
 
     const logoutHandler = () => {
         dispatch(logout());
         navigate('/');
     };
 
-    useEffect(() => {
-        const response = data?.data?.data;
-        if (response) {
-
-            setUser(response);
-        }
-    }, [data]);
-
-
-    useEffect(() => {
-        if (error?.response?.status === 401) {
-            dispatch(openSignInModal())
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isError])
-
-
-
+    const wrapperRef = useRef(null);
+    const closeDropDown = () => {
+        setIsDropdownOpen(false)
+    }
+    useEscapeKey(closeDropDown)
+    useClickOutside(wrapperRef, closeDropDown);
 
     return (
         <div>
@@ -55,7 +41,7 @@ function AuthUser() {
                 </button>
             </div>
             {isDropdownOpen && (
-                <div className="z-50  absolute right-2  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600">
+                <div className="z-50  absolute right-2  my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" ref={wrapperRef}>
                     <div className="px-4 py-3" role="none">
                         <p className="text-sm text-gray-900 dark:text-white capitalize" role="none">
                             {user?.firstname} {user?.lastname}
@@ -72,7 +58,7 @@ function AuthUser() {
                             <button
                                 className="w-full items-start text-start block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                 role="menuitem"
-                                onClick={() => navigate('/directory')}
+                                onClick={() => navigate('/talents')}
                             >
                                 Dashboard
                             </button>

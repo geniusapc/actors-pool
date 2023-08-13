@@ -6,10 +6,10 @@ import { Layout } from '../components/Layout';
 
 function TermsAndCondition() {
     const navigate = useNavigate(0);
-    const handlePrevStep = () => navigate("/settings");
+    const handlePrevStep = () => navigate(-1);
 
     return (
-        <Layout>
+        <Layout isAuthRequired={false}>
             <div className="md:pr-24">
                 <div className="flex pb-8 cursor-pointer items-center gap-2" onClick={handlePrevStep}>
                     <ArrowLeft />

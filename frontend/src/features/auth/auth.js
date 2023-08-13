@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserUtils } from '../../utils/user';
 
+const { saveUser, isLoggedIn, getLoggedInUser } = UserUtils;
+
 const initialState = {
   isSignInModalOpen: false,
   isSignUpModalOpen: false,
-  isAuthenticated: UserUtils.isLoggedIn,
+  isForgotPwdModalOpen: false,
+  isAuthenticated: isLoggedIn,
+  currentLoggedInUser: getLoggedInUser(),
 };
-
-const { saveUser } = UserUtils;
 
 export const auth = createSlice({
   name: 'auth',
@@ -19,12 +21,18 @@ export const auth = createSlice({
     openSignUpModal: (state) => {
       state.isSignUpModalOpen = true;
     },
+    openForgotPwdModal: (state) => {
+      state.isForgotPwdModalOpen = true;
+    },
     openChangePasswordModal: (state) => {
       state.isChangePasswordModalOpen = true;
     },
 
     closeSignInModal: (state) => {
       state.isSignInModalOpen = false;
+    },
+    closeForgotPwdModal: (state) => {
+      state.isForgotPwdModalOpen = false;
     },
     closeSignUpModal: (state) => {
       state.isSignUpModalOpen = false;
@@ -43,9 +51,11 @@ export const auth = createSlice({
 
 export const {
   openSignInModal,
+  openForgotPwdModal,
   openSignUpModal,
   openChangePasswordModal,
   closeSignInModal,
+  closeForgotPwdModal,
   closeSignUpModal,
   authenticate,
   logout,

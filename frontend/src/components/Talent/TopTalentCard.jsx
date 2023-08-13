@@ -7,7 +7,7 @@ function TopTalentCard({ talent }) {
     const navigate = useNavigate();
 
     return (
-        <div className="relative">
+        <div className="relative" onClick={() => navigate(`/talents/${talent.username}`)}>
             <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-85 lg:h-80  relative">
                 <img
                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
@@ -23,7 +23,7 @@ function TopTalentCard({ talent }) {
                     <p className="text-base">{`${talent?.firstname}  ${talent?.lastname}`}</p>
                     <ArrowUpIcon
                         className="w-3.5 h-3.5 mt-1 text-white cursor-pointer"
-                        onClick={() => navigate(`/talent/${talent.username}`)}
+
                     />
                 </div>
                 <p className="flex items-center space-x-2 text-sm">

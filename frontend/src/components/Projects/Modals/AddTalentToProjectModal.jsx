@@ -8,16 +8,28 @@ import { useTalentsData } from '../../../hooks/useTalentData';
 import { useEditProject } from '../../../hooks/useProjectData';
 import { useParams } from 'react-router-dom';
 import { notifyError, notifySuccess } from '../../../utils/notification';
+import { useEffect } from 'react';
 
 function AddTalentToProjectModal({ refetchProject }) {
     const params = useParams();
     const dispatch = useDispatch();
     const [project, setProject] = useState({});
     const [searchTalentField, setSearchTalentField] = useState('');
-    const isModalOpen = useSelector((state) => state.projects[ADD_TALENT_TO_PROJECT_MODAL]); 
+    const [initialDataOptions, setInitialData] = useState([]);
+    const isModalOpen = useSelector((state) => state.projects[ADD_TALENT_TO_PROJECT_MODAL]);
 
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
-    const { refetch } = useTalentsData({ query });
+    const { refetch, data } = useTalentsData({ query, options: { enabled: isModalOpen } });
+
+
+    useEffect(() => {
+        const talents = data?.data?.data?.talent;
+        if (talents) {
+            const init = formatData(talents);
+            setInitialData(init);
+        }
+    }, [data]);
+
 
     const formatData = (data) => {
         return data?.map((e) => ({
@@ -75,6 +87,15 @@ function AddTalentToProjectModal({ refetchProject }) {
             <p className="mb-8">Search and add the talents you want to add to this project</p>
             <form className="flex flex-col space-y-6" onSubmit={addTalentHandler}>
                 <AsyncSelect
+                    styles={{
+                        control: (styles) => ({
+                            ...styles,
+                            borderRadius: "43px",
+                            height: "56px",
+                            paddingLeft: "12px"
+                        }),
+                    }}
+                    defaultOptions={initialDataOptions}
                     isMulti
                     cacheOptions
                     loadOptions={debounceSearch}

@@ -23,7 +23,7 @@ import { notifyError } from './utils/notification';
 const AppRoute = ({ component: Component, layout: Layout, isProtected = true, roles = [] }) => {
   const navigate = useNavigate();
   const { data, isFetchedAfterMount, refetch } = useProfileData({ enabled: isProtected });
-  const userRole = data?.data?.data?.role;
+  const userRole = data?.data?.role;
   const userHasAccess = roles.includes(userRole);
   const showComponent = !isProtected || (!!isFetchedAfterMount && !!userHasAccess);
 
@@ -83,11 +83,11 @@ const router = createBrowserRouter([
     element: <Settings />,
   },
   {
-    path: 'settings/terms-and-conditions',
+    path: 'terms-and-conditions',
     element: <TermsAndCondition />,
   },
   {
-    path: 'settings/faq',
+    path: 'faq',
     element: <FAQ />,
   },
   {

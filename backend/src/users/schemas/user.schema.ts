@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import * as moment from 'moment';
 
@@ -22,14 +22,23 @@ export class User {
   @Prop({ required: true, select: false })
   password: string;
 
-  @Prop({ select: false })
+  @Prop({ default: null, select: false })
   passwordChangedOn?: Date;
 
-  @Prop({
-    type: mongoose.Types.ObjectId,
-    trim: true,
-  })
-  talentId?: ObjectId;
+  @Prop({ default: null, select: false })
+  resetToken?: string;
+
+  @Prop({ default: null, select: false })
+  resetTokenExpires?: Date;
+
+  @Prop({ default: false })
+  isVerified?: boolean;
+
+  @Prop({ default: null, select: false })
+  verificationToken?: string;
+
+  @Prop({ default: null, select: false })
+  verificationTokenExpires?: Date;
 }
 
 const schema = SchemaFactory.createForClass(User);
@@ -49,6 +58,10 @@ schema.set('toJSON', {
   transform(doc, ret) {
     delete ret.password;
     delete ret.passwordChangedOn;
+    delete ret.resetToken;
+    delete ret.resetTokenExpires;
+    delete ret.verificationToken;
+    delete ret.verificationTokenExpires;
     delete ret['__v'];
     return ret;
   },

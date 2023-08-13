@@ -1,7 +1,6 @@
-import axios from '../config/axios';
-import { useQuery, useMutation } from 'react-query';
-
 import qs from 'qs';
+import { useQuery, useMutation } from 'react-query';
+import axios from '../config/axios';
 
 const fetchTalent = (q) => {
   return axios.get(`/api/v1/talents?${q}`);
@@ -38,24 +37,31 @@ const editTalentProfile = ({ id, data }) => {
   });
 };
 
-const useMyTalentProfile = () => {
+const useMyTalentProfile = (options = {}) => {
   return useQuery(['talent-my-profile'], () => fetchMyTalentProfile(), {
     refetchOnWindowFocus: false,
     retry: false,
     staleTime: 30000,
+    ...options,
   });
 };
 
 const useTalentsData = (options) => {
-  const { query } = options || {};
+  const { query, options: useQueryOptions = {} } = options || {};
   const q = qs.stringify(query);
   return useQuery(['talents', q], () => fetchTalent(q), {
-    retry: 1,
+    refetchOnWindowFocus: false,
+    retry: false,
+    ...useQueryOptions,
   });
 };
 
 const useTalentsDataByUsername = (username) => {
-  return useQuery(['talent', username], () => fetchTalentByUsername(username));
+  return useQuery(['talent', username], () => fetchTalentByUsername(username), {
+    refetchOnWindowFocus: false,
+    retry: false,
+    staleTime: 30000,
+  });
 };
 
 const useTrailBlazzer = () => {

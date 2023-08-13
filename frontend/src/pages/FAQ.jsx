@@ -7,10 +7,10 @@ import { ReactComponent as DropDownIcon } from '../assets/icons/drop-down-arrow.
 
 function FAQ() {
     const navigate = useNavigate(0);
-    const handlePrevStep = () => navigate('/settings');
+    const handlePrevStep = () => navigate(-1);
 
     return (
-        <Layout>
+        <Layout isAuthRequired={false}>
             <div className="md:pr-24">
                 <div className="flex pb-8 cursor-pointer items-center gap-2" onClick={handlePrevStep}>
                     <ArrowLeft />
@@ -30,7 +30,7 @@ function FAQ() {
                     data-inactive-classes="text-gray-500 dark:text-gray-400"
                 >
                     {faq?.map((e, index) => (
-                        <>
+                        <div key={e._id}>
                             <h2 id={`accordion-flush-heading-${index}`}>
                                 <button
                                     type="button"
@@ -50,7 +50,7 @@ function FAQ() {
                             >
                                 <div class="py-5 border-b border-gray-200 dark:border-gray-700">{e.answer}</div>
                             </div>
-                        </>
+                        </div>
                     ))}
                 </div>
             </div>

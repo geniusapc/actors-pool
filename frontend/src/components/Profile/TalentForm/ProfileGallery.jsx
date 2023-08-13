@@ -52,7 +52,7 @@ const ProfileGallery = () => {
     <div>
       <div className="border-border100 border" />
       <div className="mt-10">
-        <div className="grid gap-5  grid-cols-2  md:grid-cols-4 flex-col justify-center items-center">
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3  flex-col justify-center items-center">
           <div
             onClick={handleImageInputClick}
             className="border flex flex-col justify-center items-center mx-auto border-primary rounded-lg px-6 py-10 cursor-pointer bg-gray200"

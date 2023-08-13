@@ -1,6 +1,5 @@
 import axios from '../config/axios';
 import { useMutation, useQuery } from 'react-query';
-
 import qs from 'qs';
 
 const fetchProjects = (q) => {
@@ -32,10 +31,11 @@ const deleteTalentFromProject = ({ projectId, talentId }) => {
 };
 
 const useProjectsData = (options) => {
-  const { query } = options || {};
+  const { query, options: useQueryOptions = {} } = options || {};
   const q = qs.stringify(query);
-  return useQuery(['projects', q], () => fetchProjects(q), {
-    retry: 1,
+  return useQuery(['my-projects', q], () => fetchProjects(q), {
+    retry: false,
+    ...useQueryOptions,
   });
 };
 

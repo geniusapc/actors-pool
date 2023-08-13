@@ -9,20 +9,21 @@ import TrailBlazers from '../../components/Landing/TrailBlazers';
 import Toptalents from '../../components/Talent/TopTalents';
 import SearchTalentSection from '../../components/Landing/SearchTalentSection';
 import TnC from '../../components/Landing/TnC';
+import FogotPassword from '../../components/Authentication/FogotPassword';
 
 function Landing() {
   return (
     <main>
       <section className="w-full md:pt-4 items-center bg-black100 text-white overflow-x-hidden ">
-        <div class="absolute top-1/4 left-[-120px]   w-60 lg:w-80 h-60 lg:h-80 flex-shrink-0 rounded-full  bg-purple-600  bg-opacity-70 lg:bg-opacity-40   blur-[152px]"></div>
-        <div class="absolute top-3/4 left-[-120px] w-60 lg:w-80 h-60 lg:h-80 flex-shrink-0 rounded-full opacity-80 bg-blue-300 bg-opacity-70 lg:bg-opacity-40  blur-[152px]"></div>
+        <div className="absolute top-1/4 left-[-120px]   w-60 lg:w-80 h-60 lg:h-80 flex-shrink-0 rounded-full  bg-purple-600  bg-opacity-70 lg:bg-opacity-40   blur-[152px]"></div>
+        <div className="absolute top-3/4 left-[-120px] w-60 lg:w-80 h-60 lg:h-80 flex-shrink-0 rounded-full opacity-80 bg-blue-300 bg-opacity-70 lg:bg-opacity-40  blur-[152px]"></div>
 
-        <div class="absolute top-1/4 right-[0px] w-60 lg:w-96 h-60 lg:h-96 flex-shrink-0 rounded-full opacity-96 bg-blue-300 bg-opacity-70 lg:bg-opacity-40  blur-[152px]"></div>
-        <div class="absolute top-3/4 right-[0px]  w-60 lg:w-96 h-60 lg:h-96 flex-shrink-0 rounded-full  bg-purple-600  bg-opacity-80  lg:bg-opacity-40 blur-[152px]"></div>
+        <div className="absolute top-1/4 right-[0px] w-60 lg:w-96 h-60 lg:h-96 flex-shrink-0 rounded-full opacity-96 bg-blue-300 bg-opacity-70 lg:bg-opacity-40  blur-[152px]"></div>
+        <div className="absolute top-3/4 right-[0px]  w-60 lg:w-96 h-60 lg:h-96 flex-shrink-0 rounded-full  bg-purple-600  bg-opacity-80  lg:bg-opacity-40 blur-[152px]"></div>
 
         <GuestHeader />
         <SearchTalentSection />
-        <div className="flex flex-col items-center  w-4/5 h-[200px] md:h-[400px] lg:h-[560px] xl:h-[600px] mx-auto overflow-y-hidden -mt-40 xl:-mt-60">
+        <div className="flex flex-col items-center  w-4/5 h-[200px] md:h-[400px] lg:h-[560px] xl:h-[600px] mx-auto overflow-y-hidden -mt-28 md:-mt-40 xl:-mt-60">
           <img src="images/landing-page-dir-img.svg" alt="landing page" />
         </div>
       </section>
@@ -43,6 +44,7 @@ function Landing() {
 
       {/* Modal */}
       <Signin />
+      <FogotPassword />
       <Signup />
       <TnC />
     </main>

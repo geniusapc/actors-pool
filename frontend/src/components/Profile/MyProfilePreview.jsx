@@ -1,4 +1,4 @@
-import { TalentDetailsTab, TalentFullDetails } from '../TalentDetails';
+import { TalentFullDetails } from '../TalentDetails';
 import { PreviewProfileDetailsHeader } from './Headers';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
@@ -8,6 +8,7 @@ const PreviewProfile = ({ onFormSuccess }) => {
   const [talent, setTalent] = useState(null);
   const [previewData, setPreviewData] = useState(null);
   const stages = useSelector((state) => state.createProfile.stages);
+
 
   useEffect(() => {
     let payload = {};
@@ -23,6 +24,8 @@ const PreviewProfile = ({ onFormSuccess }) => {
       profession: payload?.profession,
       activeSince: payload?.activeSince,
       country: payload?.country,
+      language: payload?.language,
+      dob: payload?.dob,
       state: payload?.state,
       phoneNumber: payload?.phoneNumber,
       socialMedia: payload?.socialMedia,
@@ -31,6 +34,7 @@ const PreviewProfile = ({ onFormSuccess }) => {
       gallery: payload?.previewUrl?.map((photo) => ({ photo })),
       movies: payload?.workList,
     };
+
     setPreviewData(previewPayload);
     setTalent(payload);
   }, [stages]);
@@ -39,12 +43,7 @@ const PreviewProfile = ({ onFormSuccess }) => {
     <main >
       <PreviewProfileDetailsHeader talent={talent} onSubmitSucces={onFormSuccess} />
       <div className="flex flex-col justify-between md:flex-row w-full gap-8">
-        <div className="w-full md:w-[308px] ">
-          <TalentFullDetails talent={previewData} />
-        </div>
-        <div className="w-full  shadow-3xl">
-          <TalentDetailsTab talent={previewData} />
-        </div>
+        <TalentFullDetails data={previewData} />
       </div>
     </main>
   );

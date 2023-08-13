@@ -7,7 +7,7 @@ function NewsletterSubscription() {
             <div className='w-full   mx-auto flex flex-col items-center text-center  text-black'>
                 <h3 className='text-base md:text-5xl pb-3 font-bold'>Subscribe to our Newsletter</h3>
                 <p className='mx-0 md:mx-12 mb-10 mt-6'>Be the first to know when we release new features and information about your favourite celebrities.</p>
-                <InputWithButton style={{ form: "md:px-[60px]" }} />
+                <InputWithButton placeHolder='Enter your email address' buttonText="Submit" style={{ form: "md:px-[60px]" }} />
             </div>
 
         </div>

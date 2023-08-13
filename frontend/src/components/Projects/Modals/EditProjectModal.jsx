@@ -14,7 +14,7 @@ function EditProjectModal(project) {
     const [searchTalentField, setSearchTalentField] = useState('');
     const [data] = useState({ name: project?.name });
     const query = { select: 'firstname,lastname,photo', q: searchTalentField };
-    const { data: talentData, refetch } = useTalentsData({ query });
+    const { data: talentData, refetch } = useTalentsData({ query, options: { enabled: isModalOpen } });
 
     const onCloseModalHandler = () => {
         dispatch(closeModal(EDIT_PROJECT_MODAL));

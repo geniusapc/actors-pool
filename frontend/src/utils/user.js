@@ -5,6 +5,15 @@ class UserUtils {
     localStorage.setItem(name, JSON.stringify(data));
   };
 
+  static getFromLocalStorage = (name) => {
+    const data = localStorage.getItem(name);
+    try {
+      return JSON.parse(data);
+    } catch (error) {
+      return null;
+    }
+  };
+
   static saveUser = (user) => {
     Cookies.set(USER_AUTH_TOKEN_KEY, `Bearer ${user?.accessToken}`);
     const payload = {
@@ -12,6 +21,7 @@ class UserUtils {
       firstname: user?.firstname,
       lastname: user?.lastname,
       photo: user?.photo,
+      email: user?.email,
     };
     UserUtils.saveLocalStoreItem(LS.USER_KEY, payload);
   };
@@ -28,6 +38,11 @@ class UserUtils {
 
   static getUserToken = () => {
     return Cookies.get(USER_AUTH_TOKEN_KEY);
+  };
+
+  static getLoggedInUser = () => {
+    return UserUtils.getFromLocalStorage(LS.USER_KEY);
+    
   };
 }
 

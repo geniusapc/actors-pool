@@ -9,6 +9,9 @@ import { nextStep, setFormData } from '../../../features/profile/profile';
 import { useDispatch, useSelector } from 'react-redux';
 import { personalInfoSchema } from '../../../validation/profile';
 import { notifyError } from '../../../utils/notification';
+import moment from 'moment';
+import { LANGUAGES } from '../../../data/languages';
+import Select from 'react-select';
 
 const ProfileInformation = () => {
   const dispatch = useDispatch();
@@ -16,10 +19,17 @@ const ProfileInformation = () => {
   const stages = useSelector((state) => state.createProfile.stages);
   const prevData = stages[step - 1].data;
   const [data, setData] = useState(prevData);
-
+  const currentYearMonthDay = moment().format('YYYY-MM-DD');
+  const currentMonthYear = moment().format('YYYY-MM');
   const onChangehandler = (e) => {
     const { name, value } = e.target;
     setData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const onChangeLanguage = (e) => {
+
+    setData((prev) => ({ ...prev, languages: e?.map((res) => res.value) }));
+
   };
 
   const onFormSubmitHandler = async (e) => {
@@ -96,6 +106,7 @@ const ProfileInformation = () => {
           id="dob"
           name="dob"
           type="date"
+          max={currentYearMonthDay}
           value={data?.dob}
           onChange={onChangehandler}
           label="Date of Birth"
@@ -104,12 +115,36 @@ const ProfileInformation = () => {
         <Input
           id="activeSince"
           name="activeSince"
-          type="date"
+          type="month"
+          max={currentMonthYear}
           value={data?.activeSince}
           onChange={onChangehandler}
           label="Active Since?"
           placeholder="What year did you start acting?"
         />
+
+
+        <div>
+          <label htmlFor="">Language</label>
+
+          <Select
+            id="languages"
+            name="languages"
+            styles={{
+              control: (styles) => ({
+                ...styles,
+                borderRadius: '43px',
+                height: '56px',
+                paddingLeft: '12px',
+              }),
+            }}
+
+            isMulti
+            cacheOptions
+            options={LANGUAGES}
+            onChange={onChangeLanguage}
+          />
+        </div>
       </div>
       <ActionButtons />
     </form>

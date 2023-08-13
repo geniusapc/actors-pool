@@ -6,6 +6,8 @@ import { useSignUp } from '../../hooks/useAuthData';
 import { closeSignUpModal, openSignInModal } from '../../features/auth/auth';
 import { notifySuccess, notifyError } from '../../utils/notification';
 import { useSelector, useDispatch, } from 'react-redux';
+import PaswordInput from '../Input/PaswordInput';
+
 
 
 function Signup() {
@@ -37,6 +39,7 @@ function Signup() {
         setData({});
         dispatch(closeSignUpModal());
     };
+    
 
     const openSigUpModal = () => {
         onCloseHandler()
@@ -49,7 +52,7 @@ function Signup() {
             <p className="text-xs">
                 Connect with millions of entertainers and list yourself as a talent.{' '}
             </p>
-            <form className="space-y-6 mt-12" onSubmit={handleSignUp}>
+            <form className="space-y-8 mt-12" onSubmit={handleSignUp}>
                 <Input
                     id="firstname"
                     label="First Name"
@@ -64,11 +67,9 @@ function Signup() {
                     value={data?.email}
                     onChange={onChangeHandler}
                 />
-                <Input
+                  <PaswordInput
                     id="password"
                     label="Choose Password"
-                    type="password"
-                    placeholder="●●●●●●●●●●●●"
                     value={data?.password}
                     onChange={onChangeHandler}
                 />

@@ -3,10 +3,12 @@ import CheckButton from '../Button/CheckButton';
 import { useState } from 'react';
 import { useEditTalent, useMyTalentProfile } from '../../hooks/useTalentData';
 import { notifyError, notifySuccess } from '../../utils/notification';
+import Attention from '../Attention/Attention';
 
 function InteractionCard() {
     const { data, refetch } = useMyTalentProfile();
     const talent = data?.data?.data;
+    const hasProfile = !!talent;
 
     const [isProfileVisible, setIsProfileVisible] = useState(talent?.isProfileVisible);
     const [recieveDirectMessage, setRecieveDirectMessage] = useState(talent?.recieveDirectMessage);
@@ -51,21 +53,31 @@ function InteractionCard() {
             <h1 className="text-xl mb-6 font-semibold">Interactions</h1>
             <ul className="space-y-4 ">
                 <li className="flex justify-between text-gray300 ">
-                    <label htmlFor="directMessage" className="cursor-pointer">
-                        Receive direct messages
+                    <label
+                        htmlFor="directMessage"
+                        className={`flex space-x-2 items-center ${hasProfile && 'cursor-pointer'}`}
+                    >
+                        <span>Receive direct messages</span>
+                        <span>{!hasProfile && <Attention text="You do not have a profile" />}</span>
                     </label>
                     <CheckButton
                         id="directMessage"
+                        disabled={!hasProfile}
                         isChecked={recieveDirectMessage}
                         onChange={onClickRecieveDirectMessage}
                     />
                 </li>
                 <li className="flex justify-between text-gray300">
-                    <label htmlFor="profileVisibility" className="cursor-pointer">
-                        Make talent profile visible
+                    <label
+                        htmlFor="profileVisibility"
+                        className={`flex space-x-2 items-center ${hasProfile && 'cursor-pointer'}`}
+                    >
+                        <span>Make talent profile visible</span>
+                        <span>{!hasProfile && <Attention text="You do not have a profile" />}</span>
                     </label>
                     <CheckButton
                         id="profileVisibility"
+                        disabled={!hasProfile}
                         isChecked={isProfileVisible}
                         onChange={onClickProfileVisibility}
                     />

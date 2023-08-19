@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 import { IMovie, IGallery, ISocialMedia } from '../interfaces';
+import { TalentStatus } from '../enum';
 
 export type TalentDocument = HydratedDocument<Talent>;
 
@@ -63,6 +64,9 @@ export class Talent {
   @Prop({ default: true })
   isProfileVisible: boolean;
 
+  @Prop({ enum: TalentStatus, default: TalentStatus.APPROVED })
+  status: string;
+
   @Prop({})
   photo: string;
 
@@ -90,12 +94,11 @@ export class Talent {
 
   @Prop(
     raw({
-      ig: { type: String, default: null },
-      tw: { type: String, default: null },
-      fb: { type: String, default: null },
-      tik: { type: String, default: null },
-      yt: { type: String, default: null },
-      snap: { type: String, default: null },
+      instagram: { type: String, default: null },
+      twitter: { type: String, default: null },
+      facebook: { type: String, default: null },
+      tiktok: { type: String, default: null },
+      snapchat: { type: String, default: null },
     }),
   )
   socialMedia?: ISocialMedia;

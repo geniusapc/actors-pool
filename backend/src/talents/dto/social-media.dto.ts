@@ -4,20 +4,25 @@ export class SocailMediaDTO {
   @IsUrl()
   @IsOptional()
   @IsString()
-  readonly ig: string;
+  readonly instagram: string;
 
   @IsUrl()
   @IsOptional()
   @IsString()
-  readonly tw: string;
+  readonly twitter: string;
 
   @IsUrl()
   @IsOptional()
   @IsString()
-  readonly fb: string;
+  readonly facebook: string;
 
   @IsUrl()
   @IsOptional()
   @IsString()
-  readonly tik: string;
+  readonly tiktok: string;
+
+  @IsUrl()
+  @IsOptional()
+  @IsString()
+  readonly snapchat: string;
 }

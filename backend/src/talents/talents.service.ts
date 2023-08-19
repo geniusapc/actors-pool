@@ -134,6 +134,8 @@ export class TalentsService {
       activeSince: createTalentDto.activeSince,
       photo: createTalentDto?.gallery[0]?.photo,
       socialMedia: createTalentDto.socialMedia,
+      status: createTalentDto.status,
+      isProfileVisible: createTalentDto.isProfileVisible,
     };
 
     const talent = await this.talentModel.create(payload);

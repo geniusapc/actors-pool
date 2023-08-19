@@ -26,6 +26,7 @@ import { Request } from 'express';
 import { UpdateTalentDto } from './dto/update-talent.dto';
 import { TransformResponseInterceptor } from 'src/response.interceptor';
 import { Roles } from 'src/users/enum';
+import { TalentStatus } from './enum';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
@@ -47,14 +48,18 @@ export class TalentsController {
     @Body() createTalentDto: CreateTalentDto,
     @UploadedFiles() files: ICreateTalentMulterFiles,
   ) {
-    //
     const urls = await this.talentsService.uploadGallery(files.gallery);
 
     const payload: CreateTalent = {
       ...createTalentDto,
       gallery: urls,
     };
-    if (req.user?.role !== Roles.Admin) payload.userId = req?.user?._id;
+
+    if (req.user?.role !== Roles.Admin) {
+      payload.userId = req?.user?._id;
+      payload.isProfileVisible = false;
+      payload.status = TalentStatus.AWAIT_APPROVAL;
+    }
 
     return this.talentsService.create(payload);
   }

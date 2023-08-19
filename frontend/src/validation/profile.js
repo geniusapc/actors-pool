@@ -39,3 +39,13 @@ export const gallerySchema = array(string().label('Photo').required())
   .label('gallery')
   .min(1, 'Please upload a photo')
   .required();
+
+const URL =
+  /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/;
+export const socialLinksSchema = object({
+  instagram: string().matches(URL, 'Enter a valid instagram url').label('Instagram'),
+  twitter: string().matches(URL, 'Enter a valid twitter url').optional().label('Twitter'),
+  facebook: string().matches(URL, 'Enter a valid facebook url').label('Facebook'),
+  tiktok: string().matches(URL, 'Enter a valid tiktok url').label('Tiktok'),
+  snapchat: string().matches(URL, 'Enter a valid snapchat url').label('Snapchat'),
+});

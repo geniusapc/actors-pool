@@ -10,6 +10,7 @@ const PreviewProfileDetailsHeader = ({ talent, onSubmitSucces = () => { } }) => 
     const handlePrevStep = () => {
         if (step > 1) dispatch(previousStep());
     };
+    console.log(talent)
 
 
     const onSuccess = () => {
@@ -33,17 +34,24 @@ const PreviewProfileDetailsHeader = ({ talent, onSubmitSucces = () => { } }) => 
         formData.append('phoneNumber', talent.phoneNumber);
         formData.append('profession', talent.profession);
         formData.append('about', talent?.about);
+
         talent.gallery.forEach((element) => {
             formData.append('gallery', element);
         });
 
         talent.languages?.forEach((element, index) => {
-            formData.append(`languages[${index}]`, element)
+            formData.append(`languages[${index}]`, element?.value)
         })
         talent.workList.forEach((element, index) => {
             formData.append(`movies[${index}][title]`, element?.title);
             if (element?.year) formData.append(`movies[${index}][year]`, element?.year);
         });
+
+        const socialMediaKeys = Object.keys(talent.socialMedia);
+        socialMediaKeys.forEach(key => {
+            formData.append(`socialMedia[${key}]`, talent?.socialMedia?.[key]);
+        });
+
 
         addTalent(formData);
     };

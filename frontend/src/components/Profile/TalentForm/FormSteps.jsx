@@ -3,7 +3,7 @@ import ProfileDescription from "./ProfileDescription";
 import ProfileGallery from "./ProfileGallery";
 import ProfileInformation from "./ProfileInformation";
 import ProfileWorks from "./ProfileWorks";
-import SocialAccount from "./SocialAccount";
+import SocialAccountV2 from "./SocialAccountV2";
 
 const RenderProfileFormStep = () => {
     const step = useSelector((state) => state.createProfile.step);
@@ -17,7 +17,7 @@ const RenderProfileFormStep = () => {
         case 4:
             return <ProfileGallery />;
         case 5:
-            return <SocialAccount />;
+            return <SocialAccountV2 />;
         default:
             break;
     }

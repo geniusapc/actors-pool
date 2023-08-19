@@ -26,10 +26,8 @@ const ProfileInformation = () => {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onChangeLanguage = (e) => {
-
-    setData((prev) => ({ ...prev, languages: e?.map((res) => res.value) }));
-
+  const onChangeLanguage = (languages) => {
+    setData((prev) => ({ ...prev, languages }));
   };
 
   const onFormSubmitHandler = async (e) => {
@@ -130,6 +128,7 @@ const ProfileInformation = () => {
           <Select
             id="languages"
             name="languages"
+            defaultValue={data?.languages}
             styles={{
               control: (styles) => ({
                 ...styles,

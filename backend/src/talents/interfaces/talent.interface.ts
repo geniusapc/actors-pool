@@ -15,6 +15,8 @@ export interface IGetTalentQuery {
 
 export interface CreateTalent extends CreateTalentDto {
   userId?: string;
+  isProfileVisible?: boolean;
+  status?: string;
   gallery: { photo: string }[];
 }
 
@@ -27,10 +29,9 @@ export interface ICreateTalentMulterFiles {
 }
 
 export interface ISocialMedia {
-  ig: string;
-  tw: string;
-  fb: string;
-  tik: string;
-  yt: string;
-  snap: string;
+  instagram: string;
+  twitter: string;
+  facebook: string;
+  tiktok: string;
+  snapchat: string;
 }

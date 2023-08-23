@@ -9,6 +9,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { TalentsModule } from './talents/talents.module';
 import { ProjectsModule } from './projects/projects.module';
 import { NotificationModule } from './notification/notification.module';
+import { RolesGuard } from './auth/guards/roles.guard';
 
 @Module({
   imports: [
@@ -25,6 +26,10 @@ import { NotificationModule } from './notification/notification.module';
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
   ],
 })

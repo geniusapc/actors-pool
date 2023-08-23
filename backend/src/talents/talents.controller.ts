@@ -6,6 +6,7 @@ import {
   UseInterceptors,
   UploadedFiles,
   Get,
+  Delete,
   Param,
   Query,
   HttpCode,
@@ -14,7 +15,7 @@ import {
 } from '@nestjs/common';
 import { TalentsService } from './talents.service';
 import { CreateTalentDto } from './dto/create-talent.dto';
-import { Public } from 'src/auth/decorators/meta';
+import { OptionalAuth, Public } from 'src/auth/decorators/meta';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
   IGetTalentQuery,
@@ -26,7 +27,15 @@ import { Request } from 'express';
 import { UpdateTalentDto } from './dto/update-talent.dto';
 import { TransformResponseInterceptor } from 'src/response.interceptor';
 import { Roles } from 'src/users/enum';
+
 import { TalentStatus } from './enum';
+import { RolesCheck } from 'src/auth/decorators/role.decorator';
+import { TransformTalentQueryInterceptor } from './Interceptors/getTalent.interceptor';
+import {
+  BulkdeleteTalents,
+  BulkupdateTalentsVisibility,
+  BulkupdateTalentsStatus,
+} from './dto';
 
 const createTalentFileInterceptor = [{ name: 'gallery', maxCount: 5 }];
 
@@ -82,9 +91,10 @@ export class TalentsController {
   }
 
   // __________________________________________ Get Talent Profile _____________________________________________
-  @Public()
+  @OptionalAuth()
+  @UseInterceptors(TransformTalentQueryInterceptor)
   @Get()
-  async get(@Query() query?: IGetTalentQuery | undefined) {
+  async get(@Req() req: Request, @Query() query?: IGetTalentQuery | undefined) {
     return this.talentsService.findAll({ query: query });
   }
 
@@ -96,6 +106,27 @@ export class TalentsController {
   }
 
   // _________________________________ Edit Talent Profile _____________________________________________
+
+  @RolesCheck(Roles.Admin)
+  @Patch('/status')
+  async bulkUpdateTalent(
+    @Req() req: Request,
+    @Body() updateTalentDTO: BulkupdateTalentsStatus,
+  ) {
+    return this.talentsService.bulkUpdateTalentProfile(updateTalentDTO.ids, {
+      status: updateTalentDTO.mode,
+    });
+  }
+
+  @RolesCheck(Roles.Admin)
+  @Patch('/visibility')
+  async turnOnVisibility(@Body() updateTalentDTO: BulkupdateTalentsVisibility) {
+    const isProfileVisible = updateTalentDTO.mode === 'ON';
+    return this.talentsService.bulkUpdateTalentProfile(updateTalentDTO.ids, {
+      isProfileVisible,
+    });
+  }
+
   @UseInterceptors(
     FileFieldsInterceptor(createTalentFileInterceptor, {
       storage: TalentsService.storageOption(),
@@ -152,5 +183,11 @@ export class TalentsController {
   @Get('/:username')
   async getTalentByUsername(@Param('username') username: string) {
     return this.talentsService.findOne({ username: username });
+  }
+
+  @RolesCheck(Roles.Admin)
+  @Delete('/')
+  async deleteTalent(@Body() updateTalentDTO: BulkdeleteTalents) {
+    return this.talentsService.bulkDeleteTalentProfile(updateTalentDTO.ids);
   }
 }

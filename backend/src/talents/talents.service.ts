@@ -159,6 +159,16 @@ export class TalentsService {
   async updateProfile(userId: string, updateProfileDto: UpdateTalentDto) {
     return this.talentModel.updateOne({ _id: userId }, updateProfileDto);
   }
+  async bulkUpdateTalentProfile(
+    ids: ObjectId[],
+    field: { [key: string]: any },
+  ) {
+    return this.talentModel.updateMany({ _id: { $in: ids } }, field);
+  }
+
+  async bulkDeleteTalentProfile(ids: ObjectId[]) {
+    return this.talentModel.deleteMany({ _id: { $in: ids } });
+  }
 
   private static buildFindTalentFilter(query: Partial<IGetTalentQuery> = {}) {
     const name = query.q;
@@ -167,11 +177,12 @@ export class TalentsService {
     const ageUpperLimit = query['q.age.lte'];
     const ageLowerLimit = query['q.age.gte'];
     const activeSince = query['q.activeSince'];
+    const isProfileVisible = query['q.isProfileVisible'];
 
     const condition: FilterQuery<Talent> = {};
 
-    // ensure we dont send no visible profiles
-    condition.isProfileVisible = true;
+    if (isProfileVisible) condition.isProfileVisible = isProfileVisible;
+
     if (name) {
       condition['$or'] = [
         { firstname: { $regex: new RegExp(name, 'i') } },

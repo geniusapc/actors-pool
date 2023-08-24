@@ -178,10 +178,12 @@ export class TalentsService {
     const ageLowerLimit = query['q.age.gte'];
     const activeSince = query['q.activeSince'];
     const isProfileVisible = query['q.isProfileVisible'];
+    const status = query['q.status'];
 
     const condition: FilterQuery<Talent> = {};
 
     if (isProfileVisible) condition.isProfileVisible = isProfileVisible;
+    if (status) condition.status = status;
 
     if (name) {
       condition['$or'] = [

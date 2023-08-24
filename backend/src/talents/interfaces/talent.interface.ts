@@ -12,6 +12,7 @@ export interface IGetTalentQuery {
   'q.language': string;
   'q.activeSince': string;
   'q.isProfileVisible': boolean;
+  'q.status': string;
 }
 
 export interface CreateTalent extends CreateTalentDto {

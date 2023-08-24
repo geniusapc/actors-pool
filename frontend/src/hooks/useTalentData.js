@@ -36,6 +36,18 @@ const editTalentProfile = ({ id, data }) => {
     },
   });
 };
+const bulkUpdateTalentStatus = (data) => {
+  return axios.patch(`/api/v1/talents/status`, data);
+};
+const bulkUpdateTalentVisibility = (data) => {
+  return axios.patch(`/api/v1/talents/visibility`, data);
+};
+
+const bulkDeleteTalents = (data) => {
+  return axios.delete(`/api/v1/talents`, { data });
+};
+
+// ______________________________________________________________________
 
 const useMyTalentProfile = (options = {}) => {
   return useQuery(['talent-my-profile'], () => fetchMyTalentProfile(), {
@@ -79,6 +91,17 @@ const useEditTalent = (onError, onSuccess) => {
   return useMutation(editTalentProfile, { onError, onSuccess });
 };
 
+const useBulkUpdateTalentStatus = (onError, onSuccess) => {
+  return useMutation(bulkUpdateTalentStatus, { onError, onSuccess });
+};
+
+const useBulkUpdateTalentVisibility = (onError, onSuccess) => {
+  return useMutation(bulkUpdateTalentVisibility, { onError, onSuccess });
+};
+const useBulkDeleteTalent = (onError, onSuccess) => {
+  return useMutation(bulkDeleteTalents, { onError, onSuccess });
+};
+
 export {
   useTalentsData,
   useMyTalentProfile,
@@ -87,4 +110,7 @@ export {
   useEditTalent,
   useTrailBlazzer,
   useTopTalents,
+  useBulkUpdateTalentStatus,
+  useBulkUpdateTalentVisibility,
+  useBulkDeleteTalent,
 };

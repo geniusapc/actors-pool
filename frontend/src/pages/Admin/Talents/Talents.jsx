@@ -1,34 +1,43 @@
-import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import DataTable from 'react-data-table-component';
 import Moment from 'react-moment';
 
 import { useTalentsData } from '../../../hooks/useTalentData';
-import { DirectoryHeader } from '../../../components/Directory';
-import Button from '../../../components/Button/Button';
+import { AdminDirectoryHeader } from '../../../components/Directory';
+
+
 
 function Talents() {
-    const location = useLocation();
     const navigate = useNavigate()
-    const params = new URLSearchParams(location.search);
-    const paramValue = params.get('q');
+    const [param, setParam] = useState()
+    const [selectedTalent, setSelectedTalent] = useState([])
+
+    const searchParam = (value) => {
+        setParam(value)
+
+    }
+
     const query = {
-        select: 'photo,gallery,firstname,lastname,profession,activeSince,username,status,visibility',
-        q: paramValue,
+        select: 'photo,firstname,lastname,profession,activeSince,username,status,isProfileVisible',
+        q: param,
     };
 
-    const { data, isLoading } = useTalentsData({ query });
+    const { data, isLoading, refetch } = useTalentsData({ query });
     const talents = data?.data?.data?.talent;
 
     const showOutsourceDetailsHandler = (talent) => {
         navigate(`${talent?.username}`)
     }
-    const columns = getColumn({ showOutsourceDetailsHandler })
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const columns = useMemo(() => getColumn({ showOutsourceDetailsHandler }), [])
+    const onSelectedRowsChangeHandler = (e) => setSelectedTalent(e?.selectedRows)
 
     return (
         <>
-            <DirectoryHeader hideProjectButton />
-
+            <AdminDirectoryHeader selectedTalent={selectedTalent} setFilter={searchParam} refetchTalent={refetch} />
             <DataTable
                 data={talents}
                 pagination={true}
@@ -37,6 +46,10 @@ function Talents() {
                 customStyles={{ headCells: { style: { color: '#334D6E', fontSize: '13px' } } }}
                 responsive
                 striped
+                dense
+                actions
+                selectableRows
+                onSelectedRowsChange={onSelectedRowsChangeHandler}
             />
         </>
     );
@@ -46,7 +59,7 @@ export default Talents;
 
 
 
-const getColumn = ({ showOutsourceDetailsHandler }) => {
+const getColumn = () => {
     const columns = [
         {
             name: 'No',
@@ -60,7 +73,7 @@ const getColumn = ({ showOutsourceDetailsHandler }) => {
             sortable: true,
             selector: (row) => row?.firstname,
             cell: function cell(row) {
-                return <div>{row?.firstname} {row?.lastname}</div>;
+                return <Link className='underline' to={row?.username}>{row?.firstname} {row?.lastname}</Link>;
             },
         },
         {
@@ -92,31 +105,17 @@ const getColumn = ({ showOutsourceDetailsHandler }) => {
             sortable: true,
             selector: (row) => row?.status,
             cell: function cell(row) {
-                return <div>{row?.status}</div>;
+                return <div>{row?.status?.replace(/_/g, ' ')}</div>;
             },
         },
         {
             name: 'Visible',
             sortable: true,
-            selector: (row) => row?.visibility,
+            selector: (row) => row?.isProfileVisible,
             cell: function cell(row) {
-                return <div>{row?.visibility ? "Yes" : "No"}</div>;
+                return <div>{row?.isProfileVisible ? "Yes" : "No"}</div>;
             },
-        },
-        {
-            name: 'Action',
-            cell: function cell(row) {
-                return (
-                    <div className='py-2'>
-                        <Button variant='outlined' onClick={() => showOutsourceDetailsHandler(row)} size="xsmall">
-                            View
-                        </Button>
-                    </div>
-                );
-            },
-        },
-
-
+        }
     ];
 
     return columns;

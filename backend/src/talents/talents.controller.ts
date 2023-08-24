@@ -30,7 +30,10 @@ import { Roles } from 'src/users/enum';
 
 import { TalentStatus } from './enum';
 import { RolesCheck } from 'src/auth/decorators/role.decorator';
-import { TransformTalentQueryInterceptor } from './Interceptors/getTalent.interceptor';
+import {
+  TransformTalentsQueryInterceptor,
+  FilterGetTalentResInterceptor,
+} from './Interceptors';
 import {
   BulkdeleteTalents,
   BulkupdateTalentsVisibility,
@@ -92,7 +95,7 @@ export class TalentsController {
 
   // __________________________________________ Get Talent Profile _____________________________________________
   @OptionalAuth()
-  @UseInterceptors(TransformTalentQueryInterceptor)
+  @UseInterceptors(TransformTalentsQueryInterceptor)
   @Get()
   async get(@Req() req: Request, @Query() query?: IGetTalentQuery | undefined) {
     return this.talentsService.findAll({ query: query });
@@ -179,7 +182,8 @@ export class TalentsController {
   }
 
   // _________________________________________________________Get user by username _____________________________________________
-  @Public()
+  @UseInterceptors(FilterGetTalentResInterceptor)
+  @OptionalAuth()
   @Get('/:username')
   async getTalentByUsername(@Param('username') username: string) {
     return this.talentsService.findOne({ username: username });

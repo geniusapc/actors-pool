@@ -191,7 +191,7 @@ export class TalentsController {
 
   @RolesCheck(Roles.Admin)
   @Delete('/')
-  async deleteTalent(@Body() updateTalentDTO: BulkdeleteTalents) {
+  async deleteTalent(@Body() updateTalentDTO: BulkdeleteTalents): Promise<any> {
     return this.talentsService.bulkDeleteTalentProfile(updateTalentDTO.ids);
   }
 }

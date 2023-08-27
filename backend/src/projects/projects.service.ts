@@ -21,7 +21,7 @@ export class ProjectsService {
     return this.projectModel.find({ user: userId });
   }
 
-  deleteOne(conditon: { [key: string]: any }) {
+  deleteOne(conditon: { [key: string]: any }): any {
     return this.projectModel.deleteOne(conditon);
   }
   update(conditon: { [key: string]: any }, values: { [key: string]: any }) {

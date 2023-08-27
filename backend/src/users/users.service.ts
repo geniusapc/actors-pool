@@ -1,14 +1,23 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { FilterQuery, UpdateQuery, Model, Types } from 'mongoose';
-import { User, UserDocument } from './schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Roles } from './enum';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { v4 as uuid } from 'uuid';
+import * as moment from 'moment';
+import { CreateUserDto } from './dto/create-user.dto';
+import { User, UserDocument } from './schemas/user.schema';
+import { Events, Roles } from './enum';
 import { defaultAdminUser } from './data/user.data';
+import { UserCreatedEvent } from './events/user-created.event';
+
+type createUser = UserDocument & {
+  createdAt: Date;
+};
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    private eventEmitter: EventEmitter2,
   ) {}
 
   private readonly logger = new Logger(UsersService.name);
@@ -30,9 +39,54 @@ export class UsersService {
     return true;
   }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async createAccountVerificationToken(email: string) {
+    const user = await this.findOne({ email });
+    if (!user) throw new BadRequestException('Invalid user');
+    if (user.isVerified) throw new BadRequestException('User already verified');
+
+    const verificationToken = uuid();
+    const verificationTokenExpires = moment().add(7, 'd').toDate();
+    await this.updateOne(
+      { email },
+      { verificationToken, verificationTokenExpires },
+    );
+
+    return {
+      token: verificationToken,
+      email: user.email,
+      firstname: user.firstname,
+    };
+  }
+
+  async registerNewUser(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
-    return createdUser.save();
+    const user = await createdUser.save();
+
+    // Emit an event for a registered user
+    const {
+      _id,
+      firstname,
+      lastname,
+      email,
+      role,
+      verificationToken,
+      createdAt,
+    } = user as createUser;
+
+    const createdUserEvent = new UserCreatedEvent();
+    Object.assign(createdUserEvent, {
+      _id,
+      firstname,
+      lastname,
+      email,
+      role,
+      verificationToken,
+      createdAt,
+    });
+
+    this.eventEmitter.emit(Events.CreateUser, createdUserEvent);
+
+    return user;
   }
 
   async countUsers(options?: { [key: string]: string }) {

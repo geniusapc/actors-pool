@@ -64,25 +64,6 @@ export class AuthService {
     );
   }
 
-  async createAccountVerificationToken(email: string) {
-    const user = await this.usersService.findOne({ email });
-    if (!user) throw new BadRequestException('Invalid user');
-    if (user.isVerified) throw new BadRequestException('User already verified');
-
-    const verificationToken = uuid();
-    const verificationTokenExpires = moment().add(7, 'd').toDate();
-    await this.usersService.updateOne(
-      { email },
-      { verificationToken, verificationTokenExpires },
-    );
-
-    return {
-      token: verificationToken,
-      email: user.email,
-      firstname: user.firstname,
-    };
-  }
-
   async createForgotPasswordToken(
     email: string,
   ): Promise<{ token: string; email: string; firstname: string }> {

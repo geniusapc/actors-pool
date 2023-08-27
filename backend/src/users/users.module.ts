@@ -4,6 +4,8 @@ import { UsersController } from './users.controller';
 import { User, UserSchema } from './schemas/user.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { UserCreatedListener } from './listeners/user-created.listener';
+import { NotificationService } from 'src/notification/notification.service';
 
 @Module({
   imports: [
@@ -11,7 +13,7 @@ import { ConfigModule } from '@nestjs/config';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, NotificationService, UserCreatedListener],
   exports: [UsersService],
 })
 export class UsersModule {}

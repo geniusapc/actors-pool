@@ -42,11 +42,7 @@ export class AuthController {
   @Public()
   @Post('/signup')
   async signup(@Body() body: CreateUserDto): Promise<void> {
-    await this.usersService.create(body);
-    const user = await this.authService.createAccountVerificationToken(
-      body.email,
-    );
-    await this.notificationService.sendVerificationMail(user);
+    await this.usersService.registerNewUser(body);
   }
 
   @HttpCode(204)
@@ -69,8 +65,9 @@ export class AuthController {
   @Post('/resend-verify-mail')
   async resendVerificationMail(@Req() req: Request): Promise<void> {
     const { email } = req.user;
-    const user = await this.authService.createAccountVerificationToken(email);
+    const user = await this.usersService.createAccountVerificationToken(email);
     await this.notificationService.sendVerificationMail(user);
+    return;
   }
 
   @Public()

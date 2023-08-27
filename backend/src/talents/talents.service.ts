@@ -166,7 +166,7 @@ export class TalentsService {
     return this.talentModel.updateMany({ _id: { $in: ids } }, field);
   }
 
-  async bulkDeleteTalentProfile(ids: ObjectId[]) {
+  async bulkDeleteTalentProfile(ids: ObjectId[]): Promise<any> {
     return this.talentModel.deleteMany({ _id: { $in: ids } });
   }
 
